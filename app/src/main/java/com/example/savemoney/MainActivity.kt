@@ -10,5 +10,6 @@ class MainActivity : AppCompatActivity() {
 
         //ando
         //ando = god
+        //f
     }
 }
