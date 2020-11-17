@@ -3,13 +3,9 @@ package com.example.savemoney
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class MainActivity : AppCompatActivity() {
+class detailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        //ando
-        //ando = god
-        //f
+        setContentView(R.layout.activity_detail)
     }
 }
