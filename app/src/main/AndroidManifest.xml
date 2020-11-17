@@ -26,6 +26,7 @@
             android:value="AIzaSyBUaNZh7Q3Hd_EDx64QlmYpVKSNTLwDuF8"/>
 
 
+        <service android:name=".LocationService" />
     </application>
 
 </manifest>
