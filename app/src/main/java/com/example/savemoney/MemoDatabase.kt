@@ -71,6 +71,7 @@ fun selectInDay(context:Context, year: Int, month:Int, day:Int):
     return locations
 }
 
+//位置情報をデータベースに保存する
 fun insertLocations(context: Context, locations : List<Location>) {
     val database = MemoDatabase(context).writableDatabase
 
@@ -83,7 +84,7 @@ fun insertLocations(context: Context, locations : List<Location>) {
                     put("time", location.time)
                 }
 
-                db.insert("Locations", null, record)
+                db.insert("Gps", null, record)
             }
     }
 }
