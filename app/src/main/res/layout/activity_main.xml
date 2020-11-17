@@ -27,7 +27,8 @@
         android:textAlignment="center"
         android:textSize="18sp"
         tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="117dp" />
+        tools:layout_editor_absoluteY="117dp"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView8"
@@ -36,7 +37,8 @@
         android:text="OO円"
         android:textAlignment="center"
         tools:layout_editor_absoluteX="250dp"
-        tools:layout_editor_absoluteY="202dp" />
+        tools:layout_editor_absoluteY="202dp"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView15"
@@ -45,7 +47,8 @@
         android:text="OO円"
         android:textAlignment="center"
         tools:layout_editor_absoluteX="250dp"
-        tools:layout_editor_absoluteY="285dp" />
+        tools:layout_editor_absoluteY="285dp"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView23"
@@ -54,7 +57,8 @@
         android:text="OO円"
         android:textAlignment="center"
         tools:layout_editor_absoluteX="250dp"
-        tools:layout_editor_absoluteY="366dp" />
+        tools:layout_editor_absoluteY="366dp"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView13"
@@ -64,7 +68,8 @@
         android:textAlignment="center"
         android:textSize="18sp"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="200dp" />
+        tools:layout_editor_absoluteY="200dp"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView22"
@@ -74,7 +79,8 @@
         android:textAlignment="center"
         android:textSize="18sp"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="363dp" />
+        tools:layout_editor_absoluteY="363dp"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView18"
@@ -84,7 +90,8 @@
         android:textAlignment="center"
         android:textSize="18sp"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="283dp" />
+        tools:layout_editor_absoluteY="283dp"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView19"
@@ -95,7 +102,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.524"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="202dp" />
+        tools:layout_editor_absoluteY="202dp"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView20"
@@ -106,7 +114,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.524"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="283dp" />
+        tools:layout_editor_absoluteY="283dp"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView21"
@@ -117,7 +126,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.524"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="366dp" />
+        tools:layout_editor_absoluteY="366dp"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView24"
@@ -127,6 +137,22 @@
         android:textAlignment="center"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="605dp" />
+        tools:layout_editor_absoluteY="511dp"
+        tools:ignore="MissingConstraints" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="?android:attr/windowBackground"
+            app:menu="@menu/bottom_navigation_menu" />
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
