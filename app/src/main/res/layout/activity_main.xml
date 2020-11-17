@@ -7,12 +7,126 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:id="@+id/textView3"
+        android:layout_width="392dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="ホーム画面"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:background="@drawable/waku_kadomaru"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="149dp"
+        android:layout_height="36dp"
+        android:text="『ユーザ名』の"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="117dp" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="153dp"
+        android:layout_height="35dp"
+        android:text="OO円"
+        android:textAlignment="center"
+        tools:layout_editor_absoluteX="250dp"
+        tools:layout_editor_absoluteY="202dp" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="153dp"
+        android:layout_height="35dp"
+        android:text="OO円"
+        android:textAlignment="center"
+        tools:layout_editor_absoluteX="250dp"
+        tools:layout_editor_absoluteY="285dp" />
+
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="153dp"
+        android:layout_height="35dp"
+        android:text="OO円"
+        android:textAlignment="center"
+        tools:layout_editor_absoluteX="250dp"
+        tools:layout_editor_absoluteY="366dp" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="173dp"
+        android:layout_height="37dp"
+        android:text="目標貯金額"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="200dp" />
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="173dp"
+        android:layout_height="37dp"
+        android:text="今月の使える金額"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="363dp" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="173dp"
+        android:layout_height="37dp"
+        android:text="現在の貯金額"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="283dp" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="37dp"
+        android:layout_height="35dp"
+        android:text="："
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.524"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="202dp" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="37dp"
+        android:layout_height="35dp"
+        android:text="："
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.524"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="283dp" />
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="37dp"
+        android:layout_height="35dp"
+        android:text="："
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.524"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="366dp" />
+
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="218dp"
+        android:layout_height="37dp"
+        android:text="広告らしいよ（^＿^）/"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="605dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
