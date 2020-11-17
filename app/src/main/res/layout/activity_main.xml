@@ -118,4 +118,15 @@
         app:layout_constraintHorizontal_bias="0.524"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="366dp" />
+
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="218dp"
+        android:layout_height="37dp"
+        android:text="広告らしいよ（^＿^）/"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="605dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
