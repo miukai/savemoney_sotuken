@@ -10,12 +10,12 @@
         android:id="@+id/textView3"
         android:layout_width="392dp"
         android:layout_height="48dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:background="@drawable/waku_kadomaru"
         android:text="ホーム画面"
         android:textAlignment="center"
         android:textSize="24sp"
-        android:background="@drawable/waku_kadomaru"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,128 +23,160 @@
         android:id="@+id/textView4"
         android:layout_width="149dp"
         android:layout_height="36dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="55dp"
         android:text="『ユーザ名』の"
         android:textAlignment="center"
         android:textSize="18sp"
-        tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="117dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView8"
         android:layout_width="153dp"
         android:layout_height="35dp"
+        android:layout_marginTop="139dp"
+        android:layout_marginEnd="8dp"
         android:text="OO円"
         android:textAlignment="center"
-        tools:layout_editor_absoluteX="250dp"
-        tools:layout_editor_absoluteY="202dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView15"
         android:layout_width="153dp"
         android:layout_height="35dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="8dp"
         android:text="OO円"
         android:textAlignment="center"
-        tools:layout_editor_absoluteX="250dp"
-        tools:layout_editor_absoluteY="285dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView23"
         android:layout_width="153dp"
         android:layout_height="35dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="8dp"
         android:text="OO円"
         android:textAlignment="center"
-        tools:layout_editor_absoluteX="250dp"
-        tools:layout_editor_absoluteY="366dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView15"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView13"
         android:layout_width="173dp"
         android:layout_height="37dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="48dp"
         android:text="目標貯金額"
         android:textAlignment="center"
         android:textSize="18sp"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="200dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView22"
         android:layout_width="173dp"
         android:layout_height="37dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="48dp"
         android:text="今月の使える金額"
         android:textAlignment="center"
         android:textSize="18sp"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="363dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView18"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView18"
         android:layout_width="173dp"
         android:layout_height="37dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="48dp"
         android:text="現在の貯金額"
         android:textAlignment="center"
         android:textSize="18sp"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="283dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView13"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView19"
         android:layout_width="37dp"
         android:layout_height="35dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="8dp"
         android:text="："
         android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.524"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="202dp"
+        app:layout_constraintEnd_toStartOf="@+id/textView8"
+        app:layout_constraintHorizontal_bias="0.583"
+        app:layout_constraintStart_toEndOf="@+id/textView13"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView20"
         android:layout_width="37dp"
         android:layout_height="35dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="8dp"
         android:text="："
         android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.524"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="283dp"
+        app:layout_constraintEnd_toStartOf="@+id/textView15"
+        app:layout_constraintHorizontal_bias="0.562"
+        app:layout_constraintStart_toEndOf="@+id/textView18"
+        app:layout_constraintTop_toBottomOf="@+id/textView19"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView21"
         android:layout_width="37dp"
         android:layout_height="35dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="8dp"
         android:text="："
         android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.524"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="366dp"
+        app:layout_constraintEnd_toStartOf="@+id/textView23"
+        app:layout_constraintHorizontal_bias="0.562"
+        app:layout_constraintStart_toEndOf="@+id/textView22"
+        app:layout_constraintTop_toBottomOf="@+id/textView20"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView24"
         android:layout_width="218dp"
         android:layout_height="37dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginBottom="64dp"
         android:text="広告らしいよ（^＿^）/"
         android:textAlignment="center"
         android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/frameLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="511dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView21"
         tools:ignore="MissingConstraints" />
 
     <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/frameLayout"
+        android:layout_width="409dp"
+        android:layout_height="61dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         tools:context=".MainActivity">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -153,7 +185,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:background="?android:attr/windowBackground"
-            app:menu="@menu/bottom_navigation_menu"
-            app:labelVisibilityMode="labeled"/>
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/bottom_navigation_menu" />
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
