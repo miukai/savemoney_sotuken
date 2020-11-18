@@ -2,13 +2,14 @@ package com.example.savemoney
 
 import android.Manifest
 import android.app.Activity
+//import android.app.Fragment
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
+//import android.support.v4.app.Fragment
+//import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
