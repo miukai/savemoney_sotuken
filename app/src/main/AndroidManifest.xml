@@ -11,7 +11,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Savemoney">
-        <activity android:name=".detailActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,6 +27,7 @@
             android:value="AIzaSyBUaNZh7Q3Hd_EDx64QlmYpVKSNTLwDuF8"/>
 
 
+        <service android:name=".LocationService" />
     </application>
 
 </manifest>
