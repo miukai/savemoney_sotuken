@@ -4,15 +4,15 @@
         android:id = "@+id/navi_home"
         android:title="home"/>
     <item
-        android:id="@+id/navi_smile"
+        android:id="@+id/navi_map"
         android:title="Map"/>
     <item
-        android:id="@+id/navi_pets"
+        android:id="@+id/navi_cal"
         android:title="📅"/>
     <item
-        android:id="@+id/navi_sun"
+        android:id="@+id/navi_swing"
         android:title="振り分け"/>
     <item
-        android:id="@+id/navi_flight"
+        android:id="@+id/navi_conf"
         android:title="⚙"/>
 </menu>
