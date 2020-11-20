@@ -1,26 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+<!--    <TextView-->
+<!--        android:id="@+id/textView3"-->
+<!--        android:layout_width="392dp"-->
+<!--        android:layout_height="48dp"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:text="ホーム画面"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textSize="24sp"-->
+<!--        android:background="@drawable/waku_kadomaru"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView4"-->
+<!--        android:layout_width="149dp"-->
+<!--        android:layout_height="36dp"-->
+<!--        android:text="『ユーザ名』の"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textSize="18sp"-->
+<!--        tools:layout_editor_absoluteX="32dp"-->
+<!--        tools:layout_editor_absoluteY="117dp"-->
+<!--        tools:ignore="MissingConstraints" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView8"-->
+<!--        android:layout_width="153dp"-->
+<!--        android:layout_height="35dp"-->
+<!--        android:text="OO円"-->
+<!--        android:textAlignment="center"-->
+<!--        tools:layout_editor_absoluteX="250dp"-->
+<!--        tools:layout_editor_absoluteY="202dp"-->
+<!--        tools:ignore="MissingConstraints" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView15"-->
+<!--        android:layout_width="153dp"-->
+<!--        android:layout_height="35dp"-->
+<!--        android:text="OO円"-->
+<!--        android:textAlignment="center"-->
+<!--        tools:layout_editor_absoluteX="250dp"-->
+<!--        tools:layout_editor_absoluteY="285dp"-->
+<!--        tools:ignore="MissingConstraints" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView23"-->
+<!--        android:layout_width="153dp"-->
+<!--        android:layout_height="35dp"-->
+<!--        android:text="OO円"-->
+<!--        android:textAlignment="center"-->
+<!--        tools:layout_editor_absoluteX="250dp"-->
+<!--        tools:layout_editor_absoluteY="366dp"-->
+<!--        tools:ignore="MissingConstraints" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView13"-->
+<!--        android:layout_width="173dp"-->
+<!--        android:layout_height="37dp"-->
+<!--        android:text="目標貯金額"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textSize="18sp"-->
+<!--        tools:layout_editor_absoluteX="8dp"-->
+<!--        tools:layout_editor_absoluteY="200dp"-->
+<!--        tools:ignore="MissingConstraints" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView22"-->
+<!--        android:layout_width="173dp"-->
+<!--        android:layout_height="37dp"-->
+<!--        android:text="今月の使える金額"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textSize="18sp"-->
+<!--        tools:layout_editor_absoluteX="8dp"-->
+<!--        tools:layout_editor_absoluteY="363dp"-->
+<!--        tools:ignore="MissingConstraints" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView18"-->
+<!--        android:layout_width="173dp"-->
+<!--        android:layout_height="37dp"-->
+<!--        android:text="現在の貯金額"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textSize="18sp"-->
+<!--        tools:layout_editor_absoluteX="8dp"-->
+<!--        tools:layout_editor_absoluteY="283dp"-->
+<!--        tools:ignore="MissingConstraints" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView19"-->
+<!--        android:layout_width="37dp"-->
+<!--        android:layout_height="35dp"-->
+<!--        android:text="："-->
+<!--        android:textSize="30sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.524"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        tools:layout_editor_absoluteY="202dp"-->
+<!--        tools:ignore="MissingConstraints" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView20"-->
+<!--        android:layout_width="37dp"-->
+<!--        android:layout_height="35dp"-->
+<!--        android:text="："-->
+<!--        android:textSize="30sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.524"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        tools:layout_editor_absoluteY="283dp"-->
+<!--        tools:ignore="MissingConstraints" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView21"-->
+<!--        android:layout_width="37dp"-->
+<!--        android:layout_height="35dp"-->
+<!--        android:text="："-->
+<!--        android:textSize="30sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.524"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        tools:layout_editor_absoluteY="366dp"-->
+<!--        tools:ignore="MissingConstraints" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView24"-->
+<!--        android:layout_width="218dp"-->
+<!--        android:layout_height="37dp"-->
+<!--        android:text="広告らしいよ（^＿^）/"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textSize="18sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        tools:layout_editor_absoluteY="605dp"-->
+<!--        tools:ignore="MissingConstraints" />-->
     <fragment
         android:id="@+id/nav_host_fragment"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:name="androidx.navigation.fragment.NavHostFragment"
-        app:navGraph="@navigation/navigation_graph"
-        app:defaultNavHost="true"/>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
+        app:navGraph="@navigation/navigation_graph"/>
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="?android:attr/windowBackground"
-        app:menu="@menu/bottom_navigation_menu"/>
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
 
-</FrameLayout>
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="?android:attr/windowBackground"
+            app:menu="@menu/bottom_navigation_menu"/>
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

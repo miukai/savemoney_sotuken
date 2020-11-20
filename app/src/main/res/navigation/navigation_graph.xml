@@ -4,19 +4,23 @@
     app:startDestination="@id/navi_home">
 
         <fragment android:id="@+id/navi_home"
-            android:name="com.example.savemoney.Fragment_home"
-            />
+            android:name="com.example.savemoney.FragmentHome"
+            android:label="FragmentHome" />
 
         <fragment
             android:id="@+id/navi_map"
-            android:name="com.example.savemoney.Fragment_map" />
+            android:name="com.example.savemoney.FragmentMap"
+            android:label="FragmentMap"/>
 
         <fragment android:id="@+id/navi_cal"
-            android:name="com.example.savemoney.Fragment_map" />
+            android:name="com.example.savemoney.FragmentMap"
+            android:label="FragmentCal"/>
 
         <fragment android:id="@+id/navi_swing"
-            android:name="com.example.savemoney.Fragment_map" />
+            android:name="com.example.savemoney.FragmentMap"
+            android:label="FragmentSwing"/>
 
         <fragment android:id="@+id/navi_conf"
-        android:name="com.example.savemoney.Fragment_map" />
+        android:name="com.example.savemoney.FragmentMap"
+        android:label="FragmentConf"/>
 </navigation>
