@@ -70,44 +70,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         googleMap.isMyLocationEnabled = true
         // 位置情報取得
 
-        googleMap.isMyLocationButtonEnabled = true
+//        googleMap.isMyLocationButtonEnabled = true
         // 現在地ボタン
-
-
-
-//        class CustomInfoWindowAdapter : InfoWindowAdapter {
-//
-//            // These are both view groups containing an ImageView with id "badge" and two
-//            // TextViews with id "title" and "snippet".
-//            private val window: View = layoutInflater.inflate(R.layout.custom_info_window, null)
-//            private val contents: View = layoutInflater.inflate(R.layout.custom_info_contents, null)
-//
-//            override fun getInfoWindow(marker: Marker): View? {
-//                if (options.checkedRadioButtonId != R.id.custom_info_window) {
-//                    // This means that getInfoContents will be called.
-//                    return null
-//                }
-//                render(marker, window)
-//                return window
-//            }
-//
-//            override fun getInfoContents(p0: Marker?): View {
-//                TODO("Not yet implemented")
-//            }
-//        }
-
-
-
-//            mMap.setInfoWindowAdapter(object :GoogleMap.InfoWindowAdapter{
-//                override fun getInfoWindow(marker : Marker): View? {
-//                    return null;
-//                }
-//
-//                override fun getInfoContents(p0: Marker?): View {
-//                    TODO("Not yet implemented")
-//                }
-//            })
-
 
 
         // Add a marker in Sydney and move the camera
