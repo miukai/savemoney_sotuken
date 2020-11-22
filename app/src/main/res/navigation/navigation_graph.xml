@@ -10,17 +10,26 @@
         <fragment
             android:id="@+id/navi_map"
             android:name="com.example.savemoney.FragmentMap"
-            android:label="FragmentMap"/>
+            android:label="FragmentMap">
+                <action
+                    android:id="@+id/action_navi_map_to_navi_create_memo"
+                    app:destination="@id/navi_create_memo" />
+        </fragment>
 
         <fragment android:id="@+id/navi_cal"
-            android:name="com.example.savemoney.FragmentMap"
+            android:name="com.example.savemoney.FragmentHome"
             android:label="FragmentCal"/>
 
         <fragment android:id="@+id/navi_swing"
-            android:name="com.example.savemoney.FragmentMap"
+            android:name="com.example.savemoney.FragmentHome"
             android:label="FragmentSwing"/>
 
         <fragment android:id="@+id/navi_conf"
-        android:name="com.example.savemoney.FragmentMap"
+        android:name="com.example.savemoney.FragmentHome"
         android:label="FragmentConf"/>
+
+        <fragment android:id="@+id/navi_create_memo"
+                android:name="com.example.savemoney.CreateMemo"
+                android:label="createMemo"/>
+
 </navigation>
