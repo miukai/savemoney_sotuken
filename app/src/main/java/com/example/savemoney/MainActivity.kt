@@ -23,7 +23,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.*
 
-class MainActivity : AppCompatActivity(),EnterForm.OnButtonClickListener,OnMapReadyCallback {
+class MainActivity : AppCompatActivity(),EnterForm.OnButtonClickListener {
     private var currentDate = Calendar.getInstance()
     private lateinit var googleMap: GoogleMap
     override fun onButtonClicked(){
