@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/memofragment">
 
     <TextView
         android:id="@+id/textView2"
@@ -63,27 +64,36 @@
         app:layout_constraintStart_toEndOf="@+id/button4" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/productNameID"
         android:layout_width="199dp"
         android:layout_height="48dp"
         android:layout_marginTop="12dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="text"
         android:text="商品名"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
+        android:id="@+id/priceID"
         android:layout_width="199dp"
         android:layout_height="48dp"
         android:ems="10"
+
+        android:inputType="number"
+        android:text="0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/productNameID"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
         android:inputType="textPersonName"
         android:text="価格"
         app:layout_constraintBaseline_toBaselineOf="@+id/editTextTextPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName" />
+
 
 <!--    <EditText-->
 <!--        android:id="@+id/price"-->

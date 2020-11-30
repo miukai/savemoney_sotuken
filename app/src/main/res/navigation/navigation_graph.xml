@@ -20,8 +20,8 @@
             android:label="FragmentCal"/>
 
         <fragment android:id="@+id/navi_swing"
-            android:name="com.example.savemoney.FragmentHome"
-            android:label="FragmentSwing"/>
+            android:name="com.example.savemoney.FragmentSort"
+            android:label="FragmentSort"/>
 
         <fragment android:id="@+id/navi_conf"
         android:name="com.example.savemoney.FragmentHome"
