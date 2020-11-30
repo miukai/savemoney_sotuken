@@ -96,9 +96,4 @@ class MainActivity : AppCompatActivity(),EnterForm.OnButtonClickListener {
     private fun putMarkers(map:GoogleMap,locations: List<LocationRecord>){
 
     }
-
-
-
-
-
 }

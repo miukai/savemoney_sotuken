@@ -2,9 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/memofragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/memofragment">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/textView2"
@@ -74,38 +74,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
-    <EditText
-        android:id="@+id/priceID"
-        android:layout_width="199dp"
-        android:layout_height="48dp"
-        android:ems="10"
-        android:inputType="number"
-        android:text="0"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/productNameID"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
-
-<!--        android:inputType="textPersonName"-->
-<!--        android:text="価格"-->
-<!--        app:layout_constraintBaseline_toBaselineOf="@+id/editTextTextPersonName"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="1.0"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName" />-->
+    <!--        android:inputType="textPersonName"-->
+    <!--        android:text="価格"-->
+    <!--        app:layout_constraintBaseline_toBaselineOf="@+id/editTextTextPersonName"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="1.0"-->
+    <!--        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName" />-->
 
 
-<!--    <EditText-->
-<!--        android:id="@+id/price"-->
-<!--        android:layout_width="199dp"-->
-<!--        android:layout_height="48dp"-->
-<!--        android:layout_marginTop="44dp"-->
-<!--        android:ems="10"-->
-<!--        android:inputType="textPersonName"-->
-<!--        android:text="価格"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="1.0"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/productName"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textView6" />-->
+    <!--    <EditText-->
+    <!--        android:id="@+id/price"-->
+    <!--        android:layout_width="199dp"-->
+    <!--        android:layout_height="48dp"-->
+    <!--        android:layout_marginTop="44dp"-->
+    <!--        android:ems="10"-->
+    <!--        android:inputType="textPersonName"-->
+    <!--        android:text="価格"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="1.0"-->
+    <!--        app:layout_constraintStart_toEndOf="@+id/productName"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/textView6" />-->
+
     <Button
         android:id="@+id/button6"
         android:layout_width="wrap_content"
@@ -131,17 +120,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/floatingActionButton"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginBottom="36dp"-->
-<!--        android:clickable="true"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/button6"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.498"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:srcCompat="@android:drawable/ic_menu_add" />-->
+    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+    <!--        android:id="@+id/floatingActionButton"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginBottom="36dp"-->
+    <!--        android:clickable="true"-->
+    <!--        app:layout_constraintBottom_toTopOf="@+id/button6"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.498"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:srcCompat="@android:drawable/ic_menu_add" />-->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton2"
@@ -163,24 +152,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toTopOf="@+id/button6"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/container2" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <fragment
-        android:id="@+id/productFragment"
-        android:name="com.example.savemoney.ProductFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+<!--    <fragment-->
+<!--        android:id="@+id/productFragment"-->
+<!--        android:name="com.example.savemoney.ProductFragment"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
 
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+<!--        android:layout_marginStart="100dp"-->
+<!--        android:layout_marginTop="40dp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView6" />-->
 
     <LinearLayout
         android:id="@+id/container"
@@ -195,7 +182,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.481"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productFragment"></LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/productFragment">
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/container2"
@@ -211,12 +200,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/container"></LinearLayout>
 
+    <EditText
+        android:id="@+id/priceID"
+        android:layout_width="199dp"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="0"
+        app:layout_constraintBaseline_toBaselineOf="@+id/productNameID"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/productNameID" />
 
-<!--        android:layout_marginStart="4dp"-->
-<!--        android:clickable="true"-->
-<!--        android:onClick="onButtonTapped"-->
-<!--        app:layout_constraintBaseline_toBaselineOf="@+id/textView2"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />-->
+
+    <!--        android:layout_marginStart="4dp"-->
+    <!--        android:clickable="true"-->
+    <!--        android:onClick="onButtonTapped"-->
+    <!--        app:layout_constraintBaseline_toBaselineOf="@+id/textView2"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
