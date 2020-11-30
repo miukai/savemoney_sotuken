@@ -9,12 +9,11 @@
 
         <fragment
             android:id="@+id/navi_map"
-            android:name="com.example.savemoney.FragmentMap"
-            android:label="FragmentMap">
+            android:name="com.example.savemoney.MapFragment"
+            android:label="FragmentMap"/>
                 <action
                     android:id="@+id/action_navi_map_to_navi_create_memo"
                     app:destination="@id/navi_create_memo" />
-        </fragment>
 
         <fragment android:id="@+id/navi_cal"
             android:name="com.example.savemoney.FragmentHome"

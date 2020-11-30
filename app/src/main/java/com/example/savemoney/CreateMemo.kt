@@ -1,5 +1,6 @@
 package com.example.savemoney
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +11,11 @@ import androidx.fragment.app.Fragment
 import android.os.Build
 import androidx.annotation.RequiresApi
 import java.time.LocalDate
+import android.widget.LinearLayout
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 
-
-class CreateMemo : Fragment() {
+class  CreateMemo : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         return  inflater.inflate(R.layout.create_memo, container, false)
