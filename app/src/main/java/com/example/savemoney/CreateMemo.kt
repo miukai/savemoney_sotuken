@@ -12,7 +12,6 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import java.time.LocalDate
 import android.widget.LinearLayout
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 
 class  CreateMemo : Fragment() {
