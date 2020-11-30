@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.add
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
@@ -21,5 +23,11 @@ class MainActivity : AppCompatActivity() {
         val navView:BottomNavigationView = findViewById(R.id.bottom_navigation)
         val navController = findNavController(R.id.nav_host_fragment)
         navView.setupWithNavController(navController)
+
     }
+
+
+
+
+
 }

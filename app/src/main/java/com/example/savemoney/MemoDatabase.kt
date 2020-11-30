@@ -5,6 +5,8 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.location.Location
+import android.os.Build
+import androidx.annotation.RequiresApi
 import java.util.*
 
 private const val DB_NAME = "MemoDatabase"
@@ -16,11 +18,10 @@ class MemoDatabase(context: Context): SQLiteOpenHelper(context, DB_NAME, null, D
      db?.execSQL("""
          CREATE TABLE Memo (
          _id INTEGER PRIMARY KEY AUTOINCREMENT,
-         date INTEGER NOT NULL,
+         date TEXT NOT NULL ,
          productname TEXT NOT NULL,
          price INTEGER NOT NULL,
          swing NUMERIC default "未振り分け",
-         shopname TEXT NOT NULL,
          latiude REAL NOT NULL,
          longitube REAL NOT NULL);
          """)
@@ -90,3 +91,82 @@ fun insertLocations(context: Context, locations : List<Location>) {
 }
 
 
+
+
+
+//メモをＤＢに保存
+@RequiresApi(Build.VERSION_CODES.O)
+fun insertText(context: Context, text: String, price: Int, nowDateString: String, ido: Int, kedo: Int, hantei: String) {
+    val database = MemoDatabase(context).writableDatabase
+
+//    val nowDate: LocalDate = LocalDate.now()
+//    val nowDateString: String = nowDate.toString()
+
+    database.use { db->
+        val record = ContentValues().apply {
+            put("productname", text)
+            put("price" , price)
+            put("swing", hantei)
+            put("date", nowDateString)
+            put("latiude", ido)
+            put("longitube", kedo)
+        }
+
+
+        db.insert("Memo",null,record)
+    }
+}
+
+
+
+
+//メモ検索-----------------------------------------------------------------
+
+
+
+fun queryTexts(context: Context) : MutableList<String> {
+    val database = MemoDatabase(context).readableDatabase
+
+    val cursor = database.query("Memo", null, null, null, null, null, null)
+
+
+    val texts = mutableListOf<String>()
+
+    cursor.use {
+        while (cursor.moveToNext()) {
+            val text = cursor.getString(cursor.getColumnIndex("productname"))
+            texts.add(text)
+        }
+    }
+
+
+    database.close()
+    return texts
+}
+
+
+
+fun queryPrice(context: Context) : MutableList<Int> {
+    val database = MemoDatabase(context).readableDatabase
+
+    val cursor = database.query("Memo", null, null, null, null, null, null)
+
+
+    val prices = mutableListOf<Int>()
+
+    cursor.use {
+        while (cursor.moveToNext()) {
+            val price = cursor.getInt(cursor.getColumnIndex("price"))
+            prices.add(price)
+        }
+    }
+
+
+    database.close()
+    return prices
+}
+
+
+
+
+//-----------------------------------------------------------------------------------
