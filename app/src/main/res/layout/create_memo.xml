@@ -26,9 +26,7 @@
         android:text="収入"
         android:textSize="14sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/button3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.368"
-        app:layout_constraintStart_toEndOf="@+id/button3" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/button3"
@@ -108,8 +106,8 @@
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="406dp"
-        android:layout_height="64dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:background="@drawable/waku_kadomaru"
         android:text="店名"
