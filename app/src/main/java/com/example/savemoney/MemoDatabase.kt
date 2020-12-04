@@ -2,6 +2,7 @@ package com.example.savemoney
 
 import android.content.ContentValues
 import android.content.Context
+import android.content.LocusId
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.location.Location
@@ -122,6 +123,52 @@ fun insertText(context: Context, text: String, price: Int, nowDateString: String
 
 //メモ検索-----------------------------------------------------------------
 
+fun queryID(context: Context) : MutableList<String> {
+    val database = MemoDatabase(context).readableDatabase
+
+    val cursor = database.query("Memo", null, null, null, null, null, null)
+
+
+    val ids = mutableListOf<String>()
+
+    cursor.use {
+        while (cursor.moveToNext()) {
+            val id = cursor.getString(cursor.getColumnIndex("_id"))
+            ids.add(id)
+        }
+    }
+
+
+    database.close()
+    return ids
+}
+
+
+
+
+
+fun querySwing(context: Context) : MutableList<String> {
+    val database = MemoDatabase(context).readableDatabase
+
+    val cursor = database.query("Memo", null, null, null, null, null, null)
+
+
+    val sorts = mutableListOf<String>()
+
+    cursor.use {
+        while (cursor.moveToNext()) {
+            val sort = cursor.getString(cursor.getColumnIndex("swing"))
+            sorts.add(sort)
+        }
+    }
+
+
+    database.close()
+    return sorts
+}
+
+
+
 
 
 fun queryTexts(context: Context) : MutableList<String> {
@@ -170,3 +217,14 @@ fun queryPrice(context: Context) : MutableList<Int> {
 
 
 //-----------------------------------------------------------------------------------
+
+//振り分けDB_update
+fun update(context: Context, whereId: String, newSwing: String) {
+    val database = MemoDatabase(context).writableDatabase
+    val values = ContentValues()
+    values.put("swing",newSwing)
+    val whereClauses = "_id = ?"
+    val whereArgs = arrayOf(whereId)
+    database.update("Memo", values, whereClauses, whereArgs)
+}
+
