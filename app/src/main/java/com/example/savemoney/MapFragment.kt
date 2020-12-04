@@ -33,11 +33,15 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener{
     private lateinit var googleMap:GoogleMap
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
+        //inflateでレイアウトファイルをビュー化
+        //マップを表示させるインターフェースを呼び出す
         val view = inflater.inflate(R.layout.activity_map, container, false)
         val listenerMap = context as? OnMap
         listenerMap?.onMap()
         return view
         }
+
+    //日付がタップされたらインターフェースを呼び出す。処理はMainActivityに記述
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val dateView = view?.findViewById(R.id.date) as TextView?
@@ -62,7 +66,7 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener{
         val listener = context as? OnShowCurrentDate
         listener?.onShowCurrentDate()//日付のテキストビューを更新
     }
-
+    //内容はActivityClassと同じで、もっと最適な書き方があると思うが、時間の関係で二つ記述している
     private fun renderMap(){
         val locations = selectInDay(requireContext(),
                 currentDate[Calendar.YEAR],currentDate[Calendar.MONTH],
@@ -96,9 +100,11 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener{
     private fun putMarkers(map:GoogleMap,locations: List<LocationRecord>) {
 
     }
+    //マップを表示させるインターフェース、処理はActivityに記述
     interface OnMap{
         fun onMap()
     }
+    //日付がタップされたときのインターフェース
     interface OnShowCurrentDate{
         fun onShowCurrentDate()
     }
@@ -106,6 +112,8 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener{
         fun onTextViewClicked()
     }
 }
+
+//日付を選択するダイアログフラフラグメント
 class DatePickerFragment : DialogFragment(),DatePickerDialog.OnDateSetListener{
     private lateinit var calendar : Calendar
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -114,11 +122,14 @@ class DatePickerFragment : DialogFragment(),DatePickerDialog.OnDateSetListener{
                 ?:Calendar.getInstance()
     }
 
+    //ダイアログを生成して返す
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return DatePickerDialog(requireContext(),this,
                 calendar[Calendar.YEAR], calendar[Calendar.MONTH],
                 calendar[Calendar.DATE])
     }
+
+    //ユーザーが日付を選択した時のコールバックイベント
     override fun onDateSet(view:DatePicker,year:Int,month:Int,day:Int){
         if (context is DatePickerDialog.OnDateSetListener){
             (context as DatePickerDialog.OnDateSetListener).onDateSet(

@@ -32,6 +32,7 @@ import java.util.*
 class MainActivity : AppCompatActivity(),EnterForm.OnButtonClickListener,MapFragment.OnShowCurrentDate,MapFragment.OnMap{
     private var currentDate = Calendar.getInstance()
     private lateinit var googleMap:GoogleMap
+    //地図を表示
     override fun onMap() {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.navi_map) as? SupportMapFragment
         mapFragment?.getMapAsync {
@@ -39,6 +40,7 @@ class MainActivity : AppCompatActivity(),EnterForm.OnButtonClickListener,MapFrag
             renderMap()
         }
     }
+    //日付がタップされたらカレンダーを表示
     override fun onShowCurrentDate() {
             val dialog = DatePickerFragment()
             dialog.arguments = Bundle().apply{
@@ -65,6 +67,7 @@ class MainActivity : AppCompatActivity(),EnterForm.OnButtonClickListener,MapFrag
         val navController = findNavController(R.id.nav_host_fragment)
         navView.setupWithNavController(navController)
     }
+    //位置情報をデータベースから検索、メソッド呼び出し
     private fun renderMap(){
         val locations = selectInDay(this,
                 currentDate[Calendar.YEAR],currentDate[Calendar.MONTH],
@@ -73,14 +76,7 @@ class MainActivity : AppCompatActivity(),EnterForm.OnButtonClickListener,MapFrag
         zoomTo(googleMap,locations)
         putMarkers(googleMap,locations)
     }
-
-//    override fun onMapReady(googleMap: GoogleMap) {
-//        val map = googleMap
-//        val tokyo = LatLng(35.6811323,139.7670182)
-//        map.isIndoorEnabled = false
-//        map.addMarker(MarkerOptions().position(tokyo).title("東京"))
-//        map.moveCamera(CameraUpdateFactory.newLatLngZoom(tokyo,15f))
-//    }
+    //位置情報に応じてカメラを移動させ、ズームする
     private fun zoomTo(map: GoogleMap,locations:List<LocationRecord>){
         if (locations.size == 1){
             val latLng = LatLng(locations[0].latitude,locations[0].longitude)
@@ -107,37 +103,3 @@ class MainActivity : AppCompatActivity(),EnterForm.OnButtonClickListener,MapFrag
 
     }
 }
-//    private fun showCurrentDate(){
-//        val dateView = supportFragmentManager.findFragmentById(R.id.date) as TextView?
-//        dateView?.setOnClickListener{
-//            val dialog = DatePickerFragment()
-//            dialog.arguments = Bundle().apply{
-//                putSerializable("current","currentDate")}
-//            dialog.show(supportFragmentManager,"calendar")
-//            }
-//        dateView?.setText(DateFormat.format("MM月 dd日",currentDate.time))
-//        }
-
-
-
-//class DatePickerFragment : DialogFragment(),DatePickerDialog.OnDateSetListener{
-//    private lateinit var calendar : Calendar
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        calendar = arguments?.getSerializable("current") as? Calendar
-//                ?:Calendar.getInstance()
-//    }
-//
-//    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-//        return DatePickerDialog(requireContext(),this,
-//        calendar[Calendar.YEAR], calendar[Calendar.MONTH],
-//        calendar[Calendar.DATE])
-//    }
-//    override fun onDateSet(view:DatePicker,year:Int,month:Int,day:Int){
-//        if (context is DatePickerDialog.OnDateSetListener){
-//            (context as DatePickerDialog.OnDateSetListener).onDateSet(
-//                    view,year,month,day
-//            )
-//        }
-//    }
-//}
