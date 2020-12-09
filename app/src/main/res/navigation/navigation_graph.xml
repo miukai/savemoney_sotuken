@@ -16,8 +16,12 @@
                     app:destination="@id/navi_create_memo" />
 
         <fragment android:id="@+id/navi_cal"
-            android:name="com.example.savemoney.FragmentHome"
-            android:label="FragmentCal"/>
+            android:name="com.example.savemoney.FragmentCalendar"
+            android:label="FragmentCal">
+                <action
+                    android:id="@+id/action_navi_cal_to_detailScreen"
+                    app:destination="@id/detailScreen" />
+        </fragment>
 
         <fragment android:id="@+id/navi_swing"
             android:name="com.example.savemoney.FragmentSort"
@@ -30,5 +34,9 @@
         <fragment android:id="@+id/navi_create_memo"
                 android:name="com.example.savemoney.CreateMemo"
                 android:label="createMemo"/>
+        <fragment
+            android:id="@+id/detailScreen"
+            android:name="com.example.savemoney.detailScreen"
+            android:label="detailScreen" />
 
 </navigation>

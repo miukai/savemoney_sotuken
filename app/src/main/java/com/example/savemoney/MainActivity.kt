@@ -32,6 +32,7 @@ import java.util.*
 class MainActivity : AppCompatActivity(),EnterForm.OnButtonClickListener,MapFragment.OnShowCurrentDate,MapFragment.OnMap{
     private var currentDate = Calendar.getInstance()
     private lateinit var googleMap:GoogleMap
+    
     //地図を表示
     override fun onMap() {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.navi_map) as? SupportMapFragment

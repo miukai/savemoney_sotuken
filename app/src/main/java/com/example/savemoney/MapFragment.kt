@@ -3,7 +3,6 @@ package com.example.savemoney
 
 import android.app.DatePickerDialog
 import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.view.LayoutInflater
@@ -12,20 +11,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.DatePicker
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.findFragment
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
-import com.google.android.gms.maps.model.MarkerOptions
-import java.lang.RuntimeException
 import java.util.*
 
 class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener{
@@ -44,7 +36,7 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener{
     //日付がタップされたらインターフェースを呼び出す。処理はMainActivityに記述
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val dateView = view?.findViewById(R.id.date) as TextView?
+        val dateView = view?.findViewById(R.id.detailDateDispOne) as TextView?
         dateView?.setOnClickListener {
             val listener = context as? OnShowCurrentDate
             listener?.onShowCurrentDate()
