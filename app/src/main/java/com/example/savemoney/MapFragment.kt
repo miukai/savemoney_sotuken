@@ -36,11 +36,15 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCall
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         mMap.uiSettings.isZoomControlsEnabled = true
+        // 拡大縮小ボタンを表示(True)
         mMap.uiSettings.isCompassEnabled = true
+        // コンパスを表示（Trueにしているがなぜか表示されない）
+
         mMap.setOnMapClickListener(object:GoogleMap.OnMapClickListener{
             override fun onMapClick(latlng: LatLng) {
                 val location = LatLng(latlng.latitude,latlng.longitude)
                 mMap.addMarker(MarkerOptions().position(location))
+                // タップした場所にマーカーをたてる
             }
         })
 //        val location = LatLng(latlng.latitude, latlng.longitude)
