@@ -61,16 +61,16 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/button4" />
 
-    <EditText
-        android:id="@+id/productNameID"
-        android:layout_width="199dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="12dp"
-        android:ems="10"
-        android:inputType="text"
-        android:text="商品名"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+<!--    <EditText-->
+<!--        android:id="@+id/productNameID"-->
+<!--        android:layout_width="199dp"-->
+<!--        android:layout_height="48dp"-->
+<!--        android:layout_marginTop="12dp"-->
+<!--        android:ems="10"-->
+<!--        android:inputType="text"-->
+<!--        android:text="商品名"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView6" />-->
 
     <!--        android:inputType="textPersonName"-->
     <!--        android:text="価格"-->
@@ -78,7 +78,15 @@
     <!--        app:layout_constraintEnd_toEndOf="parent"-->
     <!--        app:layout_constraintHorizontal_bias="1.0"-->
     <!--        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName" />-->
-
+    <fragment
+        android:id="@+id/productNameID"
+        android:name="com.example.savemoney.ProductFragment"
+        android:layout_width="165dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <!--    <EditText-->
     <!--        android:id="@+id/price"-->
@@ -92,17 +100,16 @@
     <!--        app:layout_constraintHorizontal_bias="1.0"-->
     <!--        app:layout_constraintStart_toEndOf="@+id/productName"-->
     <!--        app:layout_constraintTop_toBottomOf="@+id/textView6" />-->
-
-    <Button
-        android:id="@+id/button6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="44dp"
-        android:text="内容を確定する"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
+    <!--    <EditText-->
+<!--        android:id="@+id/priceID"-->
+<!--        android:layout_width="199dp"-->
+<!--        android:layout_height="48dp"-->
+<!--        android:ems="10"-->
+<!--        android:inputType="number"-->
+<!--        android:text="0"-->
+<!--        app:layout_constraintBaseline_toBaselineOf="@+id/productNameID"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/productNameID" />-->
 
     <TextView
         android:id="@+id/textView6"
@@ -118,6 +125,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
+
     <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
     <!--        android:id="@+id/floatingActionButton"-->
     <!--        android:layout_width="wrap_content"-->
@@ -129,6 +137,26 @@
     <!--        app:layout_constraintHorizontal_bias="0.498"-->
     <!--        app:layout_constraintStart_toStartOf="parent"-->
     <!--        app:srcCompat="@android:drawable/ic_menu_add" />-->
+
+    <Button
+        android:id="@+id/addForm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="49dp"
+        android:layout_marginBottom="91dp"
+        android:text="追加"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/conf_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginBottom="91dp"
+        android:text="内容を確定する"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton2"
@@ -144,19 +172,81 @@
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 
-    <fragment
-        android:id="@+id/enterFormFragment2"
-        android:name="com.example.savemoney.EnterForm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/button6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
 <!--    <fragment-->
+<!--        android:id="@+id/productNameID"-->
+<!--        android:name="com.example.savemoney.ProductFragment"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        tools:layout_editor_absoluteX="47dp"-->
+<!--        tools:layout_editor_absoluteY="279dp" />-->
+<!--    -->
+
+
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="165dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="4dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productNameID">
+
+    </LinearLayout>
+
+    <fragment
+        android:id="@+id/priceID"
+        android:name="com.example.savemoney.PriceFragment"
+        android:layout_width="165dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <LinearLayout
+        android:id="@+id/linear1"
+        android:layout_width="165dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="4dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/priceID">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear2"
+        android:layout_width="165dp"
+        android:layout_height="50dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linear"></LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear3"
+        android:layout_width="165dp"
+        android:layout_height="50dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linear1"></LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear4"
+        android:layout_width="165dp"
+        android:layout_height="50dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linear2"></LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear5"
+        android:layout_width="165dp"
+        android:layout_height="50dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linear3"></LinearLayout>
+
+    <!--    <fragment-->
 <!--        android:id="@+id/productFragment"-->
 <!--        android:name="com.example.savemoney.ProductFragment"-->
 <!--        android:layout_width="wrap_content"-->
@@ -166,43 +256,6 @@
 <!--        android:layout_marginTop="40dp"-->
 <!--        app:layout_constraintStart_toStartOf="parent"-->
 <!--        app:layout_constraintTop_toBottomOf="@+id/textView6" />-->
-
-    <LinearLayout
-        android:id="@+id/container"
-        android:layout_width="406dp"
-        android:layout_height="58dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="325dp">
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/container2"
-        android:layout_width="395dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="408dp"></LinearLayout>
-
-    <EditText
-        android:id="@+id/priceID"
-        android:layout_width="199dp"
-        android:layout_height="48dp"
-        android:ems="10"
-        android:inputType="number"
-        android:text="0"
-        app:layout_constraintBaseline_toBaselineOf="@+id/productNameID"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/productNameID" />
 
 
     <!--        android:layout_marginStart="4dp"-->
