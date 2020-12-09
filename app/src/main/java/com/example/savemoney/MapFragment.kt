@@ -1,9 +1,7 @@
 package com.example.savemoney
 
-
 import android.app.DatePickerDialog
 import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.view.LayoutInflater
@@ -12,17 +10,16 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.DatePicker
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.findFragment
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.google.android.gms.maps.*
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.MapView
+import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
-import java.lang.RuntimeException
 import java.util.*
 
 class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCallback{
@@ -35,13 +32,15 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCall
         //マップを表示させるインターフェースを呼び出す
         return inflater.inflate(R.layout.activity_map, container, false)
         }
+
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+        mMap.uiSettings.isZoomControlsEnabled = true
+        mMap.uiSettings.isCompassEnabled = true
         mMap.setOnMapClickListener(object:GoogleMap.OnMapClickListener{
             override fun onMapClick(latlng: LatLng) {
                 val location = LatLng(latlng.latitude,latlng.longitude)
                 mMap.addMarker(MarkerOptions().position(location))
-                mMap.uiSettings.isZoomControlsEnabled = true
             }
         })
 //        val location = LatLng(latlng.latitude, latlng.longitude)
@@ -72,6 +71,7 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCall
             navController.navigate(R.id.action_navi_map_to_navi_create_memo)
         }
     }
+
     override fun onDateSet(view:DatePicker?,
                            year: Int,month:Int,dayOfMonth:Int){
         //選択中の日付を更新
@@ -80,15 +80,17 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCall
         val listener = context as? OnShowCurrentDate
         listener?.onShowCurrentDate()//日付のテキストビューを更新
     }
+
     //内容はActivityClassと同じで、もっと最適な書き方があると思うが、時間の関係で二つ記述している
     private fun renderMap(){
         val locations = selectInDay(requireContext(),
                 currentDate[Calendar.YEAR],currentDate[Calendar.MONTH],
                 currentDate[Calendar.DATE])
 
-        zoomTo(mMap,locations)
-        putMarkers(mMap,locations)
+        zoomTo(mMap, locations)
+        putMarkers(mMap, locations)
     }
+
     private fun zoomTo(map: GoogleMap,locations:List<LocationRecord>){
         if (locations.size == 1){
             val latLng = LatLng(locations[0].latitude,locations[0].longitude)
@@ -107,21 +109,23 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCall
                     resources.displayMetrics.heightPixels,
                     padding)
 
-
             map.moveCamera(move)
         }
     }
-    private fun putMarkers(map:GoogleMap,locations: List<LocationRecord>) {
 
+    private fun putMarkers(map:GoogleMap,locations: List<LocationRecord>) {
     }
+
     //マップを表示させるインターフェース、処理はActivityに記述
     interface OnMap{
         fun onMap()
     }
+
     //日付がタップされたときのインターフェース
     interface OnShowCurrentDate{
         fun onShowCurrentDate()
     }
+
     interface OnTextViewClickListener{
         fun onTextViewClicked()
     }

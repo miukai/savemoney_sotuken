@@ -18,24 +18,20 @@
 <!--        app:layout_constraintHorizontal_bias="0.0"-->
 <!--        app:layout_constraintStart_toStartOf="parent"-->
 <!--        tools:layout_editor_absoluteY="8dp" />-->
+
     <com.google.android.gms.maps.MapView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name= "com.google.android.gms.maps.MapView"
         android:id="@+id/navi_map"
+        android:name="com.google.android.gms.maps.MapView"
+        android:layout_width="401dp"
+        android:layout_height="677dp"
+        android:layout_marginBottom="1dp"
         app:cameraTargetLat="35.6811323"
         app:cameraTargetLng="139.7670182"
         app:cameraZoom="15.0"
+        app:layout_constraintBottom_toTopOf="@+id/bottomMenu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         tools:ignore="Instantiatable,MissingClass" />
-    <fragment
-        android:id="@+id/fragment"
-        android:name="com.example.savemoney.SwitchFragment"
-        android:layout_width="95dp"
-        android:layout_height="36dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="88dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/Memobutton"
@@ -56,5 +52,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomMenu"
+        android:layout_width="393dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/border"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

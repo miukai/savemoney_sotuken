@@ -1,29 +1,18 @@
 package com.example.savemoney
 
 //import gitandroidx.appcompat.app.AppCompatActivity
-import android.content.ContentProvider
-import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.widget.EditText
-import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
-import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import java.time.LocalDate
 import java.util.*
 
-class MainActivity : AppCompatActivity(),MapFragment.OnShowCurrentDate,CreateMemo.OnAddForm{
+class MainActivity : AppCompatActivity(), MapFragment.OnShowCurrentDate, CreateMemo.OnAddForm{
     private var currentDate = Calendar.getInstance()
     private lateinit var mMap:GoogleMap
 //    override fun onPrice(price: Int) {
@@ -32,6 +21,7 @@ class MainActivity : AppCompatActivity(),MapFragment.OnShowCurrentDate,CreateMem
 //        intent.putExtra("price",price)
 //        startFra()
 //    }
+
     override fun onAddForm(c:Int) {
         if (c == 1){
             supportFragmentManager.beginTransaction().apply {
@@ -54,12 +44,13 @@ class MainActivity : AppCompatActivity(),MapFragment.OnShowCurrentDate,CreateMem
             }
         }
     }
+
     //日付がタップされたらカレンダーを表示
     override fun onShowCurrentDate() {
             val dialog = DatePickerFragment()
             dialog.arguments = Bundle().apply{
-                putSerializable("current","currentDate")}
-            dialog.show(supportFragmentManager,"calendar")
+                putSerializable("current", "currentDate")}
+            dialog.show(supportFragmentManager, "calendar")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,18 +64,19 @@ class MainActivity : AppCompatActivity(),MapFragment.OnShowCurrentDate,CreateMem
     //位置情報をデータベースから検索、メソッド呼び出し
     private fun renderMap(){
         val locations = selectInDay(this,
-                currentDate[Calendar.YEAR],currentDate[Calendar.MONTH],
+                currentDate[Calendar.YEAR], currentDate[Calendar.MONTH],
                 currentDate[Calendar.DATE])
 
-        zoomTo(mMap,locations)
-        putMarkers(mMap,locations)
+        zoomTo(mMap, locations)
+        putMarkers(mMap, locations)
     }
-    //位置情報に応じてカメラを移動させ、ズームする
-    private fun zoomTo(map: GoogleMap,locations:List<LocationRecord>){
-        if (locations.size == 1){
-            val latLng = LatLng(locations[0].latitude,locations[0].longitude)
 
-            val move = CameraUpdateFactory.newLatLngZoom(latLng,15f)
+    //位置情報に応じてカメラを移動させ、ズームする
+    private fun zoomTo(map: GoogleMap, locations:List<LocationRecord>){
+        if (locations.size == 1){
+            val latLng = LatLng(locations[0].latitude, locations[0].longitude)
+
+            val move = CameraUpdateFactory.newLatLngZoom(latLng, 15f)
             map.moveCamera(move)
         }else if (locations.size > 1){
             val bounds = LatLngBounds.Builder()
@@ -98,11 +90,11 @@ class MainActivity : AppCompatActivity(),MapFragment.OnShowCurrentDate,CreateMem
                     resources.displayMetrics.heightPixels,
                     padding)
 
-
             map.moveCamera(move)
         }
     }
-    private fun putMarkers(map:GoogleMap,locations: List<LocationRecord>) {
+
+    private fun putMarkers(map:GoogleMap, locations: List<LocationRecord>) {
 
     }
 }
