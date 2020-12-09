@@ -6,6 +6,14 @@ plugins {
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
+    
+
+
+    dataBinding {
+        enabled = true
+    }
+
+
 
     defaultConfig {
         applicationId "com.example.savemoney"
@@ -30,6 +38,12 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+
+
+
+
+
 }
 
 dependencies {
@@ -53,3 +67,5 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:15.0.0'
 
 }
+
+

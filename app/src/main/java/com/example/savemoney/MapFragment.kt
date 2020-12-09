@@ -18,28 +18,46 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.findFragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 import java.lang.RuntimeException
 import java.util.*
 
-class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener{
+class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCallback{
     private var currentDate = Calendar.getInstance()
-    private lateinit var googleMap:GoogleMap
+    private lateinit var mapView:MapView
+    private lateinit var mMap:GoogleMap
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        val view = inflater.inflate(R.layout.activity_map, container, false)
-        val listenerMap = context as? OnMap
-        listenerMap?.onMap()
-        return view
+        //inflateでレイアウトファイルをビュー化
+        //マップを表示させるインターフェースを呼び出す
+        return inflater.inflate(R.layout.activity_map, container, false)
         }
+    override fun onMapReady(googleMap: GoogleMap) {
+        mMap = googleMap
+        mMap.setOnMapClickListener(object:GoogleMap.OnMapClickListener{
+            override fun onMapClick(latlng: LatLng) {
+                val location = LatLng(latlng.latitude,latlng.longitude)
+                mMap.addMarker(MarkerOptions().position(location))
+                mMap.uiSettings.isZoomControlsEnabled = true
+            }
+        })
+//        val location = LatLng(latlng.latitude, latlng.longitude)
+//        val tokyo = LatLng(35.6811323,139.7670182)
+//        googleMap.isIndoorEnabled = false
+//        googleMap.addMarker(MarkerOptions().position(tokyo).title("東京"))
+//        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(tokyo,15f))
+    }
+
+    //日付がタップされたらインターフェースを呼び出す。処理はMainActivityに記述
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mapView = view.findViewById(R.id.navi_map)
+        mapView.onCreate(savedInstanceState)
+        mapView.onResume()
+        mapView.getMapAsync(this)
         val dateView = view?.findViewById(R.id.date) as TextView?
         dateView?.setOnClickListener {
             val listener = context as? OnShowCurrentDate
@@ -62,14 +80,14 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener{
         val listener = context as? OnShowCurrentDate
         listener?.onShowCurrentDate()//日付のテキストビューを更新
     }
-
+    //内容はActivityClassと同じで、もっと最適な書き方があると思うが、時間の関係で二つ記述している
     private fun renderMap(){
         val locations = selectInDay(requireContext(),
                 currentDate[Calendar.YEAR],currentDate[Calendar.MONTH],
                 currentDate[Calendar.DATE])
 
-        zoomTo(googleMap,locations)
-        putMarkers(googleMap,locations)
+        zoomTo(mMap,locations)
+        putMarkers(mMap,locations)
     }
     private fun zoomTo(map: GoogleMap,locations:List<LocationRecord>){
         if (locations.size == 1){
@@ -96,9 +114,11 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener{
     private fun putMarkers(map:GoogleMap,locations: List<LocationRecord>) {
 
     }
+    //マップを表示させるインターフェース、処理はActivityに記述
     interface OnMap{
         fun onMap()
     }
+    //日付がタップされたときのインターフェース
     interface OnShowCurrentDate{
         fun onShowCurrentDate()
     }
@@ -106,6 +126,8 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener{
         fun onTextViewClicked()
     }
 }
+
+//日付を選択するダイアログフラフラグメント
 class DatePickerFragment : DialogFragment(),DatePickerDialog.OnDateSetListener{
     private lateinit var calendar : Calendar
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -114,11 +136,14 @@ class DatePickerFragment : DialogFragment(),DatePickerDialog.OnDateSetListener{
                 ?:Calendar.getInstance()
     }
 
+    //ダイアログを生成して返す
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return DatePickerDialog(requireContext(),this,
                 calendar[Calendar.YEAR], calendar[Calendar.MONTH],
                 calendar[Calendar.DATE])
     }
+
+    //ユーザーが日付を選択した時のコールバックイベント
     override fun onDateSet(view:DatePicker,year:Int,month:Int,day:Int){
         if (context is DatePickerDialog.OnDateSetListener){
             (context as DatePickerDialog.OnDateSetListener).onDateSet(
