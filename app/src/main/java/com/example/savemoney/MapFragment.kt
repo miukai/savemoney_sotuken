@@ -35,19 +35,27 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCall
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+
         mMap.uiSettings.isZoomControlsEnabled = true
+        // 拡大縮小ボタンを表示(True)
         mMap.uiSettings.isCompassEnabled = true
+        // コンパスを表示(True) 常には表示されず、地図を傾けたりした際にのみ表示される
+        mMap.uiSettings.isScrollGesturesEnabled = true
+        // スワイプで地図を平行移動できる
+        mMap.uiSettings.isZoomGesturesEnabled = true
+        // ピンチイン・アウト(二本の指で操作すると)拡大縮小できる ＰＣだとできないかも？
+        mMap.uiSettings.isRotateGesturesEnabled = true
+        // 二本指で操作すると地図が回転する ＰＣだとできないかも
+        mMap.uiSettings.isTiltGesturesEnabled = true
+        // 二本指で操作すると地図が傾く
+
         mMap.setOnMapClickListener(object:GoogleMap.OnMapClickListener{
             override fun onMapClick(latlng: LatLng) {
-                val location = LatLng(latlng.latitude,latlng.longitude)
+                val location = LatLng(latlng.latitude, latlng.longitude)
                 mMap.addMarker(MarkerOptions().position(location))
+                // タップした場所にマーカーをたてる
             }
         })
-//        val location = LatLng(latlng.latitude, latlng.longitude)
-//        val tokyo = LatLng(35.6811323,139.7670182)
-//        googleMap.isIndoorEnabled = false
-//        googleMap.addMarker(MarkerOptions().position(tokyo).title("東京"))
-//        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(tokyo,15f))
     }
 
     //日付がタップされたらインターフェースを呼び出す。処理はMainActivityに記述
