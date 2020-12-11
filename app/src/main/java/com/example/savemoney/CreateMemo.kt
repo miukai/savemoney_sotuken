@@ -1,5 +1,6 @@
 package com.example.savemoney
 
+
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import java.time.LocalDate
 import android.widget.TextView
 import java.util.*
 import java.text.SimpleDateFormat
+import androidx.navigation.fragment.findNavController
 
 //import androidx.navigation.fragment.findNavController
 
@@ -31,6 +33,8 @@ class  CreateMemo : Fragment() {
     val ido = 0
     val kedo = 0
     val hantei :String = "見振り分け"
+
+    val hantei :String = "未振り分け"
 
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -53,19 +57,38 @@ class  CreateMemo : Fragment() {
         var nomContext = requireContext().applicationContext
 
 //        setContentView(R.layout.create_memo)
-        val button = view.findViewById<Button>(R.id.button6)
+        val navController = this.findNavController()
+        val button = view.findViewById<Button>(R.id.conf_button)
         button.setOnClickListener {
-            val  editText = view.findViewById<EditText>(R.id.productNameID)
-            val  editText2 = view.findViewById<EditText>(R.id.priceID)
-            insertText(nomContext,editText.text.toString(),
-                    Integer.parseInt(editText2.text.toString()),
+            val product = view.findViewById(R.id.productName) as EditText
+            val productId = product.text.toString()
+            val price = view.findViewById<EditText>(R.id.price)
+            val priceId = Integer.parseInt(price.text.toString())
+            insertText(nomContext,productId,
+                    priceId,
                     nowDateString,
                     ido,
                     kedo,
                     hantei
 
             )
+            navController.navigate(R.id.action_navi_create_memo_to_navi_map)
         }
+        //動的にViewを追加する
+//        val product = view.findViewById<EditText>(R.id.productNameID)
+//        val price = view.findViewById<EditText>(R.id.priceID)
+        val addButton = view.findViewById<Button>(R.id.addForm)
+        var c = 1
+        addButton.setOnClickListener {
+            if (c < 4){                val listnear = context as? OnAddForm
+
+                listnear?.onAddForm(c)
+                c += 1
+            }else {
+                addButton.error ="これ以上入力追加出来ません"
+            }
+        }
+
         // Map画面に戻る
         val pop01 = view.findViewById<Button>(R.id.backMapButton)
         pop01.setOnClickListener { v: View? ->
@@ -111,5 +134,10 @@ class  CreateMemo : Fragment() {
                   day1)
           datePickerDialog.show()
     }
+    }
+    interface OnAddForm{
+        fun onAddForm(c:Int)
+    }
+
 }
 
