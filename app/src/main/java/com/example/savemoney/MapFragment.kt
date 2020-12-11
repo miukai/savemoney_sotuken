@@ -2,6 +2,7 @@ package com.example.savemoney
 
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.os.Build
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.view.LayoutInflater
@@ -10,11 +11,15 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.DatePicker
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
+import java.text.SimpleDateFormat
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
@@ -32,6 +37,14 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCall
         //マップを表示させるインターフェースを呼び出す
         return inflater.inflate(R.layout.activity_map, container, false)
         }
+    //        今日の年月日取得（上から年、月、日）
+    var year1 = SimpleDateFormat("yyyy").format(Date()).toInt()
+    var month1 = SimpleDateFormat("MM").format(Date()).toInt()
+    var day1 = SimpleDateFormat("dd").format(Date()).toInt()
+    //        month2はshowDatePickerで使う
+    var month2 = month1 - 1
+//    dddはメモ画面に渡す日付
+    var ddd = "${month1}月${day1}日"
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
@@ -59,27 +72,73 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCall
     }
 
     //日付がタップされたらインターフェースを呼び出す。処理はMainActivityに記述
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+//        Map画面を開いたときに今日の日付を表示
+        var textView3 = view?.findViewById<TextView>(R.id.detailDateDispOne)
+        if (textView3 != null) {
+            textView3.text = ddd
+        }
+        val dateView = view?.findViewById(R.id.detailDateDispOne) as TextView?
+
         mapView = view.findViewById(R.id.navi_map)
         mapView.onCreate(savedInstanceState)
         mapView.onResume()
         mapView.getMapAsync(this)
         val dateView = view?.findViewById(R.id.date) as TextView?
+
         dateView?.setOnClickListener {
-            val listener = context as? OnShowCurrentDate
-            listener?.onShowCurrentDate()
-            dateView?.setText(DateFormat.format("MM月 dd日",currentDate.time))
+//            日付表示変えました
+            showDatePicker()
+//            val listener = context as? OnShowCurrentDate
+//            listener?.onShowCurrentDate()
+//            dateView?.setText(DateFormat.format("MM月 dd日",currentDate.time))
         }
 
-        // Fragment を使った Nav Controller の取得
-        val navController = this.findNavController()
-        val button = view.findViewById<Button>(R.id.Memobutton)
-        button.setOnClickListener {
-            navController.navigate(R.id.action_navi_map_to_navi_create_memo)
+//        // Fragment を使った Nav Controller の取得
+//        val navController = this.findNavController()
+//        val button = view.findViewById<Button>(R.id.Memobutton)
+//        button.setOnClickListener {
+//            navController.navigate(R.id.action_navi_map_to_navi_create_memo)
+
+
+//        メモボタンを押したらdddをCreateMemoのほうに渡す処理
+            val button01 = view.findViewById<Button>(R.id.Memobutton)
+            button01.setOnClickListener { v: View? ->
+                val fragmentManager = fragmentManager
+                if (fragmentManager != null) {
+                    val fragmentTransaction = fragmentManager.beginTransaction()
+                    // BackStackを設定
+                    fragmentTransaction.addToBackStack(null)
+                    fragmentTransaction.replace(R.id.nav_host_fragment, CreateMemo.newInstance(ddd))
+                    fragmentTransaction.commit()
+                }
+
         }
     }
 
+    //    カレンダーを表示し選択された日付を表示する
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun showDatePicker() {
+        var textView2 = view?.findViewById<TextView>(R.id.detailDateDispOne)
+
+        val datePickerDialog = DatePickerDialog(
+                requireContext(),
+                DatePickerDialog.OnDateSetListener() { view, year, month, dayOfMonth ->
+                    var str2 = "${month + 1}月${dayOfMonth}日"
+                    if (textView2 != null) {
+                        textView2.text = str2
+                        ddd = str2
+                    }
+                },
+                year1,
+                month1,
+                day1)
+
+        datePickerDialog.show()
+    }
     override fun onDateSet(view:DatePicker?,
                            year: Int,month:Int,dayOfMonth:Int){
         //選択中の日付を更新
@@ -163,6 +222,7 @@ class DatePickerFragment : DialogFragment(),DatePickerDialog.OnDateSetListener{
             )
         }
     }
+
 }
 
 //        val dateView = view.findViewById<TextView>(R.id.date)

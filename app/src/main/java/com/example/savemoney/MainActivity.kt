@@ -14,6 +14,14 @@ import java.util.*
 
 class MainActivity : AppCompatActivity(), MapFragment.OnShowCurrentDate, CreateMemo.OnAddForm{
     private var currentDate = Calendar.getInstance()
+    private lateinit var googleMap:GoogleMap
+    
+    //地図を表示
+    override fun onMap() {
+        val mapFragment = supportFragmentManager.findFragmentById(R.id.navi_map) as? SupportMapFragment
+        mapFragment?.getMapAsync {
+            googleMap = it
+            renderMap()
     private lateinit var mMap:GoogleMap
 //    override fun onPrice(price: Int) {
 //        val price = price

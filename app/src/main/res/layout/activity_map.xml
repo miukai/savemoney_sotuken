@@ -44,7 +44,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/date"
+        android:id="@+id/detailDateDispOne"
         android:layout_width="110dp"
         android:layout_height="30dp"
         android:text="12月3日"
