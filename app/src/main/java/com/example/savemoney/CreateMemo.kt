@@ -16,10 +16,12 @@ import android.widget.TextView
 import java.util.*
 import java.text.SimpleDateFormat
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 //import androidx.navigation.fragment.findNavController
 
 class  CreateMemo : Fragment() {
+    private lateinit var return_btn:FloatingActionButton
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         return  inflater.inflate(R.layout.create_memo, container, false)
@@ -32,8 +34,6 @@ class  CreateMemo : Fragment() {
 
     val ido = 0
     val kedo = 0
-    val hantei :String = "見振り分け"
-
     val hantei :String = "未振り分け"
 
 
@@ -90,8 +90,8 @@ class  CreateMemo : Fragment() {
         }
 
         // Map画面に戻る
-        val pop01 = view.findViewById<Button>(R.id.backMapButton)
-        pop01.setOnClickListener { v: View? ->
+        return_btn = view.findViewById(R.id.floatingActionButton2)
+        return_btn.setOnClickListener { v: View? ->
             val fragmentManager = fragmentManager
             fragmentManager?.popBackStack()
         }
@@ -134,10 +134,9 @@ class  CreateMemo : Fragment() {
                   day1)
           datePickerDialog.show()
     }
-    }
     interface OnAddForm{
         fun onAddForm(c:Int)
     }
-
 }
+
 

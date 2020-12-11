@@ -16,7 +16,7 @@
         android:textSize="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/backMapButton"
+        app:layout_constraintStart_toEndOf="@+id/addForm"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -32,11 +32,12 @@
         android:id="@+id/button3"
         android:layout_width="196dp"
         android:layout_height="57dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="14dp"
         android:text="支出"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backMapButton" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <Button
         android:id="@+id/memoCalButton"
@@ -138,9 +139,8 @@
     <!--        app:layout_constraintHorizontal_bias="0.498"-->
     <!--        app:layout_constraintStart_toStartOf="parent"-->
     <!--        app:srcCompat="@android:drawable/ic_menu_add" />-->
-
+    <!--        android:id="@+id/backMapButton"-->
     <Button
-        android:id="@+id/backMapButton"
         android:id="@+id/addForm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

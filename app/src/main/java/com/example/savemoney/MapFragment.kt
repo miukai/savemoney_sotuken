@@ -22,8 +22,6 @@ import com.google.android.gms.maps.model.LatLngBounds
 import java.text.SimpleDateFormat
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 import java.util.*
 
@@ -87,7 +85,7 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCall
         mapView.onCreate(savedInstanceState)
         mapView.onResume()
         mapView.getMapAsync(this)
-        val dateView = view?.findViewById(R.id.date) as TextView?
+//        val dateView2 = view?.findViewById(R.id.date) as TextView?
 
         dateView?.setOnClickListener {
 //            日付表示変えました
