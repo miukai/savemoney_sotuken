@@ -73,7 +73,6 @@ class  CreateMemo : Fragment() {
                     ido,
                     kedo,
                     hantei
-
             )
         }catch (e:Exception){
             navController.navigate(R.id.action_navi_create_memo_to_navi_map)

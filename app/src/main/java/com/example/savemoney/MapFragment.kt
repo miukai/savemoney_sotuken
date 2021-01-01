@@ -22,6 +22,7 @@ import com.google.android.gms.maps.model.LatLngBounds
 import java.text.SimpleDateFormat
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.MarkerOptions
 import java.util.*
 
@@ -84,7 +85,10 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCall
         mapView = view.findViewById(R.id.navi_map)
         mapView.onCreate(savedInstanceState)
         mapView.onResume()
-        mapView.getMapAsync(this)
+        mapView.getMapAsync{
+            mMap = it
+            renderMap()
+        }
 //        val dateView2 = view?.findViewById(R.id.date) as TextView?
 
         dateView?.setOnClickListener {
@@ -178,22 +182,25 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCall
         }
     }
 
+    //吹き出しテスト
     private fun putMarkers(map:GoogleMap,locations: List<LocationRecord>) {
+        val latLng = LatLng(35.681236, 139.767125) // 東京駅
+        val marker = map.addMarker(
+                MarkerOptions()
+                        .position(latLng)
+                        .title("test")
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+        )
+        marker.showInfoWindow()
     }
 
-    //マップを表示させるインターフェース、処理はActivityに記述
-    interface OnMap{
-        fun onMap()
-    }
+
 
     //日付がタップされたときのインターフェース
     interface OnShowCurrentDate{
         fun onShowCurrentDate()
     }
 
-    interface OnTextViewClickListener{
-        fun onTextViewClicked()
-    }
 }
 
 //日付を選択するダイアログフラフラグメント
