@@ -47,7 +47,7 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCall
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-
+        renderMap()
         mMap.uiSettings.isZoomControlsEnabled = true
         // 拡大縮小ボタンを表示(True)
         mMap.uiSettings.isCompassEnabled = true
@@ -85,10 +85,8 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCall
         mapView = view.findViewById(R.id.navi_map)
         mapView.onCreate(savedInstanceState)
         mapView.onResume()
-        mapView.getMapAsync{
-            mMap = it
-            renderMap()
-        }
+        mapView.getMapAsync(this)
+
 //        val dateView2 = view?.findViewById(R.id.date) as TextView?
 
         dateView?.setOnClickListener {

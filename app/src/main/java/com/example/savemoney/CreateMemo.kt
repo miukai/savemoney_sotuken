@@ -85,8 +85,8 @@ class  CreateMemo : Fragment() {
         val addButton = view.findViewById<Button>(R.id.addForm)
         var c = 1
         addButton.setOnClickListener {
-            if (c < 4){                val listnear = context as? OnAddForm
-
+            if (c < 4){
+                val listnear = context as? OnAddForm
                 listnear?.onAddForm(c)
                 c += 1
             }else {
