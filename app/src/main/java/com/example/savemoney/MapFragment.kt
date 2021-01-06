@@ -2,6 +2,7 @@ package com.example.savemoney
 
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.text.format.DateFormat
@@ -61,16 +62,21 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCall
         mMap.uiSettings.isTiltGesturesEnabled = true
         // 二本指で操作すると地図が傾く
 
+
         mMap.setOnMapClickListener(object:GoogleMap.OnMapClickListener{
             override fun onMapClick(latlng: LatLng) {
+                val lat = latlng.latitude
+                val lng = latlng.longitude
                 val location = LatLng(latlng.latitude, latlng.longitude)
                 mMap.addMarker(MarkerOptions().position(location))
                 // タップした場所にマーカーをたてる
+                //緯度経度記録する。
+                insertMarkerLocations(requireContext(),lat,lng)
             }
         })
     }
 
-    //日付がタップされたらインターフェースを呼び出す。処理はMainActivityに記述
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
