@@ -98,16 +98,8 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCall
         dateView?.setOnClickListener {
 //            日付表示変えました
             showDatePicker()
-//            val listener = context as? OnShowCurrentDate
-//            listener?.onShowCurrentDate()
-//            dateView?.setText(DateFormat.format("MM月 dd日",currentDate.time))
         }
 
-//        // Fragment を使った Nav Controller の取得
-//        val navController = this.findNavController()
-//        val button = view.findViewById<Button>(R.id.Memobutton)
-//        button.setOnClickListener {
-//            navController.navigate(R.id.action_navi_map_to_navi_create_memo)
 
 
 //        メモボタンを押したらdddをCreateMemoのほうに渡す処理
@@ -233,10 +225,3 @@ class DatePickerFragment : DialogFragment(),DatePickerDialog.OnDateSetListener{
     }
 
 }
-
-//        val dateView = view.findViewById<TextView>(R.id.date)
-//                dateView.setOnClickListener {
-//                    val listener = context as? OnTextViewClickListener
-//                    listener?.onTextViewClicked()
-//                }
-//        dateView.setText(DateFormat.format("MM月 dd日",currentDate.time))

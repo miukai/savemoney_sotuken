@@ -15,12 +15,6 @@ import java.util.*
 class MainActivity : AppCompatActivity(), MapFragment.OnShowCurrentDate, CreateMemo.OnAddForm{
     private var currentDate = Calendar.getInstance()
     private lateinit var mMap:GoogleMap
-//    override fun onPrice(price: Int) {
-//        val price = price
-//        val intent = Intent(this,CreateMemo::class.java)
-//        intent.putExtra("price",price)
-//        startFra()
-//    }
 
     override fun onAddForm(c:Int) {
         if (c == 1){

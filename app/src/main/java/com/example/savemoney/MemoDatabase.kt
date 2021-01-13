@@ -120,9 +120,6 @@ fun insertLocations(context: Context, locations : List<Location>){
 fun insertText(context: Context, text: String, price: Int, nowDateString: String, ido: Int, kedo: Int, hantei: String) {
     val database = MemoDatabase(context).writableDatabase
 
-//    val nowDate: LocalDate = LocalDate.now()
-//    val nowDateString: String = nowDate.toString()
-
     database.use { db->
         val record = ContentValues().apply {
             put("productname", text)

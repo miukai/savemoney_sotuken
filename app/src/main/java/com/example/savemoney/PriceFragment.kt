@@ -13,13 +13,6 @@ class PriceFragment : Fragment(){
         return inflater.inflate(R.layout.fragment_price, container, false)
     }
 
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//        val price = view.findViewById<EditText>(R.id.price)
-//        val priceId = Integer.parseInt(price.text.toString())
-//        val listner = context as? OnPrice
-//        listner?.onPrice(priceId)
-//    }
     interface OnPrice{
         fun onPrice(price:Int)
     }
