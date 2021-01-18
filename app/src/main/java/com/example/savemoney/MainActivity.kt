@@ -12,32 +12,31 @@ import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.*
 
-class MainActivity : AppCompatActivity(), MapFragment.OnShowCurrentDate, CreateMemo.OnAddForm{
-    private var currentDate = Calendar.getInstance()
-    private lateinit var mMap:GoogleMap
+class MainActivity : AppCompatActivity(), MapFragment.OnShowCurrentDate{
+//    private var currentDate = Calendar.getInstance()
 
-    override fun onAddForm(c:Int) {
-        if (c == 1){
-            supportFragmentManager.beginTransaction().apply {
-                // add(追加先のid : Int, 追加したいFragment : Fragment)
-                add(R.id.linear,ProductFragment())
-                add(R.id.linear1,PriceFragment())
-                commit()
-            }
-        }else if(c == 2){
-            supportFragmentManager.beginTransaction().apply {
-                add(R.id.linear2,ProductFragment())
-                add(R.id.linear3,PriceFragment())
-                commit()
-            }
-        }else if(c == 3){
-            supportFragmentManager.beginTransaction().apply {
-                add(R.id.linear4,ProductFragment())
-                add(R.id.linear5,PriceFragment())
-                commit()
-            }
-        }
-    }
+//    override fun onAddForm(c:Int) {
+//        if (c == 1){
+//            supportFragmentManager.beginTransaction().apply {
+//                // add(追加先のid : Int, 追加したいFragment : Fragment)
+//                add(R.id.linear,ProductFragment())
+//                add(R.id.linear1,PriceFragment())
+//                commit()
+//            }
+//        }else if(c == 2){
+//            supportFragmentManager.beginTransaction().apply {
+//                add(R.id.linear2,ProductFragment())
+//                add(R.id.linear3,PriceFragment())
+//                commit()
+//            }
+//        }else if(c == 3){
+//            supportFragmentManager.beginTransaction().apply {
+//                add(R.id.linear4,ProductFragment())
+//                add(R.id.linear5,PriceFragment())
+//                commit()
+//            }
+//        }
+//    }
 
     //日付がタップされたらカレンダーを表示
     override fun onShowCurrentDate() {

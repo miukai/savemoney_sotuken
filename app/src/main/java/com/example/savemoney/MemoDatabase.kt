@@ -35,13 +35,6 @@ class MemoDatabase(context: Context): SQLiteOpenHelper(context, DB_NAME, null, D
          time INTEGER NOT NULL
          );
      """)
-    db?.execSQL("""
-        CREATE TABLE MarkerLocation(
-        _id INTEGER PRIMARY KEY AUTOINCREMENT,
-        latiude REAL NOT NULL,
-        longitube REAL NOT NULL
-        );
-    """)
     }
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
     }
@@ -81,19 +74,7 @@ fun selectInDay(context:Context, year: Int, month:Int, day:Int):
     return locations
 }
 
-//マーカー位置情報をデータベースに保存する
-fun insertMarkerLocations(context: Context, latitude: Double,longitude: Double) {
-    val database = MemoDatabase(context).writableDatabase
 
-    database.use { db ->
-                val record = ContentValues().apply {
-                    put("latitude", latitude)
-                    put("longitude",longitude)
-                }
-
-                db.insert("MarkerLocation", null, record)
-    }
-}
 
 fun insertLocations(context: Context, locations : List<Location>){
     val database = MemoDatabase(context).writableDatabase

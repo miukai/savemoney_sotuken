@@ -69,9 +69,6 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCall
                 val lng = latlng.longitude
                 val location = LatLng(latlng.latitude, latlng.longitude)
                 mMap.addMarker(MarkerOptions().position(location))
-                // タップした場所にマーカーをたてる
-                //緯度経度記録する。
-                insertMarkerLocations(requireContext(),lat,lng)
             }
         })
     }
