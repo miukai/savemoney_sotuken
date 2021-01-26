@@ -20,7 +20,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -80,6 +79,81 @@
             android:orientation="vertical">
 
 
+
+            <LinearLayout
+                android:id="@+id/linearLayout12"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <Button
+                    android:id="@+id/backCal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="←" />
+
+                <TextView
+                    android:id="@+id/detailDateDispOne"
+                    android:layout_width="309dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="1日ごとの詳細"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/detailDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="日付が入るよ"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/buttonday"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="1d" />
+
+                <Button
+                    android:id="@+id/buttonweek"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="1w" />
+
+                <Button
+                    android:id="@+id/buttonmonth"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="1m" />
+
+            </LinearLayout>
+
+
+
             <LinearLayout
                 android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
@@ -89,22 +163,21 @@
 
                 <TextView
                     android:id="@+id/useMoneytest"
-                    android:layout_width="wrap_content"
+                    android:layout_width="232dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:background="@drawable/border"
                     android:gravity="center"
                     android:text="使えるお金"
-                    android:textSize="12sp" />
+                    android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/UseMoneyDisplay"
-                    android:layout_width="wrap_content"
+                    android:layout_width="175dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:background="@drawable/border"
                     android:gravity="center"
-                    android:text="TextView" />
+                    android:text="円"
+                    android:textSize="24sp" />
             </LinearLayout>
 
 
@@ -118,9 +191,8 @@
 
                 <TextView
                     android:id="@+id/consumption"
-                    android:layout_width="66dp"
+                    android:layout_width="232dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:background="@drawable/border"
                     android:gravity="center"
                     android:text="消費"
@@ -128,12 +200,12 @@
 
                 <TextView
                     android:id="@+id/consumptionTotal"
-                    android:layout_width="wrap_content"
+                    android:layout_width="177dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:background="@drawable/border"
                     android:gravity="center"
-                    android:text="TextView" />
+                    android:text="円"
+                    android:textSize="24sp" />
 
             </LinearLayout>
 
@@ -161,9 +233,8 @@
 
                 <TextView
                     android:id="@+id/extravagance"
-                    android:layout_width="0dp"
+                    android:layout_width="232dp"
                     android:layout_height="50dp"
-                    android:layout_weight="1"
                     android:background="@drawable/border"
                     android:gravity="center"
                     android:text="浪費"
@@ -171,12 +242,12 @@
 
                 <TextView
                     android:id="@+id/extravaganceTotal"
-                    android:layout_width="0dp"
+                    android:layout_width="175dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:background="@drawable/border"
                     android:gravity="center"
-                    android:text="TextView" />
+                    android:text="円"
+                    android:textSize="24sp" />
 
 
             </LinearLayout>

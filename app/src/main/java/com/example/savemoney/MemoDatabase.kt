@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.location.Location
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.google.android.gms.maps.model.LatLng
 import java.util.*
 
 private const val DB_NAME = "MemoDatabase"
@@ -34,6 +35,13 @@ class MemoDatabase(context: Context): SQLiteOpenHelper(context, DB_NAME, null, D
          time INTEGER NOT NULL
          );
      """)
+    db?.execSQL("""
+        CREATE TABLE MarkerLocation(
+        _id INTEGER PRIMARY KEY AUTOINCREMENT,
+        latiude REAL NOT NULL,
+        longitube REAL NOT NULL
+        );
+    """)
     }
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
     }
@@ -73,21 +81,33 @@ fun selectInDay(context:Context, year: Int, month:Int, day:Int):
     return locations
 }
 
-//位置情報をデータベースに保存する
-fun insertLocations(context: Context, locations : List<Location>) {
+//マーカー位置情報をデータベースに保存する
+fun insertMarkerLocations(context: Context, latitude: Double,longitude: Double) {
     val database = MemoDatabase(context).writableDatabase
 
     database.use { db ->
-        locations.filter { !it.isFromMockProvider }
-            .forEach { location ->
                 val record = ContentValues().apply {
-                    put("latitude", location.latitude)
-                    put("longitude", location.longitude)
-                    put("time", location.time)
+                    put("latitude", latitude)
+                    put("longitude",longitude)
                 }
 
-                db.insert("Gps", null, record)
-            }
+                db.insert("MarkerLocation", null, record)
+    }
+}
+
+fun insertLocations(context: Context, locations : List<Location>){
+    val database = MemoDatabase(context).writableDatabase
+
+    database.use {db ->
+        locations.filter {!it.isFromMockProvider}
+                .forEach{location ->
+                    val recored = ContentValues().apply{
+                        put("latitude",location.latitude)
+                        put("longitude",location.longitude)
+                        put("time",location.time)
+                    }
+                    db.insert("Gps",null, recored)
+                }
     }
 }
 
@@ -99,9 +119,6 @@ fun insertLocations(context: Context, locations : List<Location>) {
 @RequiresApi(Build.VERSION_CODES.O)
 fun insertText(context: Context, text: String, price: Int, nowDateString: String, ido: Int, kedo: Int, hantei: String) {
     val database = MemoDatabase(context).writableDatabase
-
-//    val nowDate: LocalDate = LocalDate.now()
-//    val nowDateString: String = nowDate.toString()
 
     database.use { db->
         val record = ContentValues().apply {
@@ -280,6 +297,7 @@ fun update(context: Context, whereId: String, newSwing: String) {
     val values = ContentValues()
     values.put("swing",newSwing)
     val whereClauses = "_id = ?"
+
 //    val whereArgs = arrayOf(whereId)
     database.update("Memo", values, whereClauses, arrayOf(whereId))
 }
@@ -288,3 +306,7 @@ fun update(context: Context, whereId: String, newSwing: String) {
 
 
 
+
+    val whereArgs = arrayOf(whereId)
+    database.update("Memo", values, whereClauses, whereArgs)
+}
