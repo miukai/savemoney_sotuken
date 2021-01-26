@@ -4,21 +4,73 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".detailActivity">
+    >
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="160dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginEnd="120dp"
+        android:gravity="center"
+        android:text="1日ごとの詳細"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="55dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <Spinner
+            android:id="@+id/date"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/buttonday"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="1d" />
+
+        <Button
+            android:id="@+id/buttonweek"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="1w" />
+
+        <Button
+            android:id="@+id/buttonmonth"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="1m" />
+
+    </LinearLayout>
 
     <ScrollView
         android:id="@+id/scrollView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="413dp"
+        android:layout_height="506dp"
         android:layout_marginBottom="100dp"
+        android:fillViewport="true"
         android:isScrollContainer="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
 
         <LinearLayout
@@ -26,66 +78,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="160dp"
-                android:layout_height="57dp"
-                android:layout_marginStart="120dp"
-                android:layout_marginLeft="120dp"
-                android:layout_marginEnd="120dp"
-                android:layout_marginRight="120dp"
-                android:gravity="center"
-                android:text="1日ごとの詳細"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <Spinner
-                    android:id="@+id/date"
-                    android:layout_width="200dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/border" />
-
-                <Button
-                    android:id="@+id/buttonday"
-                    android:layout_width="60dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/border"
-                    android:text="1d" />
-
-                <Button
-                    android:id="@+id/buttonweek"
-                    android:layout_width="60dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/border"
-                    android:text="1w" />
-
-                <Button
-                    android:id="@+id/buttonmonth"
-                    android:layout_width="60dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/border"
-                    android:text="1m" />
-
-            </LinearLayout>
 
 
             <LinearLayout
@@ -201,8 +193,6 @@
             </ListView>
 
 
-
-
             <LinearLayout
                 android:id="@+id/linearLayout6"
                 android:layout_width="match_parent"
@@ -220,7 +210,6 @@
                     android:gravity="center"
                     android:text="未振り分け"
                     android:textSize="24sp" />
-
 
 
             </LinearLayout>
@@ -242,6 +231,12 @@
 
     </ScrollView>
 
+
+
+
+
+
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomMenu"
         android:layout_width="413dp"
@@ -254,6 +249,9 @@
         app:layout_constraintTop_toBottomOf="@+id/scrollView"
         app:labelVisibilityMode="labeled"/>
         //app:menu="@menu/bottomnavi"
+
+
+
 
 
 

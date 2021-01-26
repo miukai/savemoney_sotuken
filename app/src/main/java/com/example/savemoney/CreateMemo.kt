@@ -27,7 +27,7 @@ class  CreateMemo : Fragment() {
 
     val ido = 0
     val kedo = 0
-    val hantei :String = "見振り分け"
+    val hantei :String = "未振り分け"
 
 
 
@@ -53,16 +53,6 @@ class  CreateMemo : Fragment() {
         }
 
     }
-
-
-
-
-
-
-
-
-
-
 
 
 
