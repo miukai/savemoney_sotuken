@@ -210,6 +210,55 @@ fun queryTexts(context: Context) : MutableList<String> {
 
 
 
+//振り分け用クエリーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+fun querySortedTexts(context: Context) : MutableList<String> {
+    val database = MemoDatabase(context).readableDatabase
+
+    val cursor = database.query("Memo", arrayOf("productname"), "swing = ?", arrayOf("未振り分け"), null, null, null)
+
+
+    val texts = mutableListOf<String>()
+
+    cursor.use {
+        while (cursor.moveToNext()) {
+            val text = cursor.getString(cursor.getColumnIndex("productname"))
+            texts.add(text)
+        }
+    }
+
+
+    database.close()
+    return texts
+}
+
+
+
+fun querySortedPrices(context: Context) : MutableList<String> {
+    val database = MemoDatabase(context).readableDatabase
+
+    val cursor = database.query("Memo", arrayOf("price"), "swing = ?", arrayOf("未振り分け"), null, null, null)
+
+
+    val prices = mutableListOf<String>()
+
+    cursor.use {
+        while (cursor.moveToNext()) {
+            val text = cursor.getString(cursor.getColumnIndex("price"))
+            prices.add(text)
+        }
+    }
+
+
+    database.close()
+    return prices
+}
+//--------------------------------------------------------------------------------------------
+
+
+
+
+
+
 fun queryPrice(context: Context) : MutableList<Int> {
     val database = MemoDatabase(context).readableDatabase
 
@@ -233,6 +282,13 @@ fun queryPrice(context: Context) : MutableList<Int> {
 
 
 
+
+
+
+
+
+
+
 //-----------------------------------------------------------------------------------
 
 //振り分けDB_update
@@ -241,6 +297,16 @@ fun update(context: Context, whereId: String, newSwing: String) {
     val values = ContentValues()
     values.put("swing",newSwing)
     val whereClauses = "_id = ?"
+
+//    val whereArgs = arrayOf(whereId)
+    database.update("Memo", values, whereClauses, arrayOf(whereId))
+}
+
+
+
+
+
+
     val whereArgs = arrayOf(whereId)
     database.update("Memo", values, whereClauses, whereArgs)
 }

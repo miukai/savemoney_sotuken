@@ -37,6 +37,7 @@ class  CreateMemo : Fragment() {
     val hantei :String = "未振り分け"
 
 
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -144,4 +145,7 @@ class  CreateMemo : Fragment() {
     }
 }
 
+
+
+}
 

@@ -20,7 +20,7 @@
 
     <ListView
         android:id="@+id/sortList"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="500dp"
         android:background="@drawable/waku_kadomaru"
         app:layout_constraintEnd_toEndOf="parent"
