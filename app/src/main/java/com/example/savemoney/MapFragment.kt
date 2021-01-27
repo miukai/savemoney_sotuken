@@ -78,7 +78,8 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCall
                 mMap.addMarker(MarkerOptions().position(location))
                 // タップした場所にマーカーをたてる
                 //緯度経度記録する。
-                insertMarkerLocations(requireContext(),lat,lng,nowDateString)
+                insertMarkerLocations(requireContext(),lat,lng,currentDate[Calendar.YEAR],currentDate[Calendar.MONTH],
+                        currentDate[Calendar.DATE])
             }
         })
     }

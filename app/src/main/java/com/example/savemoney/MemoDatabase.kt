@@ -30,16 +30,17 @@ class MemoDatabase(context: Context): SQLiteOpenHelper(context, DB_NAME, null, D
      db?.execSQL("""
          CREATE TABLE Gps(
          _id INTEGER PRIMARY KEY AUTOINCREMENT,
-         latiude REAL NOT NULL,
-         longitube REAL NOT NULL,
+         latitude REAL NOT NULL,
+         longitude REAL NOT NULL,
          time INTEGER NOT NULL
          );
      """)
     db?.execSQL("""
         CREATE TABLE MarkerLocation(
         _id INTEGER PRIMARY KEY AUTOINCREMENT,
-        latiude REAL NOT NULL,
-        longitube REAL NOT NULL
+        latitude REAL NOT NULL,
+        longitude REAL NOT NULL,
+        date INTEGER NOT NULL
         );
     """)
     }
@@ -49,7 +50,7 @@ class MemoDatabase(context: Context): SQLiteOpenHelper(context, DB_NAME, null, D
 
 //データベースのレコードを表現するクラス
 class LocationRecord(val id :Long, val latitude : Double,
-    val longitude : Double, val time :Long)
+    val longitude : Double, val date :Long)
 
 //指定した日の位置情報を検索する関数
 fun selectInDay(context:Context, year: Int, month:Int, day:Int):
@@ -63,8 +64,8 @@ fun selectInDay(context:Context, year: Int, month:Int, day:Int):
 
     val database = MemoDatabase(context).readableDatabase
 
-    val cursor = database.query("Gps",null,"time >= ? AND time < ?", arrayOf(from, to),
-    null,null,"time DESC")
+    val cursor = database.query("MarkerLocation",null,"date >= ? AND date < ?", arrayOf(from, to),
+    null,null,"date DESC")
 
     val locations = mutableListOf<LocationRecord>()
     cursor.use{
@@ -73,7 +74,7 @@ fun selectInDay(context:Context, year: Int, month:Int, day:Int):
                 cursor.getLong(cursor.getColumnIndex("_id")),
                 cursor.getDouble(cursor.getColumnIndex("latitude")),
                 cursor.getDouble(cursor.getColumnIndex("longitude")),
-                cursor.getLong(cursor.getColumnIndex("time")))
+                cursor.getLong(cursor.getColumnIndex("date")))
             locations.add(place)
         }
     }
@@ -82,14 +83,18 @@ fun selectInDay(context:Context, year: Int, month:Int, day:Int):
 }
 
 //マーカー位置情報をデータベースに保存する
-fun insertMarkerLocations(context: Context, latitude: Double,longitude: Double, date:String) {
+fun insertMarkerLocations(context: Context, latitude: Double,longitude: Double, year: Int, month:Int, day:Int) {
     val database = MemoDatabase(context).writableDatabase
+
+    val calendar = Calendar.getInstance()
+    calendar.set(year,month,day,0,0,0)//引数の日時に設定
+    val from = calendar.time.time.toString()//日付文字列を取得
 
     database.use { db ->
                 val record = ContentValues().apply {
                     put("latitude", latitude)
                     put("longitude",longitude)
-                    put("date",date)
+                    put("date",from)
                 }
 
                 db.insert("MarkerLocation", null, record)
