@@ -2,13 +2,10 @@ package com.example.savemoney
 
 import android.content.ContentValues
 import android.content.Context
-import android.content.LocusId
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import android.location.Location
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.google.android.gms.maps.model.LatLng
 import java.util.*
 
 private const val DB_NAME = "MemoDatabase"
@@ -31,8 +28,8 @@ class MemoDatabase(context: Context): SQLiteOpenHelper(context, DB_NAME, null, D
          CREATE TABLE Gps(
          _id INTEGER PRIMARY KEY AUTOINCREMENT,
          latiude REAL NOT NULL,
-         longitube REAL NOT NULL,
-         time INTEGER NOT NULL
+         longitude REAL NOT NULL,
+         date TEXT NOT NULL
          );
      """)
     }
@@ -42,11 +39,10 @@ class MemoDatabase(context: Context): SQLiteOpenHelper(context, DB_NAME, null, D
 
 //データベースのレコードを表現するクラス
 class LocationRecord(val id :Long, val latitude : Double,
-    val longitude : Double, val time :Long)
+    val longitude : Double, val date :String)
 
-//指定した日の位置情報を検索する関数
-fun selectInDay(context:Context, year: Int, month:Int, day:Int):
-        List<LocationRecord>{
+//指定した日のマーカー位置情報を検索する関数
+fun selectInDay(context:Context, year: Int, month:Int, day:Int):MutableList<LocationRecord>{
     //検索条件に使用する日時を計算
     val calendar = Calendar.getInstance()//
     calendar.set(year,month,day,0,0,0)//引数の日時に設定
@@ -56,8 +52,8 @@ fun selectInDay(context:Context, year: Int, month:Int, day:Int):
 
     val database = MemoDatabase(context).readableDatabase
 
-    val cursor = database.query("Gps",null,"time >= ? AND time < ?", arrayOf(from, to),
-    null,null,"time DESC")
+    val cursor = database.query("Gps",null,"date = ?", arrayOf(to),
+    null,null,"id")
 
     val locations = mutableListOf<LocationRecord>()
     cursor.use{
@@ -66,7 +62,7 @@ fun selectInDay(context:Context, year: Int, month:Int, day:Int):
                 cursor.getLong(cursor.getColumnIndex("_id")),
                 cursor.getDouble(cursor.getColumnIndex("latitude")),
                 cursor.getDouble(cursor.getColumnIndex("longitude")),
-                cursor.getLong(cursor.getColumnIndex("time")))
+                cursor.getString(cursor.getColumnIndex("date")))
             locations.add(place)
         }
     }
@@ -76,22 +72,18 @@ fun selectInDay(context:Context, year: Int, month:Int, day:Int):
 
 
 
-fun insertLocations(context: Context, locations : List<Location>){
+fun insertLocations(context: Context, lat:Double, lon:Double, nowDate: String){
     val database = MemoDatabase(context).writableDatabase
 
-    database.use {db ->
-        locations.filter {!it.isFromMockProvider}
-                .forEach{location ->
-                    val recored = ContentValues().apply{
-                        put("latitude",location.latitude)
-                        put("longitude",location.longitude)
-                        put("time",location.time)
-                    }
-                    db.insert("Gps",null, recored)
-                }
+    database.use { db->
+        val record = ContentValues().apply {
+            put("latiude",lat)
+            put("longitude",lon)
+            put("date",nowDate)
+        }
+        db.insert("Gps",null,record)
     }
 }
-
 
 
 
@@ -288,6 +280,6 @@ fun update(context: Context, whereId: String, newSwing: String) {
 
 
 
-    val whereArgs = arrayOf(whereId)
-    database.update("Memo", values, whereClauses, whereArgs)
-}
+//    val whereArgs = arrayOf(whereId)
+//    database.update("Memo", values, whereClauses, whereArgs)
+//}

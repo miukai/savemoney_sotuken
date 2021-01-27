@@ -2,10 +2,8 @@ package com.example.savemoney
 
 import android.app.DatePickerDialog
 import android.app.Dialog
-import android.content.Context
 import android.os.Build
 import android.os.Bundle
-import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +13,6 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
@@ -25,18 +22,26 @@ import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.MarkerOptions
+import java.time.LocalDate
 import java.util.*
 
 class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCallback{
     private var currentDate = Calendar.getInstance()
     private lateinit var mapView:MapView
     private lateinit var mMap:GoogleMap
+    private var lat = 0.0
+    private var lon = 0.0
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    val nowDate: LocalDate = LocalDate.now()
+    val nowDateString: String = nowDate.toString()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        //inflateでレイアウトファイルをビュー化
-        //マップを表示させるインターフェースを呼び出す
         return inflater.inflate(R.layout.activity_map, container, false)
         }
+
+
     //        今日の年月日取得（上から年、月、日）
     var year1 = SimpleDateFormat("yyyy").format(Date()).toInt()
     var month1 = SimpleDateFormat("MM").format(Date()).toInt()
@@ -62,11 +67,10 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCall
         mMap.uiSettings.isTiltGesturesEnabled = true
         // 二本指で操作すると地図が傾く
 
-
         mMap.setOnMapClickListener(object:GoogleMap.OnMapClickListener{
             override fun onMapClick(latlng: LatLng) {
-                val lat = latlng.latitude
-                val lng = latlng.longitude
+                lat = latlng.latitude
+                lon = latlng.longitude
                 val location = LatLng(latlng.latitude, latlng.longitude)
                 mMap.addMarker(MarkerOptions().position(location))
             }
@@ -110,7 +114,7 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCall
                     fragmentTransaction.replace(R.id.nav_host_fragment, CreateMemo.newInstance(ddd))
                     fragmentTransaction.commit()
                 }
-
+                insertLocations(requireContext(),lat,lon,nowDateString)
         }
     }
 

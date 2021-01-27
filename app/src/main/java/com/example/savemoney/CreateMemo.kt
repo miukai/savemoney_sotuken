@@ -21,7 +21,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 //import androidx.navigation.fragment.findNavController
 
 class  CreateMemo : Fragment() {
+
     private lateinit var return_btn:FloatingActionButton
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         return  inflater.inflate(R.layout.create_memo, container, false)
@@ -41,6 +43,7 @@ class  CreateMemo : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         val buttoncal = view.findViewById<Button>(R.id.memoCalButton)
         buttoncal.setOnClickListener {
@@ -130,7 +133,4 @@ class  CreateMemo : Fragment() {
     }
 }
 
-
-
-}
 
