@@ -75,10 +75,20 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCall
                 val lat = latlng.latitude
                 val lng = latlng.longitude
                 val location = LatLng(latlng.latitude, latlng.longitude)
-                mMap.addMarker(MarkerOptions().position(location))
-                // タップした場所にマーカーをたてる
+                val strSnippet = "店名\n$100"
+                val marker = googleMap.addMarker(
+                        // タップした場所にマーカーをたてる
+
+                        MarkerOptions()
+                                .position(location) //  マーカーをたてる位置
+                                .title("test") //  タイトル(日付)
+                                .snippet(strSnippet) // 本文(店名、価格)←アジャイルで順次追加
+                )
+                marker.showInfoWindow()
+                // タップした際にメモのポップアップを表示する処理
                 //緯度経度記録する。
-                insertMarkerLocations(requireContext(),lat,lng,nowDateString)
+                insertMarkerLocations(requireContext(),lat,lng,currentDate[Calendar.YEAR],currentDate[Calendar.MONTH],
+                        currentDate[Calendar.DATE])
             }
         })
     }
