@@ -29,9 +29,9 @@ class FragmentHome : Fragment(){
         button.setOnClickListener {
 
 
-            var useMoneyp= view!!.findViewById<EditText>(R.id.useMoneytest)
+            var useMoneyp= view!!.findViewById<EditText>(R.id.useMoney)
             var useMoneypInt : Int = Integer.parseInt(useMoneyp.text.toString()).toInt()
-            var maxmoney = view!!.findViewById<EditText>(R.id.max)
+            var maxmoney = view!!.findViewById<EditText>(R.id.maxMoney)
             var maxmoneyInt : Int = Integer.parseInt(maxmoney.text.toString()).toInt()
 
 
