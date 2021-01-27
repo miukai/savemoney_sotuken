@@ -87,7 +87,8 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCall
                 marker.showInfoWindow()
                 // タップした際にメモのポップアップを表示する処理
                 //緯度経度記録する。
-                insertMarkerLocations(requireContext(),lat,lng,nowDateString)
+                insertMarkerLocations(requireContext(),lat,lng,currentDate[Calendar.YEAR],currentDate[Calendar.MONTH],
+                        currentDate[Calendar.DATE])
             }
         })
     }
