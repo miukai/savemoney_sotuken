@@ -100,7 +100,7 @@ fun insertText(context: Context, text: String, price: Int, nowDateString: String
             put("swing", hantei)
             put("date", nowDateString)
             put("latiude", ido)
-            put("longitube", kedo)
+            put("longitude", kedo)
         }
 
 

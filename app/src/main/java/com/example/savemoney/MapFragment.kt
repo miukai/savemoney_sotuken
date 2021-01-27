@@ -25,6 +25,7 @@ import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.MarkerOptions
+import java.time.LocalDate
 import java.util.*
 
 class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCallback{
@@ -45,6 +46,10 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCall
     var month2 = month1 - 1
 //    dddはメモ画面に渡す日付
     var ddd = "${month1}月${day1}日"
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    val nowDate: LocalDate = LocalDate.now()
+    val nowDateString: String = nowDate.toString()
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
@@ -71,7 +76,7 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCall
                 mMap.addMarker(MarkerOptions().position(location))
                 // タップした場所にマーカーをたてる
                 //緯度経度記録する。
-                insertLocations(requireContext(),lat,lng,nowDate)
+                insertLocations(requireContext(),lat,lng,nowDateString)
             }
         })
     }
