@@ -2,10 +2,13 @@ package com.example.savemoney
 
 import android.content.ContentValues
 import android.content.Context
+import android.content.LocusId
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.location.Location
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.google.android.gms.maps.model.LatLng
 import java.util.*
 
 private const val DB_NAME = "MemoDatabase"
@@ -28,10 +31,17 @@ class MemoDatabase(context: Context): SQLiteOpenHelper(context, DB_NAME, null, D
          CREATE TABLE Gps(
          _id INTEGER PRIMARY KEY AUTOINCREMENT,
          latiude REAL NOT NULL,
-         longitude REAL NOT NULL,
-         date TEXT NOT NULL
+         longitube REAL NOT NULL,
+         time INTEGER NOT NULL
          );
      """)
+    db?.execSQL("""
+        CREATE TABLE MarkerLocation(
+        _id INTEGER PRIMARY KEY AUTOINCREMENT,
+        latiude REAL NOT NULL,
+        longitube REAL NOT NULL
+        );
+    """)
     }
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
     }
@@ -39,10 +49,11 @@ class MemoDatabase(context: Context): SQLiteOpenHelper(context, DB_NAME, null, D
 
 //データベースのレコードを表現するクラス
 class LocationRecord(val id :Long, val latitude : Double,
-    val longitude : Double, val date :String)
+    val longitude : Double, val time :Long)
 
-//指定した日のマーカー位置情報を検索する関数
-fun selectInDay(context:Context, year: Int, month:Int, day:Int):MutableList<LocationRecord>{
+//指定した日の位置情報を検索する関数
+fun selectInDay(context:Context, year: Int, month:Int, day:Int):
+        List<LocationRecord>{
     //検索条件に使用する日時を計算
     val calendar = Calendar.getInstance()//
     calendar.set(year,month,day,0,0,0)//引数の日時に設定
@@ -52,8 +63,8 @@ fun selectInDay(context:Context, year: Int, month:Int, day:Int):MutableList<Loca
 
     val database = MemoDatabase(context).readableDatabase
 
-    val cursor = database.query("Gps",null,"date = ?", arrayOf(to),
-    null,null,"id")
+    val cursor = database.query("Gps",null,"time >= ? AND time < ?", arrayOf(from, to),
+    null,null,"time DESC")
 
     val locations = mutableListOf<LocationRecord>()
     cursor.use{
@@ -62,7 +73,7 @@ fun selectInDay(context:Context, year: Int, month:Int, day:Int):MutableList<Loca
                 cursor.getLong(cursor.getColumnIndex("_id")),
                 cursor.getDouble(cursor.getColumnIndex("latitude")),
                 cursor.getDouble(cursor.getColumnIndex("longitude")),
-                cursor.getString(cursor.getColumnIndex("date")))
+                cursor.getLong(cursor.getColumnIndex("time")))
             locations.add(place)
         }
     }
@@ -70,20 +81,37 @@ fun selectInDay(context:Context, year: Int, month:Int, day:Int):MutableList<Loca
     return locations
 }
 
-
-
-fun insertLocations(context: Context, lat:Double, lon:Double, nowDate: String){
+//マーカー位置情報をデータベースに保存する
+fun insertMarkerLocations(context: Context, latitude: Double,longitude: Double, date:String) {
     val database = MemoDatabase(context).writableDatabase
 
-    database.use { db->
-        val record = ContentValues().apply {
-            put("latiude",lat)
-            put("longitude",lon)
-            put("date",nowDate)
-        }
-        db.insert("Gps",null,record)
+    database.use { db ->
+                val record = ContentValues().apply {
+                    put("latitude", latitude)
+                    put("longitude",longitude)
+                    put("date",date)
+                }
+
+                db.insert("MarkerLocation", null, record)
     }
 }
+
+fun insertLocations(context: Context, locations : List<Location>){
+    val database = MemoDatabase(context).writableDatabase
+
+    database.use {db ->
+        locations.filter {!it.isFromMockProvider}
+                .forEach{location ->
+                    val recored = ContentValues().apply{
+                        put("latitude",location.latitude)
+                        put("longitude",location.longitude)
+                        put("time",location.time)
+                    }
+                    db.insert("Gps",null, recored)
+                }
+    }
+}
+
 
 
 
@@ -181,6 +209,62 @@ fun queryTexts(context: Context) : MutableList<String> {
     return texts
 }
 
+fun queryunsort(context: Context) : MutableList<String> {
+    val database = MemoDatabase(context).readableDatabase
+    val cursor = database.query("Memo", arrayOf("productname","price","swing"), "swing = ?", arrayOf("未振り分け"), null, null, "swing DESC")
+    val texts = mutableListOf<String>()
+    cursor.use {
+        while (cursor.moveToNext()) {
+            val text = cursor.getString(cursor.getColumnIndex("productname"))
+            val text2 = cursor.getString(cursor.getColumnIndex("price"))
+            val en = "円"
+            val yugo = ("$text:$text2$en")
+            texts.add(yugo)
+        }
+    }
+
+
+    database.close()
+    return texts
+}
+
+fun queryconsumption(context: Context) : MutableList<String> {
+    val database = MemoDatabase(context).readableDatabase
+    val cursor = database.query("Memo", arrayOf("productname","price","swing"), "swing = ?", arrayOf("消費"), null, null, "swing DESC")
+    val texts = mutableListOf<String>()
+    cursor.use {
+        while (cursor.moveToNext()) {
+            val text = cursor.getString(cursor.getColumnIndex("productname"))
+            val text2 = cursor.getString(cursor.getColumnIndex("price"))
+            val en = "円"
+            val yugo = ("$text:$text2$en")
+            texts.add(yugo)
+        }
+    }
+
+
+    database.close()
+    return texts
+}
+
+fun queryextravagance(context: Context) : MutableList<String> {
+    val database = MemoDatabase(context).readableDatabase
+    val cursor = database.query("Memo", arrayOf("productname","price","swing"), "swing = ?", arrayOf("浪費"), null, null, "swing DESC")
+    val texts = mutableListOf<String>()
+    cursor.use {
+        while (cursor.moveToNext()) {
+            val text = cursor.getString(cursor.getColumnIndex("productname"))
+            val text2 = cursor.getString(cursor.getColumnIndex("price"))
+            val en = "円"
+            val yugo = ("$text:$text2$en")
+            texts.add(yugo)
+        }
+    }
+
+
+    database.close()
+    return texts
+}
 
 
 //振り分け用クエリーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー

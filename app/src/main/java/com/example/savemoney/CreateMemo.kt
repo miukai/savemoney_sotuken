@@ -21,9 +21,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 //import androidx.navigation.fragment.findNavController
 
 class  CreateMemo : Fragment() {
-
     private lateinit var return_btn:FloatingActionButton
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         return  inflater.inflate(R.layout.create_memo, container, false)
@@ -43,7 +41,6 @@ class  CreateMemo : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         val buttoncal = view.findViewById<Button>(R.id.memoCalButton)
         buttoncal.setOnClickListener {
@@ -83,6 +80,21 @@ class  CreateMemo : Fragment() {
         }
             navController.navigate(R.id.action_navi_create_memo_to_navi_map)
         }
+        //動的にViewを追加する
+//        val product = view.findViewById<EditText>(R.id.productNameID)
+//        val price = view.findViewById<EditText>(R.id.priceID)
+//        val addButton = view.findViewById<Button>(R.id.addForm)
+//        var c = 1
+//        addButton.setOnClickListener {
+//            if (c < 4){
+//                val listnear = context as? OnAddForm
+//                listnear?.onAddForm(c)
+//                c += 1
+//            }else {
+//                addButton.error ="これ以上入力追加出来ません"
+//            }
+//        }
+
         // Map画面に戻る
         return_btn = view.findViewById(R.id.floatingActionButton2)
         return_btn.setOnClickListener { v: View? ->
@@ -132,5 +144,8 @@ class  CreateMemo : Fragment() {
         fun onAddForm(c:Int)
     }
 }
+
+
+
 
 

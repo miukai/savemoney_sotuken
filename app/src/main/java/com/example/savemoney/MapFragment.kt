@@ -32,6 +32,8 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCall
     private var currentDate = Calendar.getInstance()
     private lateinit var mapView:MapView
     private lateinit var mMap:GoogleMap
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         //inflateでレイアウトファイルをビュー化
@@ -76,7 +78,7 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCall
                 mMap.addMarker(MarkerOptions().position(location))
                 // タップした場所にマーカーをたてる
                 //緯度経度記録する。
-                insertLocations(requireContext(),lat,lng,nowDateString)
+                insertMarkerLocations(requireContext(),lat,lng,nowDateString)
             }
         })
     }
