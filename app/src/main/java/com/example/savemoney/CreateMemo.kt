@@ -61,13 +61,13 @@ class  CreateMemo : Fragment() {
         val navController = this.findNavController()
         val button = view.findViewById<Button>(R.id.conf_button)
         button.setOnClickListener {
-            val product = view.findViewById(R.id.productName) as EditText
-            val productId = product.text.toString()
+            val shopName = view.findViewById(R.id.shopName) as EditText
+            val productId = shopName.text.toString()
 
             //例外
         try{
-            val price = view.findViewById<EditText>(R.id.price)
-            val priceId = Integer.parseInt(price.text.toString())
+            val priceUse = view.findViewById<EditText>(R.id.priceUse)
+            val priceId = Integer.parseInt(priceUse.text.toString())
             insertText(nomContext,productId,
                     priceId,
                     nowDateString,
