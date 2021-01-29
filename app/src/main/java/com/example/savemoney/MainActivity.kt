@@ -1,8 +1,14 @@
 package com.example.savemoney
 
 //import gitandroidx.appcompat.app.AppCompatActivity
+import android.app.DatePickerDialog
+import android.app.Dialog
 import android.os.Bundle
+import android.text.format.DateFormat
+import android.widget.DatePicker
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -11,8 +17,8 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.*
-
-class MainActivity : AppCompatActivity(), MapFragment.OnShowCurrentDate{
+//MapFragment.OnShowCurrentDate
+class MainActivity : AppCompatActivity() {
 //    private var currentDate = Calendar.getInstance()
 
 //    override fun onAddForm(c:Int) {
@@ -38,13 +44,7 @@ class MainActivity : AppCompatActivity(), MapFragment.OnShowCurrentDate{
 //        }
 //    }
 
-    //日付がタップされたらカレンダーを表示
-    override fun onShowCurrentDate() {
-            val dialog = DatePickerFragment()
-            dialog.arguments = Bundle().apply{
-                putSerializable("current", "currentDate")}
-            dialog.show(supportFragmentManager, "calendar")
-    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +54,18 @@ class MainActivity : AppCompatActivity(), MapFragment.OnShowCurrentDate{
         navView.setupWithNavController(navController)
     }
 
+
+
+//    private fun showCurrentDate(){
+//        val dateView = findViewById<TextView>(R.id.detailDateDispOne)
+//        dateView.setOnClickListener {
+//            val dialog = DatePickerFragment()
+//            dialog.arguments = Bundle().apply {
+//                putSerializable("current",mapFragment.currentDate) }
+//            dialog.show(supportFragmentManager,"calendar")
+//        }
+//        dateView.setText(DateFormat.format("MM月 dd日",mapFragment.currentDate.time))
+//    }
 
     //位置情報に応じてカメラを移動させ、ズームする
     private fun zoomTo(map: GoogleMap, locations:List<LocationRecord>){

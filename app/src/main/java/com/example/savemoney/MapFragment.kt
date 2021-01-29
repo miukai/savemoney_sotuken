@@ -28,8 +28,8 @@ import com.google.android.gms.maps.model.MarkerOptions
 import java.time.LocalDate
 import java.util.*
 
-class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCallback{
-    private var currentDate = Calendar.getInstance()
+class MapFragment : Fragment(),OnMapReadyCallback{
+    var currentDate = Calendar.getInstance()
     private lateinit var mapView:MapView
     private lateinit var mMap:GoogleMap
 
@@ -81,7 +81,7 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCall
 
                         MarkerOptions()
                                 .position(location) //  マーカーをたてる位置
-                                .title("test") //  タイトル(日付)
+                                .title(nowDateString) //  タイトル(日付)
                                 .snippet(strSnippet) // 本文(店名、価格)←アジャイルで順次追加
                 )
                 marker.showInfoWindow()
@@ -110,6 +110,7 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCall
         mapView.onResume()
         mapView.getMapAsync(this)
 
+
 //        val dateView2 = view?.findViewById(R.id.date) as TextView?
 
         dateView?.setOnClickListener {
@@ -134,6 +135,7 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCall
         }
     }
 
+
     //    カレンダーを表示し選択された日付を表示する
     @RequiresApi(Build.VERSION_CODES.O)
     fun showDatePicker() {
@@ -151,20 +153,19 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCall
                 year1,
                 month1,
                 day1)
-
+        renderMap()
         datePickerDialog.show()
     }
-    override fun onDateSet(view:DatePicker?,
-                           year: Int,month:Int,dayOfMonth:Int){
-        //選択中の日付を更新
-        currentDate.set(year,month,dayOfMonth)
-        renderMap()
-        val listener = context as? OnShowCurrentDate
-        listener?.onShowCurrentDate()//日付のテキストビューを更新
-    }
+//    override fun onDateSet(view:DatePicker?,
+//                           year: Int,month:Int,dayOfMonth:Int){
+//        //選択中の日付を更新
+//        currentDate.set(year,month,dayOfMonth)
+//        renderMap()
+//        showCurrentDate()//日付のテキストビューを更新
+//    }
 
     //内容はActivityClassと同じで、もっと最適な書き方があると思うが、時間の関係で二つ記述している
-    private fun renderMap(){
+    fun renderMap(){
         val locations = selectInDay(requireContext(),
                 currentDate[Calendar.YEAR],currentDate[Calendar.MONTH],
                 currentDate[Calendar.DATE])
@@ -197,14 +198,18 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCall
 
     //吹き出しテスト
     private fun putMarkers(map:GoogleMap,locations: List<LocationRecord>) {
-        val latLng = LatLng(35.681236, 139.767125) // 東京駅
-        val marker = map.addMarker(
+        map.clear()
+
+        locations.forEach { location ->
+            val latLng = LatLng(location.latitude,location.longitude)
+            val marker = map.addMarker(
                 MarkerOptions()
-                        .position(latLng)
-                        .title("test")
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
-        )
-        marker.showInfoWindow()
+                    .position(latLng)
+                    .title(nowDateString)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+            )
+            marker.showInfoWindow()
+        }
     }
 
 
