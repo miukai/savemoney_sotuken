@@ -25,7 +25,7 @@ class MemoDatabase(context: Context): SQLiteOpenHelper(context, DB_NAME, null, D
          price INTEGER NOT NULL,
          swing NUMERIC default "未振り分け",
          latiude REAL NOT NULL,
-         longitube REAL NOT NULL);
+         longitude REAL NOT NULL);
          """)
      db?.execSQL("""
          CREATE TABLE Gps(
@@ -149,7 +149,7 @@ fun insertText(context: Context, text: String, price: Int, nowDateString: String
 fun queryID(context: Context) : MutableList<String> {
     val database = MemoDatabase(context).readableDatabase
 
-    val cursor = database.query("Memo", null, null, null, null, null, null)
+    val cursor = database.query("Memo", arrayOf("_id"), "swing = ?", arrayOf("未振り分け"), null, null, null)
 
 
     val ids = mutableListOf<String>()
@@ -173,7 +173,7 @@ fun queryID(context: Context) : MutableList<String> {
 fun querySwing(context: Context) : MutableList<String> {
     val database = MemoDatabase(context).readableDatabase
 
-    val cursor = database.query("Memo", null, null, null, null, null, null)
+    val cursor = database.query("Memo", arrayOf("swing"), "swing = ?", arrayOf("未振り分け"), null, null, null)
 
 
     val sorts = mutableListOf<String>()
@@ -197,7 +197,7 @@ fun querySwing(context: Context) : MutableList<String> {
 fun queryTexts(context: Context) : MutableList<String> {
     val database = MemoDatabase(context).readableDatabase
 
-    val cursor = database.query("Memo", null, null, null, null, null, null)
+    val cursor = database.query("Memo", arrayOf("productname"), "swing = ?", arrayOf("未振り分け"), null, null, null)
 
 
     val texts = mutableListOf<String>()
@@ -324,7 +324,7 @@ fun querySortedPrices(context: Context) : MutableList<String> {
 fun queryPrice(context: Context) : MutableList<Int> {
     val database = MemoDatabase(context).readableDatabase
 
-    val cursor = database.query("Memo", null, null, null, null, null, null)
+    val cursor = database.query("Memo", arrayOf("price"), "swing = ?", arrayOf("未振り分け"), null, null, null)
 
 
     val prices = mutableListOf<Int>()

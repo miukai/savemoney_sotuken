@@ -38,11 +38,8 @@ class FragmentSort : Fragment(), View.OnClickListener {
 
 
         swingData = querySwing(this!!.requireContext())
-
-
         val texts = context?.let { queryTexts(it) }
         val prices = context?.let { queryPrice(it) }
-
         val gogo = mutableListOf<String>()
 
 
