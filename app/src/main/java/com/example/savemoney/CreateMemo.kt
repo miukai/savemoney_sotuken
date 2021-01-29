@@ -71,8 +71,6 @@ class  CreateMemo : Fragment() {
             insertText(nomContext,productId,
                     priceId,
                     nowDateString,
-                    ido,
-                    kedo,
                     hantei
             )
         }catch (e:Exception){

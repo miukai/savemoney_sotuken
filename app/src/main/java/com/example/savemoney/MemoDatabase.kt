@@ -23,9 +23,7 @@ class MemoDatabase(context: Context): SQLiteOpenHelper(context, DB_NAME, null, D
          date TEXT NOT NULL ,
          productname TEXT NOT NULL,
          price INTEGER NOT NULL,
-         swing NUMERIC default "未振り分け",
-         latiude REAL NOT NULL,
-         longitude REAL NOT NULL);
+         swing NUMERIC default "未振り分け");
          """)
      db?.execSQL("""
          CREATE TABLE Gps(
@@ -123,7 +121,7 @@ fun insertLocations(context: Context, locations : List<Location>){
 
 //メモをＤＢに保存
 @RequiresApi(Build.VERSION_CODES.O)
-fun insertText(context: Context, text: String, price: Int, nowDateString: String, ido: Int, kedo: Int, hantei: String) {
+fun insertText(context: Context, text: String, price: Int, nowDateString: String, hantei: String) {
     val database = MemoDatabase(context).writableDatabase
 
     database.use { db->
@@ -132,8 +130,6 @@ fun insertText(context: Context, text: String, price: Int, nowDateString: String
             put("price" , price)
             put("swing", hantei)
             put("date", nowDateString)
-            put("latiude", ido)
-            put("longitude", kedo)
         }
 
 
