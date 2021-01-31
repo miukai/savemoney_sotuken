@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
@@ -40,7 +41,8 @@ class MapFragment : Fragment(),OnMapReadyCallback{
         //マップを表示させるインターフェースを呼び出す
         return inflater.inflate(R.layout.activity_map, container, false)
         }
-    //        今日の年月日取得（上から年、月、日）
+
+        //        今日の年月日取得（上から年、月、日）
     var year1 = SimpleDateFormat("yyyy").format(Date()).toInt()
     var month1 = SimpleDateFormat("MM").format(Date()).toInt()
     var day1 = SimpleDateFormat("dd").format(Date()).toInt()
@@ -110,15 +112,15 @@ class MapFragment : Fragment(),OnMapReadyCallback{
         mapView.onResume()
         mapView.getMapAsync(this)
 
+//        showCurrentDate()
+
 
 //        val dateView2 = view?.findViewById(R.id.date) as TextView?
 
+
         dateView?.setOnClickListener {
-//            日付表示変えました
             showDatePicker()
         }
-
-
 
 //        メモボタンを押したらdddをCreateMemoのほうに渡す処理
             val button01 = view.findViewById<Button>(R.id.Memobutton)
@@ -136,6 +138,21 @@ class MapFragment : Fragment(),OnMapReadyCallback{
     }
 
 
+//    fun showCurrentDate() {
+//        val dateView = view?.findViewById<TextView>(R.id.detailDateDispOne)
+//        dateView?.setOnClickListener{
+//            // タップされたら日付選択カレンダーを表示
+//            val dialog = DatePickerFragment()
+//            dialog.arguments = Bundle().apply {
+//                putSerializable("current", currentDate)
+//            }
+//            dialog.show(requireFragmentManager(), "calendar")
+//        }
+//        // 現在選択されている日付を表示
+//        dateView?.setText(DateFormat.format("MM月 dd日", currentDate.time))
+//    }
+
+
     //    カレンダーを表示し選択された日付を表示する
     @RequiresApi(Build.VERSION_CODES.O)
     fun showDatePicker() {
@@ -149,11 +166,12 @@ class MapFragment : Fragment(),OnMapReadyCallback{
                         textView2.text = str2
                         ddd = str2
                     }
+                    currentDate.set(year,month,dayOfMonth)
+                    renderMap()
                 },
                 year1,
                 month1,
                 day1)
-        renderMap()
         datePickerDialog.show()
     }
 //    override fun onDateSet(view:DatePicker?,
@@ -221,29 +239,29 @@ class MapFragment : Fragment(),OnMapReadyCallback{
 
 }
 
-//日付を選択するダイアログフラフラグメント
-class DatePickerFragment : DialogFragment(),DatePickerDialog.OnDateSetListener{
-    private lateinit var calendar : Calendar
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        calendar = arguments?.getSerializable("current") as? Calendar
-                ?:Calendar.getInstance()
-    }
-
-    //ダイアログを生成して返す
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return DatePickerDialog(requireContext(),this,
-                calendar[Calendar.YEAR], calendar[Calendar.MONTH],
-                calendar[Calendar.DATE])
-    }
-
-    //ユーザーが日付を選択した時のコールバックイベント
-    override fun onDateSet(view:DatePicker,year:Int,month:Int,day:Int){
-        if (context is DatePickerDialog.OnDateSetListener){
-            (context as DatePickerDialog.OnDateSetListener).onDateSet(
-                    view,year,month,day
-            )
-        }
-    }
-
-}
+////日付を選択するダイアログフラフラグメント
+//class DatePickerFragment : DialogFragment(),DatePickerDialog.OnDateSetListener{
+//    private lateinit var calendar : Calendar
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        calendar = arguments?.getSerializable("current") as? Calendar
+//                ?:Calendar.getInstance()
+//    }
+//
+//    //ダイアログを生成して返す
+//    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+//        return DatePickerDialog(requireContext(),this,
+//                calendar[Calendar.YEAR], calendar[Calendar.MONTH],
+//                calendar[Calendar.DATE])
+//    }
+//
+//    //ユーザーが日付を選択した時のコールバックイベント
+//    override fun onDateSet(view:DatePicker,year:Int,month:Int,day:Int){
+//        if (context is DatePickerDialog.OnDateSetListener){
+//            (context as DatePickerDialog.OnDateSetListener).onDateSet(
+//                    view,year,month,day
+//            )
+//        }
+//    }
+//
+//}
