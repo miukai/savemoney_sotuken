@@ -173,7 +173,7 @@ class MapFragment : Fragment(),OnMapReadyCallback{
                     renderMap()
                 },
                 year1,
-                month1,
+                month2,
                 day1)
         datePickerDialog.show()
     }
