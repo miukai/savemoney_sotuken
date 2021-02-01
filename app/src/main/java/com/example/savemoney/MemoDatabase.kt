@@ -2,13 +2,11 @@ package com.example.savemoney
 
 import android.content.ContentValues
 import android.content.Context
-import android.content.LocusId
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.location.Location
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.google.android.gms.maps.model.LatLng
 import java.util.*
 
 private const val DB_NAME = "MemoDatabase"
@@ -210,9 +208,10 @@ fun queryTexts(context: Context) : MutableList<String> {
     return texts
 }
 
-fun queryunsort(context: Context) : MutableList<String> {
+//
+fun queryunsort(context: Context, str: String) : MutableList<String> {
     val database = MemoDatabase(context).readableDatabase
-    val cursor = database.query("Memo", arrayOf("productname","price","swing"), "swing = ?", arrayOf("未振り分け"), null, null, "swing DESC")
+    val cursor = database.query("Memo", arrayOf("productname","price","swing","date"), "swing = ? AND date = ?", arrayOf("未振り分け","$str"), null, null, "swing DESC")
     val texts = mutableListOf<String>()
     cursor.use {
         while (cursor.moveToNext()) {
@@ -229,9 +228,9 @@ fun queryunsort(context: Context) : MutableList<String> {
     return texts
 }
 
-fun queryconsumption(context: Context) : MutableList<String> {
+fun queryconsumption(context: Context, str: String) : MutableList<String> {
     val database = MemoDatabase(context).readableDatabase
-    val cursor = database.query("Memo", arrayOf("productname","price","swing"), "swing = ?", arrayOf("消費"), null, null, "swing DESC")
+    val cursor = database.query("Memo", arrayOf("productname","price","swing","date"), "swing = ? AND date = ?", arrayOf("消費","$str"), null, null, "swing DESC")
     val texts = mutableListOf<String>()
     cursor.use {
         while (cursor.moveToNext()) {
@@ -248,9 +247,9 @@ fun queryconsumption(context: Context) : MutableList<String> {
     return texts
 }
 
-fun queryextravagance(context: Context) : MutableList<String> {
+fun queryextravagance(context: Context, str: String) : MutableList<String> {
     val database = MemoDatabase(context).readableDatabase
-    val cursor = database.query("Memo", arrayOf("productname","price","swing"), "swing = ?", arrayOf("浪費"), null, null, "swing DESC")
+    val cursor = database.query("Memo", arrayOf("productname","price","swing","date"), "swing = ? AND date = ?", arrayOf("浪費","$str"), null, null, "swing DESC")
     val texts = mutableListOf<String>()
     cursor.use {
         while (cursor.moveToNext()) {

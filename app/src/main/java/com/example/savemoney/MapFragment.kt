@@ -49,7 +49,8 @@ class MapFragment : Fragment(),OnMapReadyCallback{
     //        month2はshowDatePickerで使う
     var month2 = month1 - 1
 //    dddはメモ画面に渡す日付
-    var ddd = "${month1}月${day1}日"
+    var ddd = "${year1}/${month1}/${day1}"
+    var ddd2 = "${month1}月${day1}日"
 
     @RequiresApi(Build.VERSION_CODES.O)
     val nowDate: LocalDate = LocalDate.now()
@@ -103,7 +104,7 @@ class MapFragment : Fragment(),OnMapReadyCallback{
 //        Map画面を開いたときに今日の日付を表示
         var textView3 = view?.findViewById<TextView>(R.id.detailDateDispOne)
         if (textView3 != null) {
-            textView3.text = ddd
+            textView3.text = ddd2
         }
         val dateView = view?.findViewById(R.id.detailDateDispOne) as TextView?
 
@@ -161,10 +162,12 @@ class MapFragment : Fragment(),OnMapReadyCallback{
         val datePickerDialog = DatePickerDialog(
                 requireContext(),
                 DatePickerDialog.OnDateSetListener() { view, year, month, dayOfMonth ->
+                    var str1 = "${year}/${month + 1}/${dayOfMonth}"
                     var str2 = "${month + 1}月${dayOfMonth}日"
                     if (textView2 != null) {
                         textView2.text = str2
-                        ddd = str2
+                        ddd = str1
+                        ddd2 = str2
                     }
                     currentDate.set(year,month,dayOfMonth)
                     renderMap()

@@ -29,7 +29,7 @@ class  CreateMemo : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     val nowDate: LocalDate = LocalDate.now()
-    val nowDateString: String = nowDate.toString()
+    var nowDateString: String = nowDate.toString()
 
 
     val ido = 0
@@ -53,6 +53,7 @@ class  CreateMemo : Fragment() {
             val str = "$setDateM"
             val textView = view.findViewById<TextView>(R.id.calDate)
             textView.text = str
+            nowDateString = str
         }
 
         var nomContext = requireContext().applicationContext
@@ -128,9 +129,10 @@ class  CreateMemo : Fragment() {
     val datePickerDialog = DatePickerDialog(
                   requireContext(),
                   DatePickerDialog.OnDateSetListener() { view, year, month, dayOfMonth ->
-                      var str2 = "${month + 1}月${dayOfMonth}日"
+                      var str1 = "${year}/${month + 1}/${dayOfMonth}"
                       if (textView2 != null) {
-                          textView2.text = str2
+                          textView2.text = str1
+                          nowDateString = str1
                       }
                   },
                   year1,
