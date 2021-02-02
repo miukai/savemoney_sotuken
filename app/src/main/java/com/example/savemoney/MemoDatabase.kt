@@ -255,7 +255,7 @@ fun queryTexts(context: Context) : MutableList<String> {
     return texts
 }
 
-//
+//消費、浪費、未振り分けをわける（detailScreenで使用）-------------------------------------------------------------------------------------
 fun queryunsort(context: Context, str: String) : MutableList<String> {
     val database = MemoDatabase(context).readableDatabase
     val cursor = database.query("Memo", arrayOf("productname","price","swing","date"), "swing = ? AND date = ?", arrayOf("未振り分け","$str"), null, null, "swing DESC")
@@ -264,18 +264,15 @@ fun queryunsort(context: Context, str: String) : MutableList<String> {
         while (cursor.moveToNext()) {
             val text = cursor.getString(cursor.getColumnIndex("productname"))
             val text2 = cursor.getString(cursor.getColumnIndex("price"))
-            val en = "円"
-            val yugo = ("$text:$text2$en")
+            val yugo = ("${text}:${text2}円")
             texts.add(yugo)
         }
     }
-
-
     database.close()
     return texts
 }
-
-fun queryconsumption(context: Context, str: String) : MutableList<String> {
+//消費を検索
+fun queryconsumption(context: Context, str: String) : MutableList<String>{
     val database = MemoDatabase(context).readableDatabase
     val cursor = database.query("Memo", arrayOf("productname","price","swing","date"), "swing = ? AND date = ?", arrayOf("消費","$str"), null, null, "swing DESC")
     val texts = mutableListOf<String>()
@@ -283,17 +280,29 @@ fun queryconsumption(context: Context, str: String) : MutableList<String> {
         while (cursor.moveToNext()) {
             val text = cursor.getString(cursor.getColumnIndex("productname"))
             val text2 = cursor.getString(cursor.getColumnIndex("price"))
-            val en = "円"
-            val yugo = ("$text:$text2$en")
+            val yugo = ("${text}:${text2}円")
             texts.add(yugo)
         }
     }
-
-
     database.close()
     return texts
 }
-
+//消費額の合計値
+fun consumption(context: Context, str: String) : Int {
+    val database = MemoDatabase(context).readableDatabase
+    val cursor = database.query("Memo", arrayOf("productname","price","swing","date"), "swing = ? AND date = ?", arrayOf("消費","$str"), null, null, "swing DESC")
+    val texts = mutableListOf<String>()
+    var totalPrice = 0
+    cursor.use {
+        while (cursor.moveToNext()) {
+            val text = cursor.getInt(cursor.getColumnIndex("price"))
+            totalPrice += text
+        }
+    }
+    database.close()
+    return totalPrice
+}
+//浪費を検索
 fun queryextravagance(context: Context, str: String) : MutableList<String> {
     val database = MemoDatabase(context).readableDatabase
     val cursor = database.query("Memo", arrayOf("productname","price","swing","date"), "swing = ? AND date = ?", arrayOf("浪費","$str"), null, null, "swing DESC")
@@ -302,16 +311,29 @@ fun queryextravagance(context: Context, str: String) : MutableList<String> {
         while (cursor.moveToNext()) {
             val text = cursor.getString(cursor.getColumnIndex("productname"))
             val text2 = cursor.getString(cursor.getColumnIndex("price"))
-            val en = "円"
-            val yugo = ("$text:$text2$en")
+            val yugo = ("${text}:${text2}円")
             texts.add(yugo)
         }
     }
-
-
     database.close()
     return texts
 }
+//浪費額の合計値
+fun extravagance(context: Context, str: String) : Int {
+    val database = MemoDatabase(context).readableDatabase
+    val cursor = database.query("Memo", arrayOf("productname","price","swing","date"), "swing = ? AND date = ?", arrayOf("浪費","$str"), null, null, "swing DESC")
+    val texts = mutableListOf<String>()
+    var totalPrice = 0
+    cursor.use {
+        while (cursor.moveToNext()) {
+            val text = cursor.getInt(cursor.getColumnIndex("price"))
+            totalPrice += text
+        }
+    }
+    database.close()
+    return totalPrice
+}
+
 
 
 //振り分け用クエリーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
