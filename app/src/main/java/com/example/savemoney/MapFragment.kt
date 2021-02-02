@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.DatePicker
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -74,24 +75,29 @@ class MapFragment : Fragment(),OnMapReadyCallback{
 
 
         mMap.setOnMapClickListener(object:GoogleMap.OnMapClickListener{
+            var c = 0
             override fun onMapClick(latlng: LatLng) {
-                val lat = latlng.latitude
-                val lng = latlng.longitude
-                val location = LatLng(latlng.latitude, latlng.longitude)
-                val strSnippet = "店名\n$100"
-                val marker = googleMap.addMarker(
+                if (c == 0){
+                    val lat = latlng.latitude
+                    val lng = latlng.longitude
+                    val location = LatLng(latlng.latitude, latlng.longitude)
+                    val strSnippet = "店名\n$100"
+                    val marker = googleMap.addMarker(
                         // タップした場所にマーカーをたてる
-
                         MarkerOptions()
-                                .position(location) //  マーカーをたてる位置
-                                .title(nowDateString) //  タイトル(日付)
-                                .snippet(strSnippet) // 本文(店名、価格)←アジャイルで順次追加
-                )
+                            .position(location) //  マーカーをたてる位置
+                            .title(nowDateString) //  タイトル(日付)
+                            .snippet(strSnippet) // 本文(店名、価格)←アジャイルで順次追加
+                    )
                 marker.showInfoWindow()
                 // タップした際にメモのポップアップを表示する処理
                 //緯度経度記録する。
                 insertMarkerLocations(requireContext(),lat,lng,currentDate[Calendar.YEAR],currentDate[Calendar.MONTH],
                         currentDate[Calendar.DATE])
+                    c += 1
+            }else if (c!= 0){
+                    Toast.makeText(context, "マーカーは一つのメモの記録に1本ずつマークしましょう。", Toast.LENGTH_SHORT).show()
+                }
             }
         })
     }
