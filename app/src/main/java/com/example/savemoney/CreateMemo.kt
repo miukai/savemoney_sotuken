@@ -64,8 +64,8 @@ class  CreateMemo : Fragment() {
             val setDateM = args.getString("Counter")
             val str = "$setDateM"
             val textView = view.findViewById<TextView>(R.id.calDate)
-            textView.text = str
-            nowDateString = str
+            textView.text = setDateM
+            nowDateString = setDateM.toString()
         }
 
         var nomContext = requireContext().applicationContext
@@ -87,7 +87,8 @@ class  CreateMemo : Fragment() {
                     mapFragment.currentDate[Calendar.DATE],
                     hantei,
                     lat,
-                    lon
+                    lon,
+                    nowDateString
             )
         }catch (e:Exception){
             navController.navigate(R.id.action_navi_create_memo_to_navi_map)
