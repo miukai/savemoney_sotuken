@@ -258,7 +258,7 @@ fun queryTexts(context: Context) : MutableList<String> {
 //
 fun queryunsort(context: Context, str: String) : MutableList<String> {
     val database = MemoDatabase(context).readableDatabase
-    val cursor = database.query("Memo", arrayOf("productname","price","swing","date"), "swing = ? AND date = ?", arrayOf("未振り分け","$str"), null, null, "swing DESC")
+    val cursor = database.query("Memo", arrayOf("shopName" ,"price","swing","date"), "swing = ? AND date = ?", arrayOf("未振り分け","$str"), null, null, "swing DESC")
     val texts = mutableListOf<String>()
     cursor.use {
         while (cursor.moveToNext()) {
@@ -277,11 +277,11 @@ fun queryunsort(context: Context, str: String) : MutableList<String> {
 
 fun queryconsumption(context: Context, str: String) : MutableList<String> {
     val database = MemoDatabase(context).readableDatabase
-    val cursor = database.query("Memo", arrayOf("productname","price","swing","date"), "swing = ? AND date = ?", arrayOf("消費","$str"), null, null, "swing DESC")
+    val cursor = database.query("Memo", arrayOf("shopName","price","swing","date"), "swing = ? AND date = ?", arrayOf("消費","$str"), null, null, "swing DESC")
     val texts = mutableListOf<String>()
     cursor.use {
         while (cursor.moveToNext()) {
-            val text = cursor.getString(cursor.getColumnIndex("productname"))
+            val text = cursor.getString(cursor.getColumnIndex("shopName"))
             val text2 = cursor.getString(cursor.getColumnIndex("price"))
             val en = "円"
             val yugo = ("$text:$text2$en")
@@ -296,11 +296,11 @@ fun queryconsumption(context: Context, str: String) : MutableList<String> {
 
 fun queryextravagance(context: Context, str: String) : MutableList<String> {
     val database = MemoDatabase(context).readableDatabase
-    val cursor = database.query("Memo", arrayOf("productname","price","swing","date"), "swing = ? AND date = ?", arrayOf("浪費","$str"), null, null, "swing DESC")
+    val cursor = database.query("Memo", arrayOf("shopName","price","swing","date"), "swing = ? AND date = ?", arrayOf("浪費","$str"), null, null, "swing DESC")
     val texts = mutableListOf<String>()
     cursor.use {
         while (cursor.moveToNext()) {
-            val text = cursor.getString(cursor.getColumnIndex("productname"))
+            val text = cursor.getString(cursor.getColumnIndex("shopName"))
             val text2 = cursor.getString(cursor.getColumnIndex("price"))
             val en = "円"
             val yugo = ("$text:$text2$en")
@@ -318,14 +318,14 @@ fun queryextravagance(context: Context, str: String) : MutableList<String> {
 fun querySortedTexts(context: Context) : MutableList<String> {
     val database = MemoDatabase(context).readableDatabase
 
-    val cursor = database.query("Memo", arrayOf("productname"), "swing = ?", arrayOf("未振り分け"), null, null, null)
+    val cursor = database.query("Memo", arrayOf("shopName"), "swing = ?", arrayOf("未振り分け"), null, null, null)
 
 
     val texts = mutableListOf<String>()
 
     cursor.use {
         while (cursor.moveToNext()) {
-            val text = cursor.getString(cursor.getColumnIndex("productname"))
+            val text = cursor.getString(cursor.getColumnIndex("shopName"))
             texts.add(text)
         }
     }
