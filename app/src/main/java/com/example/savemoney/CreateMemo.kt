@@ -31,16 +31,28 @@ class  CreateMemo : Fragment() {
     val nowDate: LocalDate = LocalDate.now()
     var nowDateString: String = nowDate.toString()
 
+    val mapFragment = MapFragment()
 
     val ido = 0
     val kedo = 0
     val hantei :String = "未振り分け"
 
-
-
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        var lat = 0.0
+        var lon = 0.0
+
+        val markerLocation = selectOneDay(requireContext(),
+                mapFragment.currentDate[Calendar.YEAR],
+                mapFragment.currentDate[Calendar.MONTH],
+                mapFragment.currentDate[Calendar.DATE])
+
+        markerLocation.forEach {location ->
+            lat = location.latitude
+            lon = location.longitude
+        }
 
         val buttoncal = view.findViewById<Button>(R.id.memoCalButton)
         buttoncal.setOnClickListener {
@@ -71,8 +83,11 @@ class  CreateMemo : Fragment() {
             val priceId = Integer.parseInt(priceUse.text.toString())
             insertText(nomContext,productId,
                     priceId,
-                    nowDateString,
-                    hantei
+                    mapFragment.currentDate[Calendar.YEAR],mapFragment.currentDate[Calendar.MONTH],
+                    mapFragment.currentDate[Calendar.DATE],
+                    hantei,
+                    lat,
+                    lon
             )
         }catch (e:Exception){
             navController.navigate(R.id.action_navi_create_memo_to_navi_map)

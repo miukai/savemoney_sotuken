@@ -195,7 +195,7 @@ class MapFragment : Fragment(),OnMapReadyCallback{
         putMarkers(mMap, locations)
     }
 
-    private fun zoomTo(map: GoogleMap,locations:List<LocationRecord>){
+    private fun zoomTo(map: GoogleMap,locations:List<MarkerRecord>){
         if (locations.size == 1){
             val latLng = LatLng(locations[0].latitude,locations[0].longitude)
 
@@ -218,15 +218,15 @@ class MapFragment : Fragment(),OnMapReadyCallback{
     }
 
     //吹き出しテスト
-    private fun putMarkers(map:GoogleMap,locations: List<LocationRecord>) {
+    private fun putMarkers(map:GoogleMap,locations: List<MarkerRecord>) {
         map.clear()
-
         locations.forEach { location ->
             val latLng = LatLng(location.latitude,location.longitude)
+            val shopName = location.shopName
             val marker = map.addMarker(
                 MarkerOptions()
                     .position(latLng)
-                    .title(nowDateString)
+                    .title(shopName)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
             )
             marker.showInfoWindow()
