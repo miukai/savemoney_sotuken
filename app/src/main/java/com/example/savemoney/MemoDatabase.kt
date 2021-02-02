@@ -23,6 +23,7 @@ class MemoDatabase(context: Context): SQLiteOpenHelper(context, DB_NAME, null, D
          CREATE TABLE Memo (
          _id INTEGER PRIMARY KEY AUTOINCREMENT,
          date INTEGER NOT NULL ,
+         date2 TEXT NOT NULL,
          shopName TEXT NOT NULL,
          price INTEGER NOT NULL,
          swing NUMERIC default "未振り分け",
@@ -160,7 +161,7 @@ fun insertLocations(context: Context, locations : List<Location>){
 
 //メモをＤＢに保存
 @RequiresApi(Build.VERSION_CODES.O)
-fun insertText(context: Context, text: String, price: Int, year: Int,month: Int,day: Int, hantei: String,latitude: Double,longitude: Double) {
+fun insertText(context: Context, text: String, price: Int, year: Int,month: Int,day: Int, hantei: String,latitude: Double,longitude: Double,nowDateString : String) {
     val database = MemoDatabase(context).writableDatabase
 
     val calendar = Calendar.getInstance()
@@ -175,6 +176,7 @@ fun insertText(context: Context, text: String, price: Int, year: Int,month: Int,
             put("date", from)
             put("latitude",latitude)
             put("longitude",longitude)
+            put("date2",nowDateString)
         }
 
 
@@ -258,11 +260,11 @@ fun queryTexts(context: Context) : MutableList<String> {
 //
 fun queryunsort(context: Context, str: String) : MutableList<String> {
     val database = MemoDatabase(context).readableDatabase
-    val cursor = database.query("Memo", arrayOf("productname","price","swing","date"), "swing = ? AND date = ?", arrayOf("未振り分け","$str"), null, null, "swing DESC")
+    val cursor = database.query("Memo", arrayOf("shopName","price","swing","date2"), "swing = ? AND date2 = ?", arrayOf("未振り分け","$str"), null, null, "swing DESC")
     val texts = mutableListOf<String>()
     cursor.use {
         while (cursor.moveToNext()) {
-            val text = cursor.getString(cursor.getColumnIndex("productname"))
+            val text = cursor.getString(cursor.getColumnIndex("shopName"))
             val text2 = cursor.getString(cursor.getColumnIndex("price"))
             val en = "円"
             val yugo = ("$text:$text2$en")
@@ -277,11 +279,11 @@ fun queryunsort(context: Context, str: String) : MutableList<String> {
 
 fun queryconsumption(context: Context, str: String) : MutableList<String> {
     val database = MemoDatabase(context).readableDatabase
-    val cursor = database.query("Memo", arrayOf("productname","price","swing","date"), "swing = ? AND date = ?", arrayOf("消費","$str"), null, null, "swing DESC")
+    val cursor = database.query("Memo", arrayOf("shopName","price","swing","date2"), "swing = ? AND date2 = ?", arrayOf("消費","$str"), null, null, "swing DESC")
     val texts = mutableListOf<String>()
     cursor.use {
         while (cursor.moveToNext()) {
-            val text = cursor.getString(cursor.getColumnIndex("productname"))
+            val text = cursor.getString(cursor.getColumnIndex("shopName"))
             val text2 = cursor.getString(cursor.getColumnIndex("price"))
             val en = "円"
             val yugo = ("$text:$text2$en")
@@ -296,11 +298,11 @@ fun queryconsumption(context: Context, str: String) : MutableList<String> {
 
 fun queryextravagance(context: Context, str: String) : MutableList<String> {
     val database = MemoDatabase(context).readableDatabase
-    val cursor = database.query("Memo", arrayOf("productname","price","swing","date"), "swing = ? AND date = ?", arrayOf("浪費","$str"), null, null, "swing DESC")
+    val cursor = database.query("Memo", arrayOf("shopName","price","swing","date2"), "swing = ? AND date2 = ?", arrayOf("浪費","$str"), null, null, "swing DESC")
     val texts = mutableListOf<String>()
     cursor.use {
         while (cursor.moveToNext()) {
-            val text = cursor.getString(cursor.getColumnIndex("productname"))
+            val text = cursor.getString(cursor.getColumnIndex("shopName"))
             val text2 = cursor.getString(cursor.getColumnIndex("price"))
             val en = "円"
             val yugo = ("$text:$text2$en")
