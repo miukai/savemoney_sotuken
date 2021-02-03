@@ -29,18 +29,30 @@ class  CreateMemo : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     val nowDate: LocalDate = LocalDate.now()
-    val nowDateString: String = nowDate.toString()
+    var nowDateString: String = nowDate.toString()
 
+    val mapFragment = MapFragment()
 
     val ido = 0
     val kedo = 0
     val hantei :String = "未振り分け"
 
-
-
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        var lat = 0.0
+        var lon = 0.0
+
+        val markerLocation = selectOneDay(requireContext(),
+                mapFragment.currentDate[Calendar.YEAR],
+                mapFragment.currentDate[Calendar.MONTH],
+                mapFragment.currentDate[Calendar.DATE])
+
+        markerLocation.forEach {location ->
+            lat = location.latitude
+            lon = location.longitude
+        }
 
         val buttoncal = view.findViewById<Button>(R.id.memoCalButton)
         buttoncal.setOnClickListener {
@@ -52,7 +64,8 @@ class  CreateMemo : Fragment() {
             val setDateM = args.getString("Counter")
             val str = "$setDateM"
             val textView = view.findViewById<TextView>(R.id.calDate)
-            textView.text = str
+            textView.text = setDateM
+            nowDateString = setDateM.toString()
         }
 
         var nomContext = requireContext().applicationContext
@@ -70,10 +83,12 @@ class  CreateMemo : Fragment() {
             val priceId = Integer.parseInt(priceUse.text.toString())
             insertText(nomContext,productId,
                     priceId,
-                    nowDateString,
-                    ido,
-                    kedo,
-                    hantei
+                    mapFragment.currentDate[Calendar.YEAR],mapFragment.currentDate[Calendar.MONTH],
+                    mapFragment.currentDate[Calendar.DATE],
+                    hantei,
+                    lat,
+                    lon,
+                    nowDateString
             )
         }catch (e:Exception){
             navController.navigate(R.id.action_navi_create_memo_to_navi_map)
@@ -130,9 +145,10 @@ class  CreateMemo : Fragment() {
     val datePickerDialog = DatePickerDialog(
                   requireContext(),
                   DatePickerDialog.OnDateSetListener() { view, year, month, dayOfMonth ->
-                      var str2 = "${month + 1}月${dayOfMonth}日"
+                      var str1 = "${year}/${month + 1}/${dayOfMonth}"
                       if (textView2 != null) {
-                          textView2.text = str2
+                          textView2.text = str1
+                          nowDateString = str1
                       }
                   },
                   year1,
