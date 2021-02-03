@@ -427,6 +427,36 @@ fun update(context: Context, whereId: String, newSwing: String) {
     database.update("Memo", values, whereClauses, arrayOf(whereId))
 }
 
+//MarkerLocationのデータを消す
+fun selectDeleteMarker(context: Context):MutableList<Int>{
+    val database = MemoDatabase(context).readableDatabase
+    //テーブルの一番最後に入ったデータを検索
+    val query = "SELECT _id FROM MarkerLocation WHERE _id = (SELECT MAX(_id) FROM MarkerLocation)"
+    val c = database.rawQuery(query,null)
+    val del = mutableListOf<Int>()
+    c.use {
+        while (c.moveToNext()){
+            val non = (
+                c.getInt(c.getColumnIndex("_id"))
+            )
+            del.add(non)
+        }
+    }
+    database.close()
+    return del
+}
+
+
+
+//マーカー消す
+fun deleteMarker(context: Context,whereId: String) {
+    val database = MemoDatabase(context).writableDatabase
+
+    val whereClauses = "_id = ?"
+    val whereArgs = arrayOf(whereId)
+    database.delete("MarkerLocation", whereClauses, whereArgs)
+}
+
 
 
 
