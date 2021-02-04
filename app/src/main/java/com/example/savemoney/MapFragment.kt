@@ -73,52 +73,49 @@ class MapFragment : Fragment(),OnMapReadyCallback{
         // 二本指で操作すると地図が傾く
 
 
-        mMap.setOnMapClickListener(object:GoogleMap.OnMapClickListener{
+        mMap.setOnMapClickListener(object : GoogleMap.OnMapClickListener {
             var c = 0
             override fun onMapClick(latlng: LatLng) {
-                if (c == 0){
+                if (c == 0) {
                     val lat = latlng.latitude
                     val lng = latlng.longitude
                     val location = LatLng(latlng.latitude, latlng.longitude)
                     val strSnippet = "店名\n$100"
                     val marker = googleMap.addMarker(
-                        // タップした場所にマーカーをたてる
-                        MarkerOptions()
-                            .position(location) //  マーカーをたてる位置
-                            .title(nowDateString) //  タイトル(日付)
-                            .snippet(strSnippet) // 本文(店名、価格)←アジャイルで順次追加
+                            // タップした場所にマーカーをたてる
+                            MarkerOptions()
+                                    .position(location) //  マーカーをたてる位置
+                                    .title(nowDateString) //  タイトル(日付)
+                                    .snippet(strSnippet) // 本文(店名、価格)←アジャイルで順次追加
                     )
-                marker.showInfoWindow()
+                    marker.showInfoWindow()
                     // タップした際にメモのポップアップを表示する処理
                     //緯度経度記録する。
-                insertMarkerLocations(requireContext(),lat,lng,currentDate[Calendar.YEAR],currentDate[Calendar.MONTH],
-                        currentDate[Calendar.DATE])
-                c += 1
-
-            }   
-            else if (c!= 0){
+                    insertMarkerLocations(requireContext(), lat, lng, currentDate[Calendar.YEAR], currentDate[Calendar.MONTH],
+                            currentDate[Calendar.DATE])
+                    c += 1
+                } else if (c != 0) {
                     Toast.makeText(context, "マーカーは一つのメモの記録に1本ずつマークしましょう。", Toast.LENGTH_SHORT).show()
                 }
+            }
         })
-
 
         //マーカーをタップした時の処理
         //付けたマーカーを一度消すための処理
-        mMap.setOnMarkerClickListener(object:GoogleMap.OnMarkerClickListener {
-            override fun onMarkerClick(marker: Marker):Boolean {
+        mMap.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
+            override fun onMarkerClick(marker: Marker): Boolean {
                 //マーカーを消す
                 marker.remove()
                 //テーブル上の最後に入ったデータを検索
                 val del = selectDeleteMarker(requireContext())
                 //テーブル上の最後に入ったデータを削除
-                for (x in del.indices){
+                for (x in del.indices) {
                     deleteMarker(requireContext(), del[x].toString())
                 }
                 return true
             }
         })
     }
-
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
