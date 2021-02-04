@@ -78,7 +78,6 @@ class  CreateMemo : Fragment() {
             val productId = shopName.text.toString()
 
             //例外
-        try{
             val priceUse = view.findViewById<EditText>(R.id.priceUse)
             val priceId = Integer.parseInt(priceUse.text.toString())
             insertText(nomContext,productId,
@@ -90,9 +89,6 @@ class  CreateMemo : Fragment() {
                     lon,
                     nowDateString
             )
-        }catch (e:Exception){
-            navController.navigate(R.id.action_navi_create_memo_to_navi_map)
-        }
             navController.navigate(R.id.action_navi_create_memo_to_navi_map)
         }
         //動的にViewを追加する

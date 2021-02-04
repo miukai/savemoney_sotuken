@@ -1,8 +1,10 @@
 package com.example.savemoney
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Build
 import android.os.Bundle
 import android.os.PersistableBundle
@@ -31,6 +33,9 @@ class MapFragment : Fragment(),OnMapReadyCallback{
     var currentDate = Calendar.getInstance()
     private lateinit var mapView:MapView
     private lateinit var mMap:GoogleMap
+
+    var lat = 0.0
+    var lng = 0.0
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -71,14 +76,13 @@ class MapFragment : Fragment(),OnMapReadyCallback{
         // 二本指で操作すると地図が回転する ＰＣだとできないかも
         mMap.uiSettings.isTiltGesturesEnabled = true
         // 二本指で操作すると地図が傾く
-
+        var c = 0
 
         mMap.setOnMapClickListener(object : GoogleMap.OnMapClickListener {
-            var c = 0
             override fun onMapClick(latlng: LatLng) {
                 if (c == 0) {
-                    val lat = latlng.latitude
-                    val lng = latlng.longitude
+                    lat = latlng.latitude
+                    lng = latlng.longitude
                     val location = LatLng(latlng.latitude, latlng.longitude)
                     val strSnippet = "店名\n$100"
                     val marker = googleMap.addMarker(
@@ -86,13 +90,10 @@ class MapFragment : Fragment(),OnMapReadyCallback{
                             MarkerOptions()
                                     .position(location) //  マーカーをたてる位置
                                     .title(nowDateString) //  タイトル(日付)
-                                    .snippet(strSnippet) // 本文(店名、価格)←アジャイルで順次追加
+                                    .draggable(true)
                     )
                     marker.showInfoWindow()
-                    // タップした際にメモのポップアップを表示する処理
-                    //緯度経度記録する。
-                    insertMarkerLocations(requireContext(), lat, lng, currentDate[Calendar.YEAR], currentDate[Calendar.MONTH],
-                            currentDate[Calendar.DATE])
+                    Toast.makeText(context, "マーカーの位置を変えたい時、マーカーを長押してください。ドラッグできます!!",Toast.LENGTH_SHORT).show()
                     c += 1
                 } else if (c != 0) {
                     Toast.makeText(context, "マーカーは一つのメモの記録に1本ずつマークしましょう。", Toast.LENGTH_SHORT).show()
@@ -100,26 +101,63 @@ class MapFragment : Fragment(),OnMapReadyCallback{
             }
         })
 
+
+
+       mMap.setOnMarkerDragListener(object : GoogleMap.OnMarkerDragListener{
+
+           override fun onMarkerDragStart(marker: Marker) {
+           }
+
+           override fun onMarkerDrag(marker:Marker){
+           }
+
+           override fun onMarkerDragEnd(marker: Marker) {
+               val location = marker.getPosition()
+               lat = location.latitude
+               lng = location.longitude
+               val marker = googleMap.addMarker(
+                       // タップした場所にマーカーをたてる
+                       MarkerOptions()
+                               .position(location) //  マーカーをたてる位置
+                               .title(nowDateString) //  タイトル(日付)
+                               .draggable(true)
+               )
+               marker.showInfoWindow()
+           }
+       })
+
         //マーカーをタップした時の処理
         //付けたマーカーを一度消すための処理
-        mMap.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
-            override fun onMarkerClick(marker: Marker): Boolean {
-                //マーカーを消す
-                marker.remove()
-                //テーブル上の最後に入ったデータを検索
-                val del = selectDeleteMarker(requireContext())
-                //テーブル上の最後に入ったデータを削除
-                for (x in del.indices) {
-                    deleteMarker(requireContext(), del[x].toString())
-                }
-                return true
-            }
-        })
+
+//        mMap.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
+//            override fun onMarkerClick(marker: Marker): Boolean {
+//                if (c == 1) {
+//                    val alertDialog: AlertDialog.Builder = AlertDialog.Builder(context)
+//                    alertDialog.setTitle("マーカーを削除しますか？")
+//                    alertDialog.setPositiveButton("OK") { _, _ ->
+//                        //マーカーを消す
+//                        marker.remove()
+//                        //テーブル上の最後に入ったデータを検索
+//                        val del = selectDeleteMarker(requireContext())
+//                        //テーブル上の最後に入ったデータを削除
+//                        for (x in del.indices) {
+//                            deleteMarker(requireContext(), del[x].toString())
+//                        }
+//                        c = 0
+//                    }
+//                    alertDialog.setNegativeButton("Cancel",
+//                            DialogInterface.OnClickListener { dialog, whichButton -> })
+//                    alertDialog.show()
+//                }
+//                return true
+//            }
+//        })
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
 //        Map画面を開いたときに今日の日付を表示
         var textView3 = view?.findViewById<TextView>(R.id.detailDateDispOne)
@@ -153,6 +191,8 @@ class MapFragment : Fragment(),OnMapReadyCallback{
                     fragmentTransaction.addToBackStack(null)
                     fragmentTransaction.replace(R.id.nav_host_fragment, CreateMemo.newInstance(ddd))
                     fragmentTransaction.commit()
+                    insertMarkerLocations(requireContext(), lat, lng, currentDate[Calendar.YEAR], currentDate[Calendar.MONTH],
+                            currentDate[Calendar.DATE])
                 }
 
 
@@ -244,10 +284,12 @@ class MapFragment : Fragment(),OnMapReadyCallback{
         locations.forEach { location ->
             val latLng = LatLng(location.latitude,location.longitude)
             val shopName = location.shopName
+            val str = "${location.price}円:${location.swing}"
             val marker = map.addMarker(
                 MarkerOptions()
                     .position(latLng)
                     .title(shopName)
+                    .snippet(str)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
             )
             marker.showInfoWindow()

@@ -57,7 +57,7 @@ class MemoDatabase(context: Context): SQLiteOpenHelper(context, DB_NAME, null, D
 class LocationRecord(val id :Long, val latitude : Double,
     val longitude : Double, val date :Long)
 
-class MarkerRecord(val id :Long, val latitude: Double,val longitude: Double,val shopName:String)
+class MarkerRecord(val id :Long, val latitude: Double,val longitude: Double,val shopName:String,val price:Long,val swing:String)
 
 //指定した日の位置情報を検索する関数
 fun selectInDay(context:Context, year: Int, month:Int, day:Int):
@@ -81,7 +81,9 @@ fun selectInDay(context:Context, year: Int, month:Int, day:Int):
                 cursor.getLong(cursor.getColumnIndex("_id")),
                 cursor.getDouble(cursor.getColumnIndex("latitude")),
                 cursor.getDouble(cursor.getColumnIndex("longitude")),
-                cursor.getString(cursor.getColumnIndex("shopName")))
+                cursor.getString(cursor.getColumnIndex("shopName")),
+                cursor.getLong(cursor.getColumnIndex("price")),
+                cursor.getString(cursor.getColumnIndex("swing")))
             marker.add(place)
         }
     }
