@@ -20,13 +20,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.LatLngBounds
 import java.text.SimpleDateFormat
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import java.time.LocalDate
 import java.util.*
 
@@ -52,6 +49,8 @@ class MapFragment : Fragment(),OnMapReadyCallback{
 //    dddはメモ画面に渡す日付
     var ddd = "${year1}/${month1}/${day1}"
     var ddd2 = "${month1}月${day1}日"
+
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     val nowDate: LocalDate = LocalDate.now()
@@ -90,14 +89,32 @@ class MapFragment : Fragment(),OnMapReadyCallback{
                             .snippet(strSnippet) // 本文(店名、価格)←アジャイルで順次追加
                     )
                 marker.showInfoWindow()
-                // タップした際にメモのポップアップを表示する処理
-                //緯度経度記録する。
+                    // タップした際にメモのポップアップを表示する処理
+                    //緯度経度記録する。
                 insertMarkerLocations(requireContext(),lat,lng,currentDate[Calendar.YEAR],currentDate[Calendar.MONTH],
                         currentDate[Calendar.DATE])
-                    c += 1
-            }else if (c!= 0){
+                c += 1
+
+            }   
+            else if (c!= 0){
                     Toast.makeText(context, "マーカーは一つのメモの記録に1本ずつマークしましょう。", Toast.LENGTH_SHORT).show()
                 }
+        })
+
+
+        //マーカーをタップした時の処理
+        //付けたマーカーを一度消すための処理
+        mMap.setOnMarkerClickListener(object:GoogleMap.OnMarkerClickListener {
+            override fun onMarkerClick(marker: Marker):Boolean {
+                //マーカーを消す
+                marker.remove()
+                //テーブル上の最後に入ったデータを検索
+                val del = selectDeleteMarker(requireContext())
+                //テーブル上の最後に入ったデータを削除
+                for (x in del.indices){
+                    deleteMarker(requireContext(), del[x].toString())
+                }
+                return true
             }
         })
     }
@@ -140,6 +157,7 @@ class MapFragment : Fragment(),OnMapReadyCallback{
                     fragmentTransaction.replace(R.id.nav_host_fragment, CreateMemo.newInstance(ddd))
                     fragmentTransaction.commit()
                 }
+
 
         }
     }
