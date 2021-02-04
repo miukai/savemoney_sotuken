@@ -28,7 +28,7 @@
             android:label="FragmentSort"/>
 
         <fragment android:id="@+id/navi_conf"
-        android:name="com.example.savemoney.FragmentHome"
+        android:name="com.example.savemoney.setting_fragment"
         android:label="FragmentConf"/>
 
         <fragment android:id="@+id/navi_create_memo"
