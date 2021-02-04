@@ -8,6 +8,7 @@ import android.location.Location
 import android.os.Build
 import android.provider.BaseColumns._ID
 import androidx.annotation.RequiresApi
+import com.google.android.gms.common.util.ArrayUtils.contains
 import java.lang.Integer.MAX_VALUE
 import java.lang.Integer.max
 import java.time.Instant.MAX
@@ -257,7 +258,10 @@ fun queryTexts(context: Context) : MutableList<String> {
     return texts
 }
 
-//未振り分け、消費、浪費を振り分けるーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+//   ***詳細画面で使用するもの***
+
+//日
+//未振り分けを検索
 fun queryunsort(context: Context, str: String) : MutableList<String> {
     val database = MemoDatabase(context).readableDatabase
     val cursor = database.query("Memo", arrayOf("shopName","price","swing","date2"), "swing = ? AND date2 = ?", arrayOf("未振り分け","$str"), null, null, "swing DESC")
@@ -333,7 +337,99 @@ fun extravagance(context: Context, str: String) : Int {
     database.close()
     return totalPrice
 }
+// ＊＊＊月＊＊＊
 
+//月の未振り分けを検索
+fun querymonthunsort(context: Context, yearmonth : String) : MutableList<String> {
+    val database = MemoDatabase(context).readableDatabase
+    val cursor = database.query("Memo", arrayOf("shopName","price","swing","date2"), "swing = ? AND date2 LIKE ?", arrayOf("未振り分け","$yearmonth%"), null, null, "swing DESC")
+    val texts = mutableListOf<String>()
+    cursor.use {
+        while (cursor.moveToNext()) {
+            val text = cursor.getString(cursor.getColumnIndex("shopName"))
+            val text2 = cursor.getString(cursor.getColumnIndex("price"))
+            val yugo = ("${text}:${text2}円")
+            texts.add(yugo)
+        }
+    }
+    database.close()
+    return texts
+}
+//月の消費を検索
+fun querymonthconsumption(context: Context, yearmonth : String) : MutableList<String> {
+    val database = MemoDatabase(context).readableDatabase
+    val cursor = database.query("Memo", arrayOf("shopName","price","swing","date2"), "swing = ? AND date2 LIKE ?", arrayOf("消費","$yearmonth%"), null, null, "swing DESC")
+    val texts = mutableListOf<String>()
+    cursor.use {
+        while (cursor.moveToNext()) {
+            val text = cursor.getString(cursor.getColumnIndex("shopName"))
+            val text2 = cursor.getString(cursor.getColumnIndex("price"))
+            val yugo = ("${text}:${text2}円")
+            texts.add(yugo)
+        }
+    }
+    database.close()
+    return texts
+}
+//消費の合計値
+fun monthconsumption(context: Context, yearmonth : String) : Int {
+    val database = MemoDatabase(context).readableDatabase
+    val cursor = database.query("Memo", arrayOf("shopName","price","swing","date2"), "swing = ? AND date2 LIKE ?", arrayOf("消費","$yearmonth%"), null, null, "swing DESC")
+    var totalPrice = 0
+    cursor.use {
+        while (cursor.moveToNext()) {
+            val text = cursor.getInt(cursor.getColumnIndex("price"))
+            totalPrice += text
+        }
+    }
+    database.close()
+    return totalPrice
+}
+//月の浪費を検索
+fun querymonthextravagance(context: Context, yearmonth: String) : MutableList<String> {
+    val database = MemoDatabase(context).readableDatabase
+    val cursor = database.query("Memo", arrayOf("shopName","price","swing","date2"), "swing = ? AND date2 LIKE ?", arrayOf("浪費","$yearmonth%"), null, null, "swing DESC")
+    val texts = mutableListOf<String>()
+    cursor.use {
+        while (cursor.moveToNext()) {
+            val text = cursor.getString(cursor.getColumnIndex("shopName"))
+            val text2 = cursor.getString(cursor.getColumnIndex("price"))
+            val yugo = ("${text}:${text2}円")
+            texts.add(yugo)
+        }
+    }
+    database.close()
+    return texts
+}
+//月の浪費の合計値
+fun monthextravagance(context: Context, yearmonth : String) : Int {
+    val database = MemoDatabase(context).readableDatabase
+    val cursor = database.query("Memo", arrayOf("shopName","price","swing","date2"), "swing = ? AND date2 LIKE ?", arrayOf("浪費","$yearmonth%"), null, null, "swing DESC")
+    var totalPrice = 0
+    cursor.use {
+        while (cursor.moveToNext()) {
+            val text = cursor.getInt(cursor.getColumnIndex("price"))
+            totalPrice += text
+        }
+    }
+    database.close()
+    return totalPrice
+}
+
+//その月に使った金額を計算できる　今はまだ未使用
+fun monthtotal(context: Context, yearmonth : String) : Int {
+    val database = MemoDatabase(context).readableDatabase
+    val cursor = database.query("Memo", arrayOf("shopName","price","date2"), "date2 LIKE ?", arrayOf("$yearmonth%"), null, null, null)
+    var money = 0
+    cursor.use {
+        while (cursor.moveToNext()) {
+            val text = cursor.getInt(cursor.getColumnIndex("price"))
+            money += text
+        }
+    }
+    database.close()
+    return money
+}
 
 //振り分け用クエリーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 fun querySortedTexts(context: Context) : MutableList<String> {
