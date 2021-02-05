@@ -281,6 +281,8 @@ class MapFragment : Fragment(),OnMapReadyCallback{
     //吹き出しテスト
     private fun putMarkers(map:GoogleMap,locations: List<MarkerRecord>) {
         map.clear()
+
+
         locations.forEach { location ->
             val latLng = LatLng(location.latitude,location.longitude)
             val shopName = location.shopName
@@ -302,7 +304,6 @@ class MapFragment : Fragment(),OnMapReadyCallback{
     interface OnShowCurrentDate{
         fun onShowCurrentDate()
     }
-
 }
 
 ////日付を選択するダイアログフラフラグメント

@@ -75,12 +75,13 @@ class  CreateMemo : Fragment() {
         val button = view.findViewById<Button>(R.id.conf_button)
         button.setOnClickListener {
             val shopName = view.findViewById(R.id.shopName) as EditText
-            val productId = shopName.text.toString()
-
-            //例外
+            val shopId = shopName.text.toString()
             val priceUse = view.findViewById<EditText>(R.id.priceUse)
             val priceId = Integer.parseInt(priceUse.text.toString())
-            insertText(nomContext,productId,
+
+
+
+            insertText(nomContext,shopId,
                     priceId,
                     mapFragment.currentDate[Calendar.YEAR],mapFragment.currentDate[Calendar.MONTH],
                     mapFragment.currentDate[Calendar.DATE],

@@ -59,6 +59,27 @@ class LocationRecord(val id :Long, val latitude : Double,
 
 class MarkerRecord(val id :Long, val latitude: Double,val longitude: Double,val shopName:String,val price:Long,val swing:String)
 
+fun selectShop(context: Context,year: Int,month: Int,day: Int,shopName: String):Boolean{
+    //検索条件に使用する日時を計算
+    val calendar = Calendar.getInstance()//
+    calendar.set(year,month,day,0,0,0)//引数の日時に設定
+    val from = calendar.time.time.toString()//日付文字列を取得
+    calendar.add(Calendar.DATE,1)//日時を一日分進める
+    val to = calendar.time.time.toString()//日付け文字列を取得
+    val shop = shopName
+
+    val database = MemoDatabase(context).readableDatabase
+
+    val cursor = database.query("Memo",null,"date >= ? AND date < ? ANd shopName = ?", arrayOf(from, to, shop),null,null,null)
+    database.close()
+    if (cursor == null){
+        return false
+    }else{
+        return true
+    }
+
+}
+
 //指定した日の位置情報を検索する関数
 fun selectInDay(context:Context, year: Int, month:Int, day:Int):
         List<MarkerRecord>{
