@@ -65,7 +65,7 @@ class FragmentSort : Fragment(), View.OnClickListener {
         listViews.setOnItemClickListener { parent, view, position, id ->
             //ダイアログを表示
             val alertDialog: AlertDialog.Builder = AlertDialog.Builder(context)
-            alertDialog.setTitle("振り分け")
+            alertDialog.setTitle(texts[position]+"の振り分け")
             alertDialog.setSingleChoiceItems(huriwake,-1){_,which->
                 selectedItemId = which
             }
@@ -96,6 +96,7 @@ class FragmentSort : Fragment(), View.OnClickListener {
             update(this!!.requireContext(), ID[x], swingData[x])
         }
         Toast.makeText(context, "保存が完了しました。", Toast.LENGTH_SHORT).show()
+        
     }
 
 }

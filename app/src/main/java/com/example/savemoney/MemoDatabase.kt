@@ -2,13 +2,11 @@ package com.example.savemoney
 
 import android.content.ContentValues
 import android.content.Context
-import android.content.LocusId
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.location.Location
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.google.android.gms.maps.model.LatLng
 import java.util.*
 
 private const val DB_NAME = "MemoDatabase"
@@ -365,40 +363,25 @@ fun update(context: Context, whereId: String, newSwing: String) {
 }
 
 //MarkerLocationのデータを消す
-fun selectDeleteMarker(context: Context):MutableList<Int>{
-    val database = MemoDatabase(context).readableDatabase
-    //テーブルの一番最後に入ったデータを検索
-    val query = "SELECT _id FROM MarkerLocation WHERE _id = (SELECT MAX(_id) FROM MarkerLocation)"
-    val c = database.rawQuery(query,null)
-    val del = mutableListOf<Int>()
-    c.use {
-        while (c.moveToNext()){
-            val non = (
-                c.getInt(c.getColumnIndex("_id"))
-            )
-            del.add(non)
-        }
-    }
-    database.close()
-    return del
-}
-
-
-
 //マーカー消す
-fun deleteMarker(context: Context,whereId: String) {
+fun deleteMarker(context: Context,lat: String, lng: String) {
     val database = MemoDatabase(context).writableDatabase
 
+
+    val cursor = database.query("MarkerLocation", arrayOf("_id"), "latitude = ? AND longitude = ?",
+            arrayOf(lat,lng), null, null, null)
+
     val whereClauses = "_id = ?"
-    val whereArgs = arrayOf(whereId)
-    database.delete("MarkerLocation", whereClauses, whereArgs)
+
+
+    cursor.use {
+        while (cursor.moveToNext()) {
+            val ID = cursor.getInt(cursor.getColumnIndex("_id")).toString()
+            var arrayId = arrayOf(ID)
+            database.delete("MarkerLocation",whereClauses,arrayId)
+        }
+    }
+
 }
 
 
-
-
-
-
-//    val whereArgs = arrayOf(whereId)
-//    database.update("Memo", values, whereClauses, whereArgs)
-//}

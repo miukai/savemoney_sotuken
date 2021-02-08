@@ -1,11 +1,11 @@
 package com.example.savemoney
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.Dialog
-import android.content.Context
+import android.content.DialogInterface
 import android.os.Build
 import android.os.Bundle
-import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +15,6 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import java.text.SimpleDateFormat
@@ -46,7 +45,10 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCall
 //    dddはメモ画面に渡す日付
     var ddd = "${month1}月${day1}日"
 
-
+    var mf= false
+    var markerID1=""
+    var deleteMarkerLat=0.0
+    var deleteMarkerlng=0.0
 
     @RequiresApi(Build.VERSION_CODES.O)
     val nowDate: LocalDate = LocalDate.now()
@@ -75,20 +77,27 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCall
                 val lng = latlng.longitude
                 val location = LatLng(latlng.latitude, latlng.longitude)
                 val strSnippet = "店名\n$100"
+                if (mf==false){
+                    val marker = googleMap.addMarker(
+                            // タップした場所にマーカーをたてる
 
-                val marker = googleMap.addMarker(
-                    // タップした場所にマーカーをたてる
-
-                     MarkerOptions()
-                         .position(location) //  マーカーをたてる位置
-                         .title("test") //  タイトル(日付)
-                         .snippet(strSnippet) // 本文(店名、価格)←アジャイルで順次追加
+                            MarkerOptions()
+                                    .position(location) //  マーカーをたてる位置
+                                    .title("test") //  タイトル(日付)
+                                    .snippet(strSnippet) // 本文(店名、価格)←アジャイルで順次追加
                     )
-                marker.showInfoWindow()
+                    markerID1 = marker.id
+                    deleteMarkerLat=lat
+                    deleteMarkerlng=lng
+                    marker.showInfoWindow()
                     // タップした際にメモのポップアップを表示する処理
                     //緯度経度記録する。
-                insertMarkerLocations(requireContext(),lat,lng,currentDate[Calendar.YEAR],currentDate[Calendar.MONTH],
-                        currentDate[Calendar.DATE])
+                    insertMarkerLocations(requireContext(),lat,lng,currentDate[Calendar.YEAR],currentDate[Calendar.MONTH],
+                            currentDate[Calendar.DATE])
+                }
+                mf=true
+
+
 
 
             }
@@ -99,14 +108,29 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCall
         //付けたマーカーを一度消すための処理
         mMap.setOnMarkerClickListener(object:GoogleMap.OnMarkerClickListener {
             override fun onMarkerClick(marker: Marker):Boolean {
-                //マーカーを消す
-                marker.remove()
-                //テーブル上の最後に入ったデータを検索
-                val del = selectDeleteMarker(requireContext())
-                //テーブル上の最後に入ったデータを削除
-                for (x in del.indices){
-                    deleteMarker(requireContext(), del[x].toString())
+
+                var markerID2 = marker.id
+
+                if (markerID1 == markerID2){
+                val alertDialog: AlertDialog.Builder = AlertDialog.Builder(context)
+                alertDialog.setTitle("マーカーを削除しますか？")
+                alertDialog.setPositiveButton("OK") { _, _ ->
+                    //マーカーを消す
+                    marker.remove()
+                    //テーブル上の最後に入ったデータを検索
+//                    val del = selectDeleteMarker(requireContext())
+                    //テーブル上の最後に入ったデータを削除
+//                    val delMarkerList = arrayListOf<String>()
+//                    delMarkerList += deleteMarkerLat.toString()
+//                    delMarkerList += deleteMarkerlng.toString()
+
+                    deleteMarker(requireContext(), deleteMarkerLat.toString(),deleteMarkerlng.toString())
+
+                    mf=false
                 }
+                alertDialog.setNegativeButton("Cancel",
+                        DialogInterface.OnClickListener { dialog, whichButton -> })
+                alertDialog.show()}
                 return true
             }
         })
@@ -149,6 +173,7 @@ class MapFragment : Fragment(),DatePickerDialog.OnDateSetListener,OnMapReadyCall
                     fragmentTransaction.replace(R.id.nav_host_fragment, CreateMemo.newInstance(ddd))
                     fragmentTransaction.commit()
                 }
+                mf=false
 
 
         }
