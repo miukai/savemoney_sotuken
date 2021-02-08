@@ -59,6 +59,8 @@ class LocationRecord(val id :Long, val latitude : Double,
 
 class MarkerRecord(val id :Long, val latitude: Double,val longitude: Double,val shopName:String,val price:Long,val swing:String)
 
+class EditRecord(val id :Long, val shopName: String,val price:Long)
+
 fun selectShop(context: Context,year: Int,month: Int,day: Int,shopName: String):Boolean{
     //検索条件に使用する日時を計算
     val calendar = Calendar.getInstance()//
@@ -255,6 +257,33 @@ fun querySwing(context: Context) : MutableList<String> {
 
     database.close()
     return sorts
+}
+
+fun queryEdit(context: Context,year: Int,month: Int,day: Int):MutableList<EditRecord>{
+
+    val calendar = Calendar.getInstance()//
+    calendar.set(year,month,day,0,0,0)//引数の日時に設定
+    val from = calendar.time.time.toString()//日付文字列を取得
+    calendar.add(Calendar.DATE,1)//日時を一日分進める
+    val to = calendar.time.time.toString()//日付け文字列を取得
+
+    val database = MemoDatabase(context).readableDatabase
+
+    val cursor = database.query("Memo", arrayOf("_id","shopName","price"),"date >= ? AND date < ?", arrayOf(from, to),
+        null,null,"date DESC")
+
+    val edit = mutableListOf<EditRecord>()
+    cursor.use{
+        while(cursor.moveToNext()){
+            val memo = EditRecord(
+                cursor.getLong(cursor.getColumnIndex("_id")),
+                cursor.getString(cursor.getColumnIndex("shopName")),
+                cursor.getLong(cursor.getColumnIndex("price")))
+            edit.add(memo)
+        }
+    }
+    database.close()
+    return edit
 }
 
 

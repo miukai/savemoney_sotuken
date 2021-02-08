@@ -34,8 +34,8 @@ class MapFragment : Fragment(),OnMapReadyCallback{
     private lateinit var mapView:MapView
     private lateinit var mMap:GoogleMap
 
-    var lat = 0.0
-    var lng = 0.0
+    var lat = 35.6811323
+    var lng = 139.7670182
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -125,33 +125,6 @@ class MapFragment : Fragment(),OnMapReadyCallback{
                marker.showInfoWindow()
            }
        })
-
-        //マーカーをタップした時の処理
-        //付けたマーカーを一度消すための処理
-
-//        mMap.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
-//            override fun onMarkerClick(marker: Marker): Boolean {
-//                if (c == 1) {
-//                    val alertDialog: AlertDialog.Builder = AlertDialog.Builder(context)
-//                    alertDialog.setTitle("マーカーを削除しますか？")
-//                    alertDialog.setPositiveButton("OK") { _, _ ->
-//                        //マーカーを消す
-//                        marker.remove()
-//                        //テーブル上の最後に入ったデータを検索
-//                        val del = selectDeleteMarker(requireContext())
-//                        //テーブル上の最後に入ったデータを削除
-//                        for (x in del.indices) {
-//                            deleteMarker(requireContext(), del[x].toString())
-//                        }
-//                        c = 0
-//                    }
-//                    alertDialog.setNegativeButton("Cancel",
-//                            DialogInterface.OnClickListener { dialog, whichButton -> })
-//                    alertDialog.show()
-//                }
-//                return true
-//            }
-//        })
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
