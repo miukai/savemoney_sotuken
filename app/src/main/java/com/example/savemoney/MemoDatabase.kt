@@ -8,6 +8,8 @@ import android.location.Location
 import android.os.Build
 import android.provider.BaseColumns._ID
 import androidx.annotation.RequiresApi
+import java.util.Date
+import java.text.SimpleDateFormat
 import com.google.android.gms.common.util.ArrayUtils.contains
 import java.lang.Integer.MAX_VALUE
 import java.lang.Integer.max
@@ -47,6 +49,15 @@ class MemoDatabase(context: Context): SQLiteOpenHelper(context, DB_NAME, null, D
         longitude REAL NOT NULL,
         date INTEGER NOT NULL
         );
+    """)
+//  金額系の設定
+    db?.execSQL("""
+        CREATE TABLE Setting (
+         _id INTEGER PRIMARY KEY AUTOINCREMENT,
+         goalMoneydb TEXT default "0",
+         nowMoneydb TEXT default "0",
+         useMoneydb TEXT default "0",
+         counter INTEGER);
     """)
     }
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
@@ -207,6 +218,20 @@ fun insertText(context: Context, text: String, price: Int, year: Int,month: Int,
 
 
         db.insert("Memo",null,record)
+    }
+}
+
+//設定画面で入力した金額をDBに保存
+@RequiresApi(Build.VERSION_CODES.O)
+fun insertSettingMoney(context: Context,goalMoney: String,nowMoney: String, useMoneydb: String) {
+    val database = MemoDatabase(context).writableDatabase
+    database.use { db ->
+        val update = ContentValues().apply {
+            put("goalMoneydb", goalMoney)
+            put("nowMoneydb",nowMoney)
+            put("useMoneydb", useMoneydb)
+        }
+        database.update("Setting",update,"_id = ?", arrayOf("1"))
     }
 }
 
@@ -462,6 +487,7 @@ fun querymonthextravagance(context: Context, yearmonth: String) : MutableList<St
 //月の浪費の合計値
 fun monthextravagance(context: Context, yearmonth : String) : Int {
     val database = MemoDatabase(context).readableDatabase
+    val s = SimpleDateFormat("yyyy-MM-dd").format(Date())
     val cursor = database.query("Memo", arrayOf("shopName","price","swing","date2"), "swing = ? AND date2 LIKE ?", arrayOf("浪費","$yearmonth%"), null, null, "swing DESC")
     var totalPrice = 0
     cursor.use {
@@ -488,6 +514,77 @@ fun monthtotal(context: Context, yearmonth : String) : Int {
     database.close()
     return money
 }
+
+//設定の目標金額、現在の貯金額、今月使える金額を取り出す
+fun querygoalMoney(context: Context) : List<String> {
+    val database = MemoDatabase(context).readableDatabase
+    val cursor = database.query("setting", null, null, null, null, null, null)
+
+
+    val Moneydb = mutableListOf<String>()
+
+    cursor.use {
+        while (cursor.moveToNext()) {
+            val chooseMoney = cursor.getString(cursor.getColumnIndex("goalMoneydb"))
+            Moneydb.add(chooseMoney)
+        }
+    }
+    database.close()
+    return Moneydb
+}
+fun querynowMoney(context: Context) : List<String> {
+    val database = MemoDatabase(context).readableDatabase
+    val cursor = database.query("setting", null, null, null, null, null, null)
+    val Moneydb = mutableListOf<String>()
+
+    cursor.use {
+        while (cursor.moveToNext()) {
+            val chooseMoney = cursor.getString(cursor.getColumnIndex("nowMoneydb"))
+            Moneydb.add(chooseMoney)
+        }
+    }
+    database.close()
+    return Moneydb
+}
+fun queryUsemoney(context: Context) : List<String> {
+    val database = MemoDatabase(context).readableDatabase
+
+    val cursor = database.query("setting", null, null, null, null, null, null)
+
+
+    val useMoneydb = mutableListOf<String>()
+
+    cursor.use {
+        while (cursor.moveToNext()) {
+            val chooseuseMoney = cursor.getString(cursor.getColumnIndex("useMoneydb"))
+            useMoneydb.add(chooseuseMoney)
+        }
+    }
+    database.close()
+    return useMoneydb
+}
+
+fun <R> once(block: () -> R): () -> OnceResult<R>? = run {
+    var isDone = false;
+
+    // run の返値となるラムダ式
+    {
+        if (isDone) {
+            null
+        } else {
+            isDone = true
+
+            val result = block()
+            OnceResult(result)
+        }
+    }
+}
+
+/**
+ * [once]で生成した関数が返す、
+ * 実行した処理の返値を保持するためのクラス。
+ */
+data class OnceResult<R>(val result: R)
 
 //振り分け用クエリーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 fun querySortedTexts(context: Context) : MutableList<String> {

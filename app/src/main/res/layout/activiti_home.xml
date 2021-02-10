@@ -117,7 +117,7 @@
         app:layout_constraintStart_toEndOf="@+id/textView13" />
 
     <TextView
-        android:id="@+id/useMoneyhome"
+        android:id="@+id/useMoney"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
@@ -136,61 +136,37 @@
         android:layout_marginTop="48dp"
         android:layout_weight="1"
         android:progressDrawable="@drawable/progressbar"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
-    <EditText
-        android:id="@+id/useMoney"
+    <TextView
+        android:id="@+id/monthuseMoney"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="24dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="5000"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressBar2" />
-
-    <EditText
-        android:id="@+id/maxMoney"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="10000"
-        app:layout_constraintBaseline_toBaselineOf="@+id/useMoney"
-        app:layout_constraintStart_toEndOf="@+id/useMoney" />
-
-    <Button
-        android:id="@+id/progressTestbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="押すとHPバーに反映"
-        app:layout_constraintBottom_toTopOf="@+id/maxMoney"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.611"
-        app:layout_constraintStart_toEndOf="@+id/progressBar2"
-        app:layout_constraintTop_toBottomOf="@+id/useMoneyhome" />
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="今月使えるお金（max）"
-        android:textSize="18sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView"
-        app:layout_constraintStart_toEndOf="@+id/textView" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="今月使えるお金（残り）"
+        android:text="今月使えるお金（残り） / 今月使えるお金(Max)"
+        android:textAlignment="center"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/useMoney"
+        app:layout_constraintTop_toBottomOf="@+id/monthuseMoney"
         app:layout_constraintVertical_bias="0.036" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

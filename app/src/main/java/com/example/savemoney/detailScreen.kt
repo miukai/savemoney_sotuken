@@ -1,16 +1,16 @@
-package com.example.savemoney
+    package com.example.savemoney
 
+//import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
-//import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
-import androidx.fragment.app.Fragment
-import android.widget.ListView
 import android.widget.ArrayAdapter
-import android.widget.Toast
-import java.time.YearMonth
+import android.widget.Button
+import android.widget.ListView
+import android.widget.TextView
+import androidx.fragment.app.Fragment
+
 
 class detailScreen : Fragment() {
     var setDate = ""
@@ -68,55 +68,59 @@ class detailScreen : Fragment() {
 //    １日ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 //    未振り分けをlistに入れる
     fun dayunsort(str: String) {
-        val text = queryunsort(this!!.requireContext(),str)
+        val text = queryunsort(this!!.requireContext(), str)
         val listView = requireView().findViewById<ListView>(R.id.unsortDisplay)
-        listView.adapter = ArrayAdapter<String>(this!!.requireContext(),R.layout.list_detail_row,R.id.detailText1,text)
+        listView.setOnTouchListener { v, event ->
+          v.parent.requestDisallowInterceptTouchEvent(true)
+          false
+        }
+    listView.adapter = ArrayAdapter<String>(this!!.requireContext(), R.layout.list_detail_row, R.id.detailText1, text)
     }
     //    消費をlistに入れる
     fun dayconsumption(str: String) {
-        val text = queryconsumption(this!!.requireContext(),str)
+        val text = queryconsumption(this!!.requireContext(), str)
         val listView = requireView().findViewById<ListView>(R.id.consumptionDisplay)
-        listView.adapter = ArrayAdapter<String>(this!!.requireContext(),R.layout.list_detail_row,R.id.detailText1,text)
+        listView.adapter = ArrayAdapter<String>(this!!.requireContext(), R.layout.list_detail_row, R.id.detailText1, text)
         //合計値を入れる
-        val totalPrice = consumption(this!!.requireContext(),str)
+        val totalPrice = consumption(this!!.requireContext(), str)
         val ptext = requireView().findViewById<TextView>(R.id.consumptionTotal)
         ptext.text = "${totalPrice.toString()}円"
     }
     //    消費をlistに入れる
     fun dayextravagance(str: String) {
-        val text = queryextravagance(this!!.requireContext(),str)
+        val text = queryextravagance(this!!.requireContext(), str)
         val listView = requireView().findViewById<ListView>(R.id.extravaganceDisplay)
-        listView.adapter = ArrayAdapter<String>(this!!.requireContext(),R.layout.list_detail_row,R.id.detailText1,text)
+        listView.adapter = ArrayAdapter<String>(this!!.requireContext(), R.layout.list_detail_row, R.id.detailText1, text)
         //合計値を入れる
-        val totalPrice = extravagance(this!!.requireContext(),str)
+        val totalPrice = extravagance(this!!.requireContext(), str)
         val ptext = requireView().findViewById<TextView>(R.id.extravaganceTotal)
         ptext.text = "${totalPrice.toString()}円"
     }
 
 //    月ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 //    未振り分けをlistに入れる
-fun monthunsort(yearmonth : String) {
-    val text = querymonthunsort(this!!.requireContext(),yearmonth)
+fun monthunsort(yearmonth: String) {
+    val text = querymonthunsort(this!!.requireContext(), yearmonth)
     val listView = requireView().findViewById<ListView>(R.id.unsortDisplay)
-    listView.adapter = ArrayAdapter<String>(this!!.requireContext(),R.layout.list_detail_row,R.id.detailText1,text)
+    listView.adapter = ArrayAdapter<String>(this!!.requireContext(), R.layout.list_detail_row, R.id.detailText1, text)
 }
     //    消費をlistに入れる
     fun monthconsumption(yearmonth: String) {
-        val text = querymonthconsumption(this!!.requireContext(),yearmonth)
+        val text = querymonthconsumption(this!!.requireContext(), yearmonth)
         val listView = requireView().findViewById<ListView>(R.id.consumptionDisplay)
-        listView.adapter = ArrayAdapter<String>(this!!.requireContext(),R.layout.list_detail_row,R.id.detailText1,text)
+        listView.adapter = ArrayAdapter<String>(this!!.requireContext(), R.layout.list_detail_row, R.id.detailText1, text)
         //合計値を入れる
-        val totalPrice = monthconsumption(this!!.requireContext(),yearmonth)
+        val totalPrice = monthconsumption(this!!.requireContext(), yearmonth)
         val ptext = requireView().findViewById<TextView>(R.id.consumptionTotal)
         ptext.text = "${totalPrice.toString()}円"
     }
     //    浪費をlistに入れる
-    fun monthextravagance(yearmonth : String) {
-        val text = querymonthextravagance(this!!.requireContext(),yearmonth)
+    fun monthextravagance(yearmonth: String) {
+        val text = querymonthextravagance(this!!.requireContext(), yearmonth)
         val listView = requireView().findViewById<ListView>(R.id.extravaganceDisplay)
-        listView.adapter = ArrayAdapter<String>(this!!.requireContext(),R.layout.list_detail_row,R.id.detailText1,text)
+        listView.adapter = ArrayAdapter<String>(this!!.requireContext(), R.layout.list_detail_row, R.id.detailText1, text)
         //合計値を入れる
-        val totalPrice = monthextravagance(this!!.requireContext(),yearmonth)
+        val totalPrice = monthextravagance(this!!.requireContext(), yearmonth)
         val ptext = requireView().findViewById<TextView>(R.id.extravaganceTotal)
         ptext.text = "${totalPrice.toString()}円"
     }
