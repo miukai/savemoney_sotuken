@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="405dp"
+        android:layout_height="59dp"
+        android:text="メモ編集画面"
+        android:textAlignment="center"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="50dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="20dp"
+        android:text="場所"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <TextView
+        android:id="@+id/editShopName"
+        android:layout_width="154dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textSize="32sp"
+        app:layout_constraintStart_toEndOf="@+id/textView9"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <EditText
+        android:id="@+id/editPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="126dp"
+        android:layout_marginEnd="55dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="price"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editShopName" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="50sp"
+        android:layout_height="38sp"
+        android:layout_marginStart="51dp"
+        android:layout_marginTop="131dp"
+        android:layout_marginEnd="45dp"
+        android:text="金額"
+        app:layout_constraintEnd_toStartOf="@+id/editPrice"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="357dp"
+        android:layout_height="159dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="63dp"
+        android:layout_marginEnd="39dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editPrice">
+
+        <RadioButton
+            android:id="@+id/mustButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="消費" />
+
+        <RadioButton
+            android:id="@+id/wasteButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="浪費" />
+
+        <RadioButton
+            android:id="@+id/noSwing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="未振り分け" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/updateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="147dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="171dp"
+        android:layout_marginBottom="127dp"
+        android:text="更新する"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+</androidx.constraintlayout.widget.ConstraintLayout>
