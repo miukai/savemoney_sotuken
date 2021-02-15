@@ -6,14 +6,9 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.location.Location
 import android.os.Build
-import android.provider.BaseColumns._ID
 import androidx.annotation.RequiresApi
 import java.util.Date
 import java.text.SimpleDateFormat
-import com.google.android.gms.common.util.ArrayUtils.contains
-import java.lang.Integer.MAX_VALUE
-import java.lang.Integer.max
-import java.time.Instant.MAX
 import java.util.*
 
 private const val DB_NAME = "MemoDatabase"
@@ -216,6 +211,16 @@ fun insertSettingMoney(context: Context,goalMoney: String,nowMoney: String, useM
         database.update("Setting",update,"_id = ?", arrayOf("1"))
     }
 }
+fun updatenowMoney(context: Context, toString: String) {
+    val database = MemoDatabase(context).writableDatabase
+    database.use { db ->
+        val update = ContentValues().apply {
+            put("nowMoneydb",toString)
+        }
+        database.update("Setting",update,"_id = ?", arrayOf("1"))
+    }
+}
+
 
 
 
@@ -483,6 +488,20 @@ fun monthextravagance(context: Context, yearmonth : String) : Int {
     database.close()
     return totalPrice
 }
+////貯金額を変える
+//fun addT(context: Context) : List<String> {
+//    val database = MemoDatabase(context).readableDatabase
+//    val cursor = database.query("setting", null, null, null, null, null, null)
+//    var money = 1000
+//    cursor.use {
+//        while (cursor.moveToNext()) {
+//            val chooseMoney = cursor.getString(cursor.getColumnIndex("nowMoneydb"))
+//            chooseMoney += money
+//        }
+//    }
+//    database.close()
+//    return money
+//}
 
 //その月に使った金額を計算できる　今はまだ未使用
 fun monthtotal(context: Context) : Int {

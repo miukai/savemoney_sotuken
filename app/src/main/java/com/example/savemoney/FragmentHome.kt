@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -51,6 +50,21 @@ class FragmentHome : Fragment(){
         bar.progress = nokori
         var monthuseMoney = requireView().findViewById<TextView>(R.id.monthuseMoney)
         monthuseMoney.setText("${nokori}円/${useMoneydb[0]}円")
+
+        val button = view!!.findViewById<Button>(R.id.plusT)
+        button.setOnClickListener {
+            var nowMoneyInt = nowMoneydb[0].toInt()
+            var newnowmoney = nowMoneyInt + 1000
+            updatenowMoney(this!!.requireContext(),newnowmoney.toString())
+            nowMoney.setText("${newnowmoney}円")
+        }
+        val button2 = view!!.findViewById<Button>(R.id.plusSave)
+        button2.setOnClickListener {
+            var nowMoneyInt = nowMoneydb[0].toInt()
+            var newnowmoney = nowMoneyInt + 10000
+            updatenowMoney(this!!.requireContext(),newnowmoney.toString())
+            nowMoney.setText("${newnowmoney}円")
+        }
     }
 //    一回だけに限定してDBにてきとーな値を入れる
     val go = once{
