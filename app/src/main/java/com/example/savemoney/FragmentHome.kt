@@ -20,6 +20,7 @@ class FragmentHome : Fragment(){
         super.onViewCreated(view, savedInstanceState)
 
         go()
+        var monthtotal = monthtotal(this!!.requireContext())
 //    DBから値を取ってきて表示
         var goalMoneydb = querygoalMoney(this!!.requireContext())
         var goalMoney = requireView().findViewById<TextView>(R.id.goalMoney)
@@ -36,9 +37,10 @@ class FragmentHome : Fragment(){
         var useMoneyInt :Int = Integer.parseInt(useMoneydb[0])
         bar.max = useMoneyInt
         var month = 1
-        bar.progress = month
+        var nokori = useMoneyInt - monthtotal
+        bar.progress = nokori
         var monthuseMoney = requireView().findViewById<TextView>(R.id.monthuseMoney)
-        monthuseMoney.setText("${month}円/${useMoneydb[0]}円")
+        monthuseMoney.setText("${nokori}円/${useMoneydb[0]}円")
     }
 //    一回だけに限定してDBにてきとーな値を入れる
     val go = once{
@@ -46,9 +48,9 @@ class FragmentHome : Fragment(){
         database.use {
             db->
             val record = ContentValues().apply {
-                put("goalMoneydb", 3000)
-                put("nowMoneydb", 1000)
-                put("useMoneydb", 5000)
+                put("goalMoneydb", 0)
+                put("nowMoneydb", 0)
+                put("useMoneydb", 0)
             }
             database.insert("setting", null, record)
         }

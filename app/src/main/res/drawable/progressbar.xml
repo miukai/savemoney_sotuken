@@ -16,6 +16,6 @@
                 <!-- 角の丸み -->
                 <corners android:radius="6dp" />
             </shape>
-        </clip>
+        </clip>#ff0000
     </item>
 </layer-list>
