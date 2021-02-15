@@ -472,7 +472,6 @@ fun querymonthextravagance(context: Context, yearmonth: String) : MutableList<St
 //月の浪費の合計値
 fun monthextravagance(context: Context, yearmonth : String) : Int {
     val database = MemoDatabase(context).readableDatabase
-    val s = SimpleDateFormat("yyyy-MM-dd").format(Date())
     val cursor = database.query("Memo", arrayOf("shopName","price","swing","date2"), "swing = ? AND date2 LIKE ?", arrayOf("浪費","$yearmonth%"), null, null, "swing DESC")
     var totalPrice = 0
     cursor.use {
@@ -486,8 +485,14 @@ fun monthextravagance(context: Context, yearmonth : String) : Int {
 }
 
 //その月に使った金額を計算できる　今はまだ未使用
-fun monthtotal(context: Context, yearmonth : String) : Int {
+fun monthtotal(context: Context) : Int {
     val database = MemoDatabase(context).readableDatabase
+
+    //月だけの取得が雑になりました。すいません。
+    val s = SimpleDateFormat("yyyy/M/dd").format(Date())
+    val split_arr = s.split("/")
+    var yearmonth = ("${split_arr[0]}/${split_arr[1]}")
+
     val cursor = database.query("Memo", arrayOf("shopName","price","date2"), "date2 LIKE ?", arrayOf("$yearmonth%"), null, null, null)
     var money = 0
     cursor.use {
