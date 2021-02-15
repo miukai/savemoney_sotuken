@@ -48,6 +48,7 @@ class FragmentHome : Fragment(){
         bar.max = useMoneyInt
         var month = 1
         var nokori = useMoneyInt - monthtotal
+        nokori = 1
         bar.progress = nokori
         var monthuseMoney = requireView().findViewById<TextView>(R.id.monthuseMoney)
         monthuseMoney.setText("${nokori}円/${useMoneydb[0]}円")
