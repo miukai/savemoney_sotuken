@@ -51,17 +51,22 @@ class FragmentHome : Fragment(){
         var monthuseMoney = requireView().findViewById<TextView>(R.id.monthuseMoney)
         monthuseMoney.setText("${nokori}円/${useMoneydb[0]}円")
 
+
+
+        var newnowmoney = 0
         val button = view!!.findViewById<Button>(R.id.plusT)
         button.setOnClickListener {
+            var nowMoneydb = querynowMoney(this!!.requireContext())
             var nowMoneyInt = nowMoneydb[0].toInt()
-            var newnowmoney = nowMoneyInt + 1000
+            newnowmoney = nowMoneyInt + 1000
             updatenowMoney(this!!.requireContext(),newnowmoney.toString())
             nowMoney.setText("${newnowmoney}円")
         }
         val button2 = view!!.findViewById<Button>(R.id.plusSave)
         button2.setOnClickListener {
+            var nowMoneydb = querynowMoney(this!!.requireContext())
             var nowMoneyInt = nowMoneydb[0].toInt()
-            var newnowmoney = nowMoneyInt + 10000
+            newnowmoney = nowMoneyInt + 10000
             updatenowMoney(this!!.requireContext(),newnowmoney.toString())
             nowMoney.setText("${newnowmoney}円")
         }
