@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">savemoney</string>
+    <string name="hp">押すとHPバーに反映</string>
 </resources>

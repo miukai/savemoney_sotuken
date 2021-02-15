@@ -5,7 +5,11 @@
 
         <fragment android:id="@+id/navi_home"
             android:name="com.example.savemoney.FragmentHome"
-            android:label="FragmentHome" />
+            android:label="FragmentHome" >
+                <action
+                    android:id="@+id/action_navi_home_to_navi_edit"
+                    app:destination="@id/navi_edit" />
+        </fragment>
 
         <fragment
             android:id="@+id/navi_map"
@@ -31,6 +35,14 @@
         android:name="com.example.savemoney.FragmentSetting"
         android:label="FragmentConf"/>
 
+        <fragment android:id="@+id/navi_edit"
+                android:name="com.example.savemoney.FragmentEditMemo"
+                android:label="FragmentEditMemo">
+                <action
+                    android:id="@+id/action_navi_edit_to_navi_edit_screen"
+                    app:destination="@id/navi_edit_screen" />
+        </fragment>
+
         <fragment android:id="@+id/navi_create_memo"
                 android:name="com.example.savemoney.CreateMemo"
                 android:label="createMemo"/>
@@ -41,4 +53,12 @@
                 <action
                     android:id="@+id/action_navi_create_memo_to_navi_map"
                     app:destination="@id/navi_map" />
+        <fragment
+                android:id="@+id/navi_edit_screen"
+                android:name="com.example.savemoney.FragmentEditScreen"
+                android:label="editScreen">
+                <action
+                    android:id="@+id/action_navi_edit_screen_to_detailScreen"
+                    app:destination="@id/detailScreen" />
+        </fragment>
 </navigation>

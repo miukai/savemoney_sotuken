@@ -209,8 +209,6 @@ class MapFragment : Fragment(),OnMapReadyCallback{
                     insertMarkerLocations(requireContext(), lat, lng, currentDate[Calendar.YEAR], currentDate[Calendar.MONTH],
                             currentDate[Calendar.DATE])
                 }
-
-
         }
     }
 
