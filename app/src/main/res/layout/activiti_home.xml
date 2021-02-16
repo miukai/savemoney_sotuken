@@ -162,8 +162,8 @@
         android:id="@+id/plusSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="51dp"
-        android:layout_marginTop="38dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="52dp"
         android:text="+1万円"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
@@ -172,10 +172,27 @@
         android:id="@+id/plusT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="38dp"
+        android:layout_marginStart="129dp"
+        android:layout_marginTop="52dp"
         android:layout_marginEnd="70dp"
         android:text="+千円"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toEndOf="@+id/plusSave"
         app:layout_constraintTop_toBottomOf="@+id/useMoney" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="154dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="117dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="140dp"
+        android:text="貯金カウンタ"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
