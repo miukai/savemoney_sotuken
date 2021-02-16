@@ -42,9 +42,9 @@ class FragmentEditMemo:Fragment(){
 
         val memoData = mutableListOf<RadioButton>()
         val radioGroup = RadioGroup(requireContext())
+        radioSet(memoData,radioGroup)
         val linearLayout = view.findViewById<LinearLayout>(R.id.editContainer)
         linearLayout.addView(radioGroup)
-        radioSet(memoData,radioGroup)
         var text = ""
         var id = 0
         radioGroup.setOnCheckedChangeListener { group, checkedId ->
