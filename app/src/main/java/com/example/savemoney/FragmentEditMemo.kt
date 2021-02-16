@@ -29,6 +29,7 @@ class FragmentEditMemo:Fragment(){
     var day1 = SimpleDateFormat("dd").format(Date()).toInt()
     var ddd2 = "${month1}月${day1}日"
     var month2 = month1 - 1
+    var ddd = "${year1}/${month1}/${day1}"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
     super.onViewCreated(view, savedInstanceState)
@@ -93,7 +94,7 @@ class FragmentEditMemo:Fragment(){
     fun radioSet(memoData:MutableList<RadioButton>,radioGroup:RadioGroup){
         radioGroup.removeAllViews()
 
-        editMemoData = queryEdit(requireContext(),currentDate[Calendar.YEAR],currentDate[Calendar.MONTH],currentDate[Calendar.DATE])
+        editMemoData = queryEdit(requireContext(),ddd)
         editMemoData.forEach { editMemo ->
             var id = editMemo.id
             val radioButton = RadioButton(requireContext())

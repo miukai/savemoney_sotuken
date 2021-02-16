@@ -20,7 +20,6 @@ class MemoDatabase(context: Context): SQLiteOpenHelper(context, DB_NAME, null, D
      db?.execSQL("""
          CREATE TABLE Memo (
          _id INTEGER PRIMARY KEY AUTOINCREMENT,
-         date INTEGER NOT NULL ,
          date2 TEXT NOT NULL,
          shopName TEXT NOT NULL,
          price INTEGER NOT NULL,
@@ -41,8 +40,7 @@ class MemoDatabase(context: Context): SQLiteOpenHelper(context, DB_NAME, null, D
         CREATE TABLE MarkerLocation(
         _id INTEGER PRIMARY KEY AUTOINCREMENT,
         latitude REAL NOT NULL,
-        longitude REAL NOT NULL,
-        date INTEGER NOT NULL
+        longitude REAL NOT NULL
         );
     """)
 //  金額系の設定
@@ -61,7 +59,7 @@ class MemoDatabase(context: Context): SQLiteOpenHelper(context, DB_NAME, null, D
 
 //データベースのレコードを表現するクラス
 class LocationRecord(val id :Long, val latitude : Double,
-    val longitude : Double, val date :Long)
+    val longitude : Double)
 
 class MarkerRecord(val id :Long, val latitude: Double,val longitude: Double,val shopName:String,val price:Long,val swing:String)
 
@@ -71,19 +69,15 @@ class MarkerRecord(val id :Long, val latitude: Double,val longitude: Double,val 
 
 
 //指定した日の位置情報を検索する関数
-fun selectInDay(context:Context, year: Int, month:Int, day:Int):
+fun selectInDay(context:Context,nowDateString: String):
         List<MarkerRecord>{
     //検索条件に使用する日時を計算
-    val calendar = Calendar.getInstance()//
-    calendar.set(year,month,day,0,0,0)//引数の日時に設定
-    val from = calendar.time.time.toString()//日付文字列を取得
-    calendar.add(Calendar.DATE,1)//日時を一日分進める
-    val to = calendar.time.time.toString()//日付け文字列を取得
+
 
     val database = MemoDatabase(context).readableDatabase
 
-    val cursor = database.query("Memo",null,"date >= ? AND date < ?", arrayOf(from, to),
-    null,null,"date DESC")
+    val cursor = database.query("Memo",null,"date2 = ?", arrayOf(nowDateString),
+    null,null,null)
 
     val marker = mutableListOf<MarkerRecord>()
     cursor.use{
@@ -102,22 +96,14 @@ fun selectInDay(context:Context, year: Int, month:Int, day:Int):
     return marker
 }
 
-fun selectOneDay(context: Context,year: Int,month: Int,day: Int):List<LocationRecord>{
-    //検索条件に使用する日時を計算
-    val calendar = Calendar.getInstance()//
-    calendar.set(year,month,day,0,0,0)//引数の日時に設定
-    val from = calendar.time.time.toString()//日付文字列を取得
-    calendar.add(Calendar.DATE,1)//日時を一日分進める
-    val to = calendar.time.time.toString()//日付け文字列を取得
-
+fun selectOneDay(context: Context):List<LocationRecord>{
+//
     val database = MemoDatabase(context).readableDatabase
 
     val query = "SELECT * FROM MarkerLocation WHERE _id = (SELECT MAX(_id) FROM MarkerLocation)"
 
     val c = database.rawQuery(query,null)
 
-//    val cursor = database.query("MarkerLocation", null,"date >= ? AND date < ?", arrayOf(from, to),
-//                    null,null,null)
 
     val locations = mutableListOf<LocationRecord>()
     c.use{
@@ -125,8 +111,7 @@ fun selectOneDay(context: Context,year: Int,month: Int,day: Int):List<LocationRe
             val place = LocationRecord(
                     c.getLong(c.getColumnIndex("_id")),
                     c.getDouble(c.getColumnIndex("latitude")),
-                    c.getDouble(c.getColumnIndex("longitude")),
-                    c.getLong(c.getColumnIndex("date")))
+                    c.getDouble(c.getColumnIndex("longitude")))
             locations.add(place)
         }
     }
@@ -135,18 +120,15 @@ fun selectOneDay(context: Context,year: Int,month: Int,day: Int):List<LocationRe
 }
 
 //マーカー位置情報をデータベースに保存する
-fun insertMarkerLocations(context: Context, latitude: Double,longitude: Double, year: Int, month:Int, day:Int) {
+fun insertMarkerLocations(context: Context, latitude: Double,longitude: Double) {
     val database = MemoDatabase(context).writableDatabase
 
-    val calendar = Calendar.getInstance()
-    calendar.set(year,month,day,0,0,0)//引数の日時に設定
-    val from = calendar.time.time.toString()//日付文字列を取得
+
 
     database.use { db ->
                 val record = ContentValues().apply {
                     put("latitude", latitude)
                     put("longitude",longitude)
-                    put("date",from)
                 }
 
                 db.insert("MarkerLocation", null, record)
@@ -175,19 +157,16 @@ fun insertLocations(context: Context, locations : List<Location>){
 
 //メモをＤＢに保存
 @RequiresApi(Build.VERSION_CODES.O)
-fun insertText(context: Context, text: String, price: Int, year: Int,month: Int,day: Int, hantei: String,latitude: Double,longitude: Double,nowDateString : String) {
+fun insertText(context: Context, text: String, price: Int, hantei: String,latitude: Double,longitude: Double,nowDateString : String) {
     val database = MemoDatabase(context).writableDatabase
 
-    val calendar = Calendar.getInstance()
-    calendar.set(year,month,day,0,0,0)//引数の日時に設定
-    val from = calendar.time.time.toString()//日付文字列を取得
+
 
     database.use { db->
         val record = ContentValues().apply {
             put("shopName", text)
             put("price" , price)
             put("swing", hantei)
-            put("date", from)
             put("latitude",latitude)
             put("longitude",longitude)
             put("date2",nowDateString)
@@ -271,20 +250,14 @@ fun querySwing(context: Context) : MutableList<String> {
     return sorts
 }
 
-class EditRecord(val id :Long, val shopName: String,val price:Long,val date:Long)
+class EditRecord(val id :Long, val shopName: String,val price:Long)
 
-fun queryEdit(context: Context,year: Int,month: Int,day: Int):MutableList<EditRecord>{
-
-    val calendar = Calendar.getInstance()//
-    calendar.set(year,month,day,0,0,0)//引数の日時に設定
-    val from = calendar.time.time.toString()//日付文字列を取得
-    calendar.add(Calendar.DATE,1)//日時を一日分進める
-    val to = calendar.time.time.toString()//日付け文字列を取得
+fun queryEdit(context: Context,nowDateString: String):MutableList<EditRecord>{
 
     val database = MemoDatabase(context).readableDatabase
 
-    val cursor = database.query("Memo", null,"date >= ? AND date < ?", arrayOf(from, to),
-        null,null,"date DESC")
+    val cursor = database.query("Memo", null,"date2 = ?", arrayOf(nowDateString),
+        null,null,null)
 
     val edit = mutableListOf<EditRecord>()
     cursor.use{
@@ -292,8 +265,7 @@ fun queryEdit(context: Context,year: Int,month: Int,day: Int):MutableList<EditRe
             val memo = EditRecord(
                 cursor.getLong(cursor.getColumnIndex("_id")),
                 cursor.getString(cursor.getColumnIndex("shopName")),
-                cursor.getLong(cursor.getColumnIndex("price")),
-                cursor.getLong(cursor.getColumnIndex("date")))
+                cursor.getLong(cursor.getColumnIndex("price")))
             edit.add(memo)
         }
     }

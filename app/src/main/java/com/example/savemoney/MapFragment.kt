@@ -99,8 +99,7 @@ class MapFragment : Fragment(),OnMapReadyCallback{
                     marker.showInfoWindow()
                     // タップした際にメモのポップアップを表示する処理
                     //緯度経度記録する。
-                    insertMarkerLocations(requireContext(),lat,lng,currentDate[Calendar.YEAR],currentDate[Calendar.MONTH],
-                            currentDate[Calendar.DATE])
+                    insertMarkerLocations(requireContext(),lat,lng)
 
 
 
@@ -206,8 +205,7 @@ class MapFragment : Fragment(),OnMapReadyCallback{
                     fragmentTransaction.addToBackStack(null)
                     fragmentTransaction.replace(R.id.nav_host_fragment, CreateMemo.newInstance(ddd))
                     fragmentTransaction.commit()
-                    insertMarkerLocations(requireContext(), lat, lng, currentDate[Calendar.YEAR], currentDate[Calendar.MONTH],
-                            currentDate[Calendar.DATE])
+                    insertMarkerLocations(requireContext(), lat, lng)
                 }
         }
     }
@@ -247,8 +245,7 @@ class MapFragment : Fragment(),OnMapReadyCallback{
     //内容はActivityClassと同じで、もっと最適な書き方があると思うが、時間の関係で二つ記述している
     fun renderMap(){
         val locations = selectInDay(requireContext(),
-                currentDate[Calendar.YEAR],currentDate[Calendar.MONTH],
-                currentDate[Calendar.DATE])
+                ddd)
 
         zoomTo(mMap, locations)
         putMarkers(mMap, locations)

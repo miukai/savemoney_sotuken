@@ -44,10 +44,7 @@ class  CreateMemo : Fragment() {
         var lat = 0.0
         var lon = 0.0
 
-        val markerLocation = selectOneDay(requireContext(),
-                mapFragment.currentDate[Calendar.YEAR],
-                mapFragment.currentDate[Calendar.MONTH],
-                mapFragment.currentDate[Calendar.DATE])
+        val markerLocation = selectOneDay(requireContext())
 
         markerLocation.forEach {location ->
             lat = location.latitude
@@ -83,8 +80,6 @@ class  CreateMemo : Fragment() {
 
             insertText(nomContext,shopId,
                     priceId,
-                    mapFragment.currentDate[Calendar.YEAR],mapFragment.currentDate[Calendar.MONTH],
-                    mapFragment.currentDate[Calendar.DATE],
                     hantei,
                     lat,
                     lon,
@@ -92,20 +87,6 @@ class  CreateMemo : Fragment() {
             )
             navController.navigate(R.id.action_navi_create_memo_to_navi_map)
         }
-        //動的にViewを追加する
-//        val product = view.findViewById<EditText>(R.id.productNameID)
-//        val price = view.findViewById<EditText>(R.id.priceID)
-//        val addButton = view.findViewById<Button>(R.id.addForm)
-//        var c = 1
-//        addButton.setOnClickListener {
-//            if (c < 4){
-//                val listnear = context as? OnAddForm
-//                listnear?.onAddForm(c)
-//                c += 1
-//            }else {
-//                addButton.error ="これ以上入力追加出来ません"
-//            }
-//        }
 
         // Map画面に戻る
         return_btn = view.findViewById(R.id.floatingActionButton2)
