@@ -46,7 +46,7 @@ class FragmentSort : Fragment(), View.OnClickListener {
         for (i in texts!!.indices) {
             val price = prices!![i].toString()
             val text = texts[i]
-            val yugou = ("$text:$price")
+            val yugou = ("$text:$price   円")
             gogo += yugou
         }
 

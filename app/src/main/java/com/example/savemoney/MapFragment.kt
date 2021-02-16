@@ -29,13 +29,29 @@ import com.google.android.gms.maps.model.*
 import java.time.LocalDate
 import java.util.*
 
-class MapFragment : Fragment(),OnMapReadyCallback{
+
+
+class MapFragment: Fragment(),OnMapReadyCallback{
     var currentDate = Calendar.getInstance()
     private lateinit var mapView:MapView
     private lateinit var mMap:GoogleMap
 
     var lat = 35.6811323
     var lng = 139.7670182
+
+    //        今日の年月日取得（上から年、月、日）
+    var year1 = SimpleDateFormat("yyyy").format(Date()).toInt()
+    var month1 = SimpleDateFormat("MM").format(Date()).toInt()
+    var day1 = SimpleDateFormat("dd").format(Date()).toInt()
+    //        month2はshowDatePickerで使う
+    var month2 = month1 - 1
+    //    dddはメモ画面に渡す日付
+    var ddd = "${year1}/${month1}/${day1}"
+    var ddd2 = "${month1}月${day1}日"
+
+    var markerID1=""
+    var deleteMarkerLat=0.0
+    var deleteMarkerlng=0.0
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -44,23 +60,8 @@ class MapFragment : Fragment(),OnMapReadyCallback{
         //マップを表示させるインターフェースを呼び出す
         return inflater.inflate(R.layout.activity_map, container, false)
         }
-    //        今日の年月日取得（上から年、月、日）
-    var year1 = SimpleDateFormat("yyyy").format(Date()).toInt()
-    var month1 = SimpleDateFormat("MM").format(Date()).toInt()
-    var day1 = SimpleDateFormat("dd").format(Date()).toInt()
-    //        month2はshowDatePickerで使う
-    var month2 = month1 - 1
-//    dddはメモ画面に渡す日付
-    var ddd = "${year1}/${month1}/${day1}"
-    var ddd2 = "${month1}月${day1}日"
 
-    var markerID1=""
-    var deleteMarkerLat=0.0
-    var deleteMarkerlng=0.0
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    val nowDate: LocalDate = LocalDate.now()
-    val nowDateString: String = nowDate.toString()
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
@@ -80,7 +81,10 @@ class MapFragment : Fragment(),OnMapReadyCallback{
         var c = 0
 
         mMap.setOnMapClickListener(object : GoogleMap.OnMapClickListener {
+//            @RequiresApi(Build.VERSION_CODES.O)
             override fun onMapClick(latlng: LatLng) {
+//                val nowDate: LocalDate = LocalDate.now()
+//                val nowDateString: String = nowDate.toString()
                 if (c == 0) {
                     lat = latlng.latitude
                     lng = latlng.longitude
@@ -90,7 +94,7 @@ class MapFragment : Fragment(),OnMapReadyCallback{
                             // タップした場所にマーカーをたてる
                             MarkerOptions()
                                     .position(location) //  マーカーをたてる位置
-                                    .title(nowDateString) //  タイトル(日付)
+//                                    .title(nowDateString) //  タイトル(日付)
                                     .draggable(true)
                     )
                     markerID1 = marker.id
@@ -122,8 +126,10 @@ class MapFragment : Fragment(),OnMapReadyCallback{
 
            override fun onMarkerDrag(marker:Marker){
            }
-
+           @RequiresApi(Build.VERSION_CODES.O)
            override fun onMarkerDragEnd(marker: Marker) {
+//               val nowDate: LocalDate = LocalDate.now()
+//               val nowDateString: String = nowDate.toString()
                val location = marker.getPosition()
                lat = location.latitude
                lng = location.longitude
@@ -131,7 +137,7 @@ class MapFragment : Fragment(),OnMapReadyCallback{
                        // タップした場所にマーカーをたてる
                        MarkerOptions()
                                .position(location) //  マーカーをたてる位置
-                               .title(nowDateString) //  タイトル(日付)
+//                               .title(nowDateString) //  タイトル(日付)
                                .draggable(true)
                )
                marker.showInfoWindow()
@@ -175,7 +181,7 @@ class MapFragment : Fragment(),OnMapReadyCallback{
         super.onViewCreated(view, savedInstanceState)
 
 //        Map画面を開いたときに今日の日付を表示
-        var textView3 = view?.findViewById<TextView>(R.id.detailDateDispOne)
+        var textView3 = view?.findViewById<Button>(R.id.detailDateDispOne)
         if (textView3 != null) {
             textView3.text = ddd2
         }
@@ -292,6 +298,7 @@ class MapFragment : Fragment(),OnMapReadyCallback{
             marker.showInfoWindow()
         }
     }
+
 
 
 

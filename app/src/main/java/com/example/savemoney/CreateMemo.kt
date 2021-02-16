@@ -27,9 +27,8 @@ class  CreateMemo : Fragment() {
         return  inflater.inflate(R.layout.create_memo, container, false)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    val nowDate: LocalDate = LocalDate.now()
-    var nowDateString: String = nowDate.toString()
+
+    var nowDateString: String = ""
 
     val mapFragment = MapFragment()
 
