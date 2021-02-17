@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import java.lang.Exception
 
 class FragmentEditScreen: Fragment() {
 
@@ -49,6 +50,7 @@ class FragmentEditScreen: Fragment() {
 //        val navController = this.findNavController()
         val updateButton = view.findViewById<Button>(R.id.updateButton)
         updateButton.setOnClickListener {
+            try{
             val price = priceEdit.text.toString().toInt()
             val radioId = radioGroup.checkedRadioButtonId
             val checkedRadioButton = view.findViewById<RadioButton>(radioId)
@@ -62,6 +64,9 @@ class FragmentEditScreen: Fragment() {
                 fragmentTransaction.addToBackStack(null)
                 fragmentTransaction.replace(R.id.nav_host_fragment, detailScreen.newInstance(date))
                 fragmentTransaction.commit()
+            }
+            }catch (e:Exception){
+                Toast.makeText(context,"不正な入力値です。",Toast.LENGTH_SHORT).show()
             }
         }
     }

@@ -13,10 +13,12 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import java.time.LocalDate
 import android.widget.TextView
+import android.widget.Toast
 import java.util.*
 import java.text.SimpleDateFormat
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.lang.Exception
 
 //import androidx.navigation.fragment.findNavController
 
@@ -70,21 +72,24 @@ class  CreateMemo : Fragment() {
         val navController = this.findNavController()
         val button = view.findViewById<Button>(R.id.conf_button)
         button.setOnClickListener {
-            val shopName = view.findViewById(R.id.shopName) as EditText
-            val shopId = shopName.text.toString()
-            val priceUse = view.findViewById<EditText>(R.id.priceUse)
-            val priceId = Integer.parseInt(priceUse.text.toString())
 
+            try {
+                val shopName = view.findViewById(R.id.shopName) as EditText
+                val shopId = shopName.text.toString()
+                val priceUse = view.findViewById<EditText>(R.id.priceUse)
+                val priceId = Integer.parseInt(priceUse.text.toString())
+                insertText(nomContext,shopId,
+                        priceId,
+                        hantei,
+                        lat,
+                        lon,
+                        nowDateString
+                )
+                navController.navigate(R.id.action_navi_create_memo_to_navi_map)
+            }catch (e:Exception){
+                Toast.makeText(context,"不正な入力値です。",Toast.LENGTH_SHORT).show()
+            }
 
-
-            insertText(nomContext,shopId,
-                    priceId,
-                    hantei,
-                    lat,
-                    lon,
-                    nowDateString
-            )
-            navController.navigate(R.id.action_navi_create_memo_to_navi_map)
         }
 
         // Map画面に戻る
