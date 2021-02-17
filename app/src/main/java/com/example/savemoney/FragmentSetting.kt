@@ -1,6 +1,5 @@
 package com.example.savemoney
 
-import android.content.ContentValues
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -22,20 +21,20 @@ class FragmentSetting : Fragment() { override fun onCreateView(inflater: LayoutI
         //    DBから値を取ってきて表示
         var goalMoneydb = querygoalMoney(this!!.requireContext())
         var goalMoney = requireView().findViewById<TextView>(R.id.EditgoalMoney)
-        goalMoney.setText("${goalMoneydb[0]}")
+        goalMoney.setText(goalMoneydb[0].toString())
         var nowMoneydb = querynowMoney(this!!.requireContext())
         var nowMoney = requireView().findViewById<TextView>(R.id.EditnowMoney)
-        nowMoney.setText("${nowMoneydb[0]}")
+        nowMoney.setText(nowMoneydb[0].toString())
         var useMoneydb = queryUsemoney(this!!.requireContext())
         var useMoney = requireView().findViewById<TextView>(R.id.EdituseMoney)
-        useMoney.setText("${useMoneydb[0]}")
+        useMoney.setText(useMoneydb[0].toString())
 
-        val button = view!!.findViewById<Button>(R.id.button)
+        val button = requireView().findViewById<Button>(R.id.button)
         button.setOnClickListener {
             val  goalMoney = requireView().findViewById<EditText>(R.id.EditgoalMoney)
             val  nowMoney = requireView().findViewById<EditText>(R.id.EditnowMoney)
             val  useMoney = requireView().findViewById<EditText>(R.id.EdituseMoney)
-            insertSettingMoney(this!!.requireContext(),goalMoney.text.toString(),nowMoney.text.toString(), useMoney.text.toString())
+            insertSettingMoney(this!!.requireContext(),goalMoney.text,nowMoney.text, useMoney.text)
         }
     }
 }

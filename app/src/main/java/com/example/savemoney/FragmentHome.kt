@@ -42,8 +42,8 @@ class FragmentHome : Fragment(){
         useMoney.setText("${useMoneydb[0]}円")
 
 //          DBから受け取った値でHPバーを変化させる
-        var bar = view!!.findViewById<ProgressBar>(R.id.progressBar2)
-        var useMoneyInt :Int = Integer.parseInt(useMoneydb[0])
+        var bar = requireView().findViewById<ProgressBar>(R.id.progressBar2)
+        var useMoneyInt :Int = useMoneydb[0]
         bar.max = useMoneyInt
         var month = 1
         var nokori = useMoneyInt - monthtotal
@@ -54,7 +54,7 @@ class FragmentHome : Fragment(){
 
 
         var newnowmoney = 0
-        val button = view!!.findViewById<Button>(R.id.plusT)
+        val button = requireView().findViewById<Button>(R.id.plusT)
         button.setOnClickListener {
             var nowMoneydb = querynowMoney(this!!.requireContext())
             var nowMoneyInt = nowMoneydb[0].toInt()
@@ -62,7 +62,7 @@ class FragmentHome : Fragment(){
             updatenowMoney(this!!.requireContext(),newnowmoney.toString())
             nowMoney.setText("${newnowmoney}円")
         }
-        val button2 = view!!.findViewById<Button>(R.id.plusSave)
+        val button2 = requireView().findViewById<Button>(R.id.plusSave)
         button2.setOnClickListener {
             var nowMoneydb = querynowMoney(this!!.requireContext())
             var nowMoneyInt = nowMoneydb[0].toInt()

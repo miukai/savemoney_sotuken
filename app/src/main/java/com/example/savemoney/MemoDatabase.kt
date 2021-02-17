@@ -6,10 +6,10 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.location.Location
 import android.os.Build
+import android.text.Editable
 import androidx.annotation.RequiresApi
 import java.util.Date
 import java.text.SimpleDateFormat
-import java.util.*
 
 private const val DB_NAME = "MemoDatabase"
 private const val DB_VERSION = 1
@@ -47,9 +47,9 @@ class MemoDatabase(context: Context): SQLiteOpenHelper(context, DB_NAME, null, D
     db?.execSQL("""
         CREATE TABLE Setting (
          _id INTEGER PRIMARY KEY AUTOINCREMENT,
-         goalMoneydb TEXT default "0",
-         nowMoneydb TEXT default "0",
-         useMoneydb TEXT default "0",
+         goalMoneydb INTEGER default 0,
+         nowMoneydb INTEGER default 0,
+         useMoneydb INTEGER default 0,
          counter INTEGER);
     """)
     }
@@ -179,13 +179,13 @@ fun insertText(context: Context, text: String, price: Int, hantei: String,latitu
 
 //設定画面で入力した金額をDBに保存
 @RequiresApi(Build.VERSION_CODES.O)
-fun insertSettingMoney(context: Context,goalMoney: String,nowMoney: String, useMoneydb: String) {
+fun insertSettingMoney(context: Context, goalMoney: Editable, nowMoney: Editable, useMoneydb: Editable) {
     val database = MemoDatabase(context).writableDatabase
     database.use { db ->
         val update = ContentValues().apply {
-            put("goalMoneydb", goalMoney)
-            put("nowMoneydb",nowMoney)
-            put("useMoneydb", useMoneydb)
+            put("goalMoneydb", goalMoney.toString().toInt())
+            put("nowMoneydb",nowMoney.toString().toInt())
+            put("useMoneydb", useMoneydb.toString().toInt())
         }
         database.update("Setting",update,"_id = ?", arrayOf("1"))
     }
@@ -497,47 +497,47 @@ fun monthtotal(context: Context) : Int {
 }
 
 //設定の目標金額、現在の貯金額、今月使える金額を取り出す
-fun querygoalMoney(context: Context) : List<String> {
+fun querygoalMoney(context: Context) : List<Int> {
     val database = MemoDatabase(context).readableDatabase
     val cursor = database.query("setting", null, null, null, null, null, null)
 
 
-    val Moneydb = mutableListOf<String>()
+    val Moneydb = mutableListOf<Int>()
 
     cursor.use {
         while (cursor.moveToNext()) {
-            val chooseMoney = cursor.getString(cursor.getColumnIndex("goalMoneydb"))
+            val chooseMoney = cursor.getInt(cursor.getColumnIndex("goalMoneydb"))
             Moneydb.add(chooseMoney)
         }
     }
     database.close()
     return Moneydb
 }
-fun querynowMoney(context: Context) : List<String> {
+fun querynowMoney(context: Context) : List<Int> {
     val database = MemoDatabase(context).readableDatabase
     val cursor = database.query("setting", null, null, null, null, null, null)
-    val Moneydb = mutableListOf<String>()
+    val Moneydb = mutableListOf<Int>()
 
     cursor.use {
         while (cursor.moveToNext()) {
-            val chooseMoney = cursor.getString(cursor.getColumnIndex("nowMoneydb"))
+            val chooseMoney = cursor.getInt(cursor.getColumnIndex("nowMoneydb"))
             Moneydb.add(chooseMoney)
         }
     }
     database.close()
     return Moneydb
 }
-fun queryUsemoney(context: Context) : List<String> {
+fun queryUsemoney(context: Context) : List<Int> {
     val database = MemoDatabase(context).readableDatabase
 
     val cursor = database.query("setting", null, null, null, null, null, null)
 
 
-    val useMoneydb = mutableListOf<String>()
+    val useMoneydb = mutableListOf<Int>()
 
     cursor.use {
         while (cursor.moveToNext()) {
-            val chooseuseMoney = cursor.getString(cursor.getColumnIndex("useMoneydb"))
+            val chooseuseMoney = cursor.getInt(cursor.getColumnIndex("useMoneydb"))
             useMoneydb.add(chooseuseMoney)
         }
     }
