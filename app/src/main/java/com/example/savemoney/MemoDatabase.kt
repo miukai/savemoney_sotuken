@@ -11,6 +11,7 @@ import androidx.annotation.RequiresApi
 import java.util.Date
 import java.text.SimpleDateFormat
 
+
 private const val DB_NAME = "MemoDatabase"
 private const val DB_VERSION = 1
 
@@ -36,13 +37,6 @@ class MemoDatabase(context: Context): SQLiteOpenHelper(context, DB_NAME, null, D
          time INTEGER NOT NULL
          );
      """)
-    db?.execSQL("""
-        CREATE TABLE MarkerLocation(
-        _id INTEGER PRIMARY KEY AUTOINCREMENT,
-        latitude REAL NOT NULL,
-        longitude REAL NOT NULL
-        );
-    """)
 //  金額系の設定
     db?.execSQL("""
         CREATE TABLE Setting (
@@ -96,44 +90,44 @@ fun selectInDay(context:Context,nowDateString: String):
     return marker
 }
 
-fun selectOneDay(context: Context):List<LocationRecord>{
+//fun selectOneDay(context: Context):List<LocationRecord>{
+////
+//    val database = MemoDatabase(context).readableDatabase
 //
-    val database = MemoDatabase(context).readableDatabase
-
-    val query = "SELECT * FROM MarkerLocation WHERE _id = (SELECT MAX(_id) FROM MarkerLocation)"
-
-    val c = database.rawQuery(query,null)
-
-
-    val locations = mutableListOf<LocationRecord>()
-    c.use{
-        while(c.moveToNext()){
-            val place = LocationRecord(
-                    c.getLong(c.getColumnIndex("_id")),
-                    c.getDouble(c.getColumnIndex("latitude")),
-                    c.getDouble(c.getColumnIndex("longitude")))
-            locations.add(place)
-        }
-    }
-    database.close()
-    return locations
-}
+//    val query = "SELECT * FROM MarkerLocation WHERE _id = (SELECT MAX(_id) FROM MarkerLocation)"
+//
+//    val c = database.rawQuery(query,null)
+//
+//
+//    val locations = mutableListOf<LocationRecord>()
+//    c.use{
+//        while(c.moveToNext()){
+//            val place = LocationRecord(
+//                    c.getLong(c.getColumnIndex("_id")),
+//                    c.getDouble(c.getColumnIndex("latitude")),
+//                    c.getDouble(c.getColumnIndex("longitude")))
+//            locations.add(place)
+//        }
+//    }
+//    database.close()
+//    return locations
+//}
 
 //マーカー位置情報をデータベースに保存する
-fun insertMarkerLocations(context: Context, latitude: Double,longitude: Double) {
-    val database = MemoDatabase(context).writableDatabase
-
-
-
-    database.use { db ->
-                val record = ContentValues().apply {
-                    put("latitude", latitude)
-                    put("longitude",longitude)
-                }
-
-                db.insert("MarkerLocation", null, record)
-    }
-}
+//fun insertMarkerLocations(context: Context, latitude: Double,longitude: Double) {
+//    val database = MemoDatabase(context).writableDatabase
+//
+//
+//
+//    database.use { db ->
+//                val record = ContentValues().apply {
+//                    put("latitude", latitude)
+//                    put("longitude",longitude)
+//                }
+//
+//                db.insert("MarkerLocation", null, record)
+//    }
+//}
 
 fun insertLocations(context: Context, locations : List<Location>){
     val database = MemoDatabase(context).writableDatabase
@@ -661,25 +655,25 @@ fun update(context: Context, whereId: String, newSwing: String) {
 
 //MarkerLocationのデータを消す
 //マーカー消す
-fun deleteMarker(context: Context,lat: String, lng: String) {
-    val database = MemoDatabase(context).writableDatabase
-
-
-    val cursor = database.query("MarkerLocation", arrayOf("_id"), "latitude = ? AND longitude = ?",
-            arrayOf(lat,lng), null, null, null)
-
-    val whereClauses = "_id = ?"
-
-
-    cursor.use {
-        while (cursor.moveToNext()) {
-            val ID = cursor.getInt(cursor.getColumnIndex("_id")).toString()
-            var arrayId = arrayOf(ID)
-            database.delete("MarkerLocation",whereClauses,arrayId)
-        }
-    }
-
-}
+//fun deleteMarker(context: Context,lat: String, lng: String) {
+//    val database = MemoDatabase(context).writableDatabase
+//
+//
+//    val cursor = database.query("MarkerLocation", arrayOf("_id"), "latitude = ? AND longitude = ?",
+//            arrayOf(lat,lng), null, null, null)
+//
+//    val whereClauses = "_id = ?"
+//
+//
+//    cursor.use {
+//        while (cursor.moveToNext()) {
+//            val ID = cursor.getInt(cursor.getColumnIndex("_id")).toString()
+//            var arrayId = arrayOf(ID)
+//            database.delete("MarkerLocation",whereClauses,arrayId)
+//        }
+//    }
+//
+//}
 
 //編集画面で使う
 

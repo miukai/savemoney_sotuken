@@ -103,11 +103,6 @@ class MapFragment: Fragment(),OnMapReadyCallback{
                     marker.showInfoWindow()
                     // タップした際にメモのポップアップを表示する処理
                     //緯度経度記録する。
-                    insertMarkerLocations(requireContext(),lat,lng)
-
-
-
-
                     marker.showInfoWindow()
                     Toast.makeText(context, "マーカーの位置を変えたい時、マーカーを長押してください。ドラッグできます!!",Toast.LENGTH_SHORT).show()
                     c += 1
@@ -156,6 +151,7 @@ class MapFragment: Fragment(),OnMapReadyCallback{
                 alertDialog.setPositiveButton("OK") { _, _ ->
                     //マーカーを消す
                     marker.remove()
+                    c = 0
                     //テーブル上の最後に入ったデータを検索
 //                    val del = selectDeleteMarker(requireContext())
                     //テーブル上の最後に入ったデータを削除
@@ -163,7 +159,7 @@ class MapFragment: Fragment(),OnMapReadyCallback{
 //                    delMarkerList += deleteMarkerLat.toString()
 //                    delMarkerList += deleteMarkerlng.toString()
 
-                    deleteMarker(requireContext(), deleteMarkerLat.toString(),deleteMarkerlng.toString())
+//                    deleteMarker(requireContext(), deleteMarkerLat.toString(),deleteMarkerlng.toString())
 
 
                 }
@@ -209,9 +205,9 @@ class MapFragment: Fragment(),OnMapReadyCallback{
                     val fragmentTransaction = fragmentManager.beginTransaction()
                     // BackStackを設定
                     fragmentTransaction.addToBackStack(null)
-                    fragmentTransaction.replace(R.id.nav_host_fragment, CreateMemo.newInstance(ddd))
+                    fragmentTransaction.replace(R.id.nav_host_fragment, CreateMemo.newInstance(ddd,lat,lng))
                     fragmentTransaction.commit()
-                    insertMarkerLocations(requireContext(), lat, lng)
+//                    insertMarkerLocations(requireContext(), lat, lng)
                 }
         }
     }

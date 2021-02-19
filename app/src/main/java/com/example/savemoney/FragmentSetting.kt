@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 
@@ -31,10 +32,14 @@ class FragmentSetting : Fragment() { override fun onCreateView(inflater: LayoutI
 
         val button = requireView().findViewById<Button>(R.id.button)
         button.setOnClickListener {
+            try{
             val  goalMoney = requireView().findViewById<EditText>(R.id.EditgoalMoney)
             val  nowMoney = requireView().findViewById<EditText>(R.id.EditnowMoney)
             val  useMoney = requireView().findViewById<EditText>(R.id.EdituseMoney)
             insertSettingMoney(this!!.requireContext(),goalMoney.text,nowMoney.text, useMoney.text)
+        }catch (e:Exception){
+                Toast.makeText(context,"不正な入力値です。", Toast.LENGTH_SHORT).show()
+        }
         }
     }
 }

@@ -42,15 +42,15 @@ class  CreateMemo : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var lat = 0.0
-        var lon = 0.0
+        var lat = 35.6811323
+        var lon = 139.7670182
 
-        val markerLocation = selectOneDay(requireContext())
-
-        markerLocation.forEach {location ->
-            lat = location.latitude
-            lon = location.longitude
-        }
+//        val markerLocation = selectOneDay(requireContext())
+////
+//        markerLocation.forEach {location ->
+//            lat = location.latitude
+//            lon = location.longitude
+//        }
 
         val buttoncal = view.findViewById<Button>(R.id.memoCalButton)
         buttoncal.setOnClickListener {
@@ -59,6 +59,8 @@ class  CreateMemo : Fragment() {
 
         val args = arguments
         if (args != null) {
+            lat = args.getDouble("Lat")
+            lon = args.getDouble("Lng")
             val setDateM = args.getString("Counter")
             val str = "$setDateM"
             val textView = view.findViewById<TextView>(R.id.calDate)
@@ -100,13 +102,15 @@ class  CreateMemo : Fragment() {
         }
     }
     companion object {
-        fun newInstance(setDateM: String): CreateMemo {
+        fun newInstance(setDateM: String,lat:Double,lng:Double): CreateMemo {
             // Fragemnt03 インスタンス生成
             val fragment03 = CreateMemo()
 
             // Bundleにパラメータを設定
             val carg = Bundle()
             carg.putString("Counter", setDateM)
+            carg.putDouble("Lat",lat)
+            carg.putDouble("Lng",lng)
             fragment03.arguments = carg
             return fragment03
         }
